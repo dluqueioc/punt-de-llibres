@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-    </head>
-    <body>
-        <p>Main page</p>
-    </body>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/base.html}">
+
+<head>
+  <title>Content page 1</title>
+</head>
+
+<body>
+  <section layout:fragment="content">
+    <p>This is a paragraph from content page 1</p>
+  </section>
+  <footer>
+    <p layout:fragment="custom-footer">This is some footer content from content page 1</p>
+  </footer>
+</body>
+
 </html>
