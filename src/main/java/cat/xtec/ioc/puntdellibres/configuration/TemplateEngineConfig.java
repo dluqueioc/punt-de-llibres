@@ -1,4 +1,4 @@
-package cat.xtec.ioc.puntdellibres;
+package cat.xtec.ioc.puntdellibres.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
