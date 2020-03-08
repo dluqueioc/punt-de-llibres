@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout/base.html}">
+    <head>
+        <title>Home</title>
+    </head>
 
-<head>
-  <title>Home</title>
-</head>
+    <body>
+        <section layout:fragment="content">
+            <p>This is a paragraph from content page 1</p>
 
-<body>
-  <section layout:fragment="content">
-    <p>This is a paragraph from content page 1</p>
-  </section>
-  <footer>
-    <p layout:fragment="custom-footer">This is some footer content from content page 1</p>
-  </footer>
-</body>
+            <ul>
+                <li th:each="book : ${books}">
+                    <p>[[${book.title + ' (' + book.user.username + ')'}]]</p>
+                </li>
+            </ul>
+        </section>
 
+        <footer>
+            <p layout:fragment="custom-footer">
+                This is some footer content from content page 1
+            </p>
+        </footer>
+    </body>
 </html>
