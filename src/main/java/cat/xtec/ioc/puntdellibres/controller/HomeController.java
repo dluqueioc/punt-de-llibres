@@ -21,6 +21,10 @@ public class HomeController {
   public String home(final Model model) {
     User user = new User();
     user.setUsername("john");
+    user.setEmail("email");
+    user.setName("name");
+    user.setLastName("last");
+    user.setLocation("11111");
     userRepository.save(user);
 
     Book book = new Book();

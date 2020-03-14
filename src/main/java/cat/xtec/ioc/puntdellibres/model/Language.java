@@ -1,35 +1,32 @@
 package cat.xtec.ioc.puntdellibres.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+
 import lombok.Data;
 
 @Entity
-@Table(name = "books")
+@Table(name = "languages")
 @Data
-public class Book {
+public class Language {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(name = "title")
+  @Column(name = "name")
   @NotNull
   @Size(min = 3, max = 100)
-  private String title;
+  private String name;
 
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "user_id", nullable = false)
-  @OnDelete(action = OnDeleteAction.CASCADE)
-  private User user;
+  @ManyToMany(mappedBy = "languagesLiked")
+  private Set<User> likedBy;
 }
