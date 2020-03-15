@@ -1,5 +1,6 @@
 package cat.xtec.ioc.puntdellibres.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -17,37 +20,27 @@ import org.springframework.data.annotation.CreatedDate;
 import lombok.Data;
 
 @Entity
-@Table(name = "exchanges")
+@Table(name = "messages")
 @Data
-public class Exchange {
+public class Message {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "user1_id", nullable = false)
+  @JoinColumn(name = "sender_id", nullable = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
-  private User user1;
+  private Exchange exchange;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "user2_id", nullable = false)
+  @JoinColumn(name = "receiver_id", nullable = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
-  private User user2;
+  private User sender;
 
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "book1_id", nullable = false)
-  @OnDelete(action = OnDeleteAction.CASCADE)
-  private Book book1;
-
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "book2_id", nullable = false)
-  @OnDelete(action = OnDeleteAction.CASCADE)
-  private Book book2;
-
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "status_id", nullable = false)
-  @OnDelete(action = OnDeleteAction.CASCADE)
-  private ExchangeStatus status;
+  @Column(name = "body")
+  @NotNull
+  @Size(min = 1, max = 500)
+  private String body;
 
   @CreatedDate
   private DateType createdDate;

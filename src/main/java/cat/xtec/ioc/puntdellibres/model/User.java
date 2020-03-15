@@ -1,8 +1,11 @@
 package cat.xtec.ioc.puntdellibres.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -31,7 +35,7 @@ public class User {
 
   @Column(name = "username", unique = true)
   @NotNull
-  @Size(min = 3, max = 50)
+  @Size(min = 3, max = 20)
   private String username;
 
   @Column(name = "email", unique = true)
@@ -60,6 +64,10 @@ public class User {
   @Size(min = 3, max = 100)
   private String location;
 
+  @Column(name = "geo_location")
+  @Size(min = 3, max = 100)
+  private String geoLocation;
+
   @Column(name = "profile")
   @Size(min = 3, max = 500)
   private String profile;
@@ -87,6 +95,13 @@ public class User {
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "language_id"))
   private Set<Language> languagesLiked;
+
+  @OneToMany(
+    mappedBy = "user",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true
+  )
+  private List<Book> books = new ArrayList<>();
 
   @CreationTimestamp
   private LocalDateTime createdDate;
