@@ -13,6 +13,20 @@
                     <p>[[${book.title + ' (' + book.user.username + ')'}]]</p>
                 </li>
             </ul>
+
+            <p th:if="${status}">[[${status}]]</p>
+
+            <button onclick="logout()">logout</button>
+
+            <script>
+                function logout() {
+                    document.querySelector('form').submit();
+                }
+            </script>
+
+            <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+               <input hidden type="submit" value="Sign Out"/>
+            </form>
         </section>
 
         <footer>

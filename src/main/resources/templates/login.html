@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/base.html}">
+    <head>
+        <title>Login</title>
+    </head>
+
+    <body>
+        <section layout:fragment="content">
+            <form action="#" th:action="@{/login}" th:object="${user}" method="post">
+              <input type="text" name="username" th:field="*{username}">
+              <input type="password" name="password" th:field="*{password}">
+              <input type="submit" value="enviar">
+            </form>
+        </section>
+
+        <footer>
+            <p layout:fragment="custom-footer">
+                This is some footer content from content page 1
+            </p>
+        </footer>
+    </body>
+</html>

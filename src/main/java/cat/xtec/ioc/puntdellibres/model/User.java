@@ -1,7 +1,6 @@
 package cat.xtec.ioc.puntdellibres.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -16,12 +15,14 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.security.core.GrantedAuthority;
 
 import lombok.Data;
 
@@ -29,6 +30,23 @@ import lombok.Data;
 @Table(name = "users")
 @Data
 public class User {
+  @Transient
+  private List<GrantedAuthority> roles;
+
+  public User() {}
+
+  // public User(String username, String password, Collection<Role> roles) {
+  //   this.username = username;
+  //   this.password = password;
+  //   this.roles = roles;
+  // }
+
+  public User(String username, String password, List<GrantedAuthority> roles) {
+    this.username = username;
+    this.password = password;
+    this.roles = roles;
+  }
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
@@ -37,6 +55,15 @@ public class User {
   @NotNull
   @Size(min = 3, max = 20)
   private String username;
+
+  // @ManyToMany
+  // @JoinTable(
+  //   name = "user_roles",
+  //   joinColumns = @JoinColumn(
+  //   name = "user_id", referencedColumnName = "id"),
+  //   inverseJoinColumns = @JoinColumn(
+  //   name = "role_id", referencedColumnName = "id"))
+  // private Collection<Role> roles;
 
   @Column(name = "email", unique = true)
   @NotNull
@@ -78,8 +105,9 @@ public class User {
   @ManyToMany
   @JoinTable(
     name = "user_likes_author",
-    joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "author_id"))
+    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id")
+  )
   private Set<Author> authorsLiked;
 
   @ManyToMany
@@ -101,7 +129,14 @@ public class User {
     cascade = CascadeType.ALL,
     orphanRemoval = true
   )
-  private List<Book> books = new ArrayList<>();
+  private List<Book> books;
+
+  @OneToMany(
+    mappedBy = "userId",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true
+  )
+  private List<UserInExchange> exchanges;
 
   @CreationTimestamp
   private LocalDateTime createdDate;

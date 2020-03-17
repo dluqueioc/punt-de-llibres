@@ -2,7 +2,6 @@ package cat.xtec.ioc.puntdellibres.model;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -19,8 +17,6 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import lombok.Data;
 
 @Entity
@@ -40,34 +36,33 @@ public class Book {
   @Size(min = 1, max = 100)
   private String title;
 
-  // @Column(name = "author")
-  // @NotNull
-  // @Size(min = 1, max = 50)
-  // private String author;
-
-  @Column(name = "publisher")
-  @Size(min = 1, max = 50)
-  private String publisher;
-
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "author_id", nullable = false)
-  @OnDelete(action = OnDeleteAction.CASCADE)
+  @JoinColumn(name = "author_id", insertable = false, updatable = false)
+  @ManyToOne(targetEntity = Author.class, fetch = FetchType.LAZY)
   private Author author;
 
-  // @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  // @JoinColumn(name = "publisher_id", nullable = false)
-  // @OnDelete(action = OnDeleteAction.CASCADE)
-  // private Publisher publisher;
+  @Column(name = "author_id")
+  private Integer authorId;
 
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "genre_id", nullable = false)
-  @OnDelete(action = OnDeleteAction.CASCADE)
+  @JoinColumn(name = "publisher_id", insertable = false, updatable = false)
+  @ManyToOne(targetEntity = Publisher.class, fetch = FetchType.LAZY)
+  private Publisher publisher;
+
+  @Column(name = "publisher_id")
+  private Integer publisherId;
+
+  @JoinColumn(name = "genre_id", insertable = false, updatable = false)
+  @ManyToOne(targetEntity = Genre.class, fetch = FetchType.LAZY)
   private Genre genre;
 
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "language_id", nullable = false)
-  @OnDelete(action = OnDeleteAction.CASCADE)
+  @Column(name = "genre_id")
+  private Integer genreId;
+
+  @JoinColumn(name = "language_id", insertable = false, updatable = false)
+  @ManyToOne(targetEntity = Language.class, fetch = FetchType.LAZY)
   private Language language;
+
+  @Column(name = "language_id")
+  private Integer languageId;
 
   @Column(name = "edition")
   @Size(min = 1, max = 50)
@@ -77,14 +72,20 @@ public class Book {
   @Size(max = 100)
   private String preservation;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JsonIgnore
+  @JoinColumn(name = "user_id", insertable = false, updatable = false)
+  @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
   private User user;
 
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "book_status_id", nullable = false)
-  @OnDelete(action = OnDeleteAction.CASCADE)
+  @JsonIgnore
+  @Column(name = "user_id")
+  private Integer userId;
+
+  @JoinColumn(name = "book_status_id", insertable = false, updatable = false)
+  @ManyToOne(targetEntity = BookStatus.class, fetch = FetchType.LAZY)
   private BookStatus bookStatus;
+
+  @Column(name = "book_status_id")
+  private Integer bookStatusId;
 
   @CreationTimestamp
   private LocalDateTime createdDate;

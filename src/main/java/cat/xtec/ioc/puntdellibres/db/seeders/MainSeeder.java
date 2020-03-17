@@ -13,6 +13,7 @@ import cat.xtec.ioc.puntdellibres.model.ExchangeStatus;
 import cat.xtec.ioc.puntdellibres.model.Genre;
 import cat.xtec.ioc.puntdellibres.model.Language;
 import cat.xtec.ioc.puntdellibres.model.Message;
+import cat.xtec.ioc.puntdellibres.model.Publisher;
 import cat.xtec.ioc.puntdellibres.model.User;
 import cat.xtec.ioc.puntdellibres.repository.AuthorRepository;
 import cat.xtec.ioc.puntdellibres.repository.BookRepository;
@@ -22,6 +23,7 @@ import cat.xtec.ioc.puntdellibres.repository.ExchangeStatusRepository;
 import cat.xtec.ioc.puntdellibres.repository.GenreRepository;
 import cat.xtec.ioc.puntdellibres.repository.LanguageRepository;
 import cat.xtec.ioc.puntdellibres.repository.MessageRepository;
+import cat.xtec.ioc.puntdellibres.repository.PublisherRepository;
 import cat.xtec.ioc.puntdellibres.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -46,6 +48,8 @@ public class MainSeeder implements CommandLineRunner {
   private ExchangeRepository exchangeRepository;
   @Autowired
   private MessageRepository messageRepository;
+  @Autowired
+  private PublisherRepository publisherRepository;
 
   private final Faker faker = new Faker();
 
@@ -57,6 +61,7 @@ public class MainSeeder implements CommandLineRunner {
     seedLanguagesTable();
     seedBookStatusesTable();
     seedLanguagesTable();
+    seedPublishersTable();
     seedBooksTable();
     seedExchangeStatusesTable();
     seedExchangesTable();
@@ -112,6 +117,16 @@ public class MainSeeder implements CommandLineRunner {
     }
   }
 
+  private void seedPublishersTable() {
+    final String[] publishers = { "Anagrama", "Planeta", "Edicions 62" };
+
+    for (final String name : publishers) {
+      final Publisher publisher = new Publisher();
+      publisher.setName(name);
+      publisherRepository.save(publisher);
+    }
+  }
+
   private void seedBookStatusesTable() {
     final String[] bookStatuses = { "available", "unavailable", "reserved" };
 
@@ -129,11 +144,11 @@ public class MainSeeder implements CommandLineRunner {
       final Book book = new Book();
       book.setTitle(faker.book().title());
       book.setAuthor(authorRepository.findById(id).get());
-      book.setBookStatus(bookStatusRepository.findById(random(1, 3)).get());
-      book.setGenre(genreRepository.findById(random(1, 3)).get());
-      book.setLanguage(languageRepository.findById(random(1, 3)).get());
-      book.setUser(userRepository.findById(id % 2 == 1 ? 1 : 2).get());
-      book.setPublisher(faker.book().publisher());
+      book.setBookStatusId(random(1, 3));
+      book.setGenreId(random(1, 3));
+      book.setLanguageId(random(1, 3));
+      book.setUserId(id % 2 == 1 ? 1 : 2);
+      book.setPublisherId(random(1, 3));
       book.setEdition("1st edition");
       bookRepository.save(book);
     }
@@ -151,11 +166,7 @@ public class MainSeeder implements CommandLineRunner {
 
   private void seedExchangesTable() {
     final Exchange exchange = new Exchange();
-    exchange.setBook1(bookRepository.findById(1).get());
-    exchange.setBook2(bookRepository.findById(2).get());
-    exchange.setUser1(userRepository.findById(1).get());
-    exchange.setUser2(userRepository.findById(2).get());
-    exchange.setStatus(exchangeStatusRepository.findById(1).get());
+    exchange.setStatusId(random(1, 3));
     exchangeRepository.save(exchange);
   }
 

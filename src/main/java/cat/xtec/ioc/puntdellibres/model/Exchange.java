@@ -1,5 +1,6 @@
 package cat.xtec.ioc.puntdellibres.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -9,8 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.type.DateType;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -24,30 +23,12 @@ public class Exchange {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "user1_id", nullable = false)
-  @OnDelete(action = OnDeleteAction.CASCADE)
-  private User user1;
-
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "user2_id", nullable = false)
-  @OnDelete(action = OnDeleteAction.CASCADE)
-  private User user2;
-
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "book1_id", nullable = false)
-  @OnDelete(action = OnDeleteAction.CASCADE)
-  private Book book1;
-
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "book2_id", nullable = false)
-  @OnDelete(action = OnDeleteAction.CASCADE)
-  private Book book2;
-
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "status_id", nullable = false)
-  @OnDelete(action = OnDeleteAction.CASCADE)
+  @JoinColumn(name = "status_id", insertable = false, updatable = false)
+  @ManyToOne(targetEntity = ExchangeStatus.class, fetch = FetchType.LAZY)
   private ExchangeStatus status;
+
+  @Column(name = "status_id")
+  private Integer statusId;
 
   @CreatedDate
   private DateType createdDate;
