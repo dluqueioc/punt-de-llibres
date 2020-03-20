@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/base.html}">
+    <head>
+        <title>Llibres disponibles</title>
+    </head>
+
+    <body>
+        <section layout:fragment="content">
+            <ul>
+                <li sec:authorize="hasRole('ROLE_USER')"
+                    th:each="book : ${books}">
+                    <p>[[${book.title + ' (' + book.user.username + ')'}]]</p>
+                </li>
+                <li sec:authorize="isAnonymous()"
+                    th:each="book : ${books}">
+                    <p>[[${book.title}]]</p>
+                </li>
+            </ul>
+        </section>
+
+        <footer>
+            <p layout:fragment="footer"></p>
+        </footer>
+    </body>
+</html>
