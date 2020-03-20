@@ -1,8 +1,12 @@
 package cat.xtec.ioc.puntdellibres.db.seeders;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.github.javafaker.Faker;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 
 import cat.xtec.ioc.puntdellibres.model.Author;
@@ -25,6 +29,8 @@ import cat.xtec.ioc.puntdellibres.repository.LanguageRepository;
 import cat.xtec.ioc.puntdellibres.repository.MessageRepository;
 import cat.xtec.ioc.puntdellibres.repository.PublisherRepository;
 import cat.xtec.ioc.puntdellibres.repository.UserRepository;
+import lombok.Getter;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -53,8 +59,18 @@ public class MainSeeder implements CommandLineRunner {
 
   private final Faker faker = new Faker();
 
+  private @Getter final List<Book> books = new ArrayList<>();
+
+  @Value("${spring.profiles.active:Unknown}")
+  private String activeProfile;
+
+  private boolean persist = false;
+
   @Override
   public void run(final String... args) throws Exception {
+    if (activeProfile.equals("Unknown")) {
+      persist = true;
+    }
     seedUsersTable();
     seedAuthorsTable(10);
     seedGenresTable();
@@ -143,14 +159,17 @@ public class MainSeeder implements CommandLineRunner {
     for (int id = 1; id <= authorsCount; id++) {
       final Book book = new Book();
       book.setTitle(faker.book().title());
-      book.setAuthor(authorRepository.findById(id).get());
+      book.setAuthorId(random(1, 10));
       book.setBookStatusId(random(1, 3));
       book.setGenreId(random(1, 3));
       book.setLanguageId(random(1, 3));
       book.setUserId(id % 2 == 1 ? 1 : 2);
       book.setPublisherId(random(1, 3));
       book.setEdition("1st edition");
-      bookRepository.save(book);
+      books.add(book);
+      if (persist) {
+        bookRepository.save(book);
+      }
     }
   }
 
