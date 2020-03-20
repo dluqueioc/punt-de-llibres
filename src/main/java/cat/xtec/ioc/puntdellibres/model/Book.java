@@ -57,6 +57,13 @@ public class Book {
   @Column(name = "genre_id")
   private Integer genreId;
 
+  @JoinColumn(name = "theme_id", insertable = false, updatable = false)
+  @ManyToOne(targetEntity = Theme.class, fetch = FetchType.LAZY)
+  private Genre theme;
+
+  @Column(name = "theme_id")
+  private Integer themeId;
+
   @JoinColumn(name = "language_id", insertable = false, updatable = false)
   @ManyToOne(targetEntity = Language.class, fetch = FetchType.LAZY)
   private Language language;

@@ -34,13 +34,7 @@ public class User {
   private List<GrantedAuthority> roles;
 
   public User() {}
-
-  // public User(String username, String password, Collection<Role> roles) {
-  //   this.username = username;
-  //   this.password = password;
-  //   this.roles = roles;
-  // }
-
+  
   public User(String username, String password, List<GrantedAuthority> roles) {
     this.username = username;
     this.password = password;
@@ -55,15 +49,6 @@ public class User {
   @NotNull
   @Size(min = 3, max = 20)
   private String username;
-
-  // @ManyToMany
-  // @JoinTable(
-  //   name = "user_roles",
-  //   joinColumns = @JoinColumn(
-  //   name = "user_id", referencedColumnName = "id"),
-  //   inverseJoinColumns = @JoinColumn(
-  //   name = "role_id", referencedColumnName = "id"))
-  // private Collection<Role> roles;
 
   @Column(name = "email", unique = true)
   @NotNull
