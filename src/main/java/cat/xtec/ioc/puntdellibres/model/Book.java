@@ -92,7 +92,7 @@ public class Book {
   private BookStatus bookStatus;
 
   @Column(name = "book_status_id")
-  private Integer bookStatusId;
+  private Integer bookStatusId = 1;
 
   @CreationTimestamp
   private LocalDateTime createdDate;

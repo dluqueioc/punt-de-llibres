@@ -160,7 +160,6 @@ public class MainSeeder implements CommandLineRunner {
       final Book book = new Book();
       book.setTitle(faker.book().title());
       book.setAuthorId(random(1, 10));
-      book.setBookStatusId(random(1, 3));
       book.setGenreId(random(1, 3));
       book.setLanguageId(random(1, 3));
       book.setUserId(id % 2 == 1 ? 1 : 2);
