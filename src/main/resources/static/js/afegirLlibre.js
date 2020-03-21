@@ -1,9 +1,9 @@
 $(document).ready(function () {
     $("#selArxiu").change(function () {
-        readURL(this);     
+        readURL(this);
     });
     $("#formAfegirLlibre").submit(function (event) {
-        validar(event);
+        // validar(event);
     });
 });
 
@@ -12,7 +12,9 @@ function validar(event) {
         !esValidAutor() || !esValidEditorial() ||
         !esValidGenere() || !esValidEstil() ||
         !esValidIdioma() || !esValidEstatConserv() ||
-        !esValidEdicio() || !esValidArxiu()) {
+        !esValidEdicio()
+        // || !esValidArxiu()
+    ) {
         event.preventDefault();
     }
 }

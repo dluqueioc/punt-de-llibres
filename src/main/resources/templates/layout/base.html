@@ -3,19 +3,21 @@
 
 <head>
   <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Punt de llibres</title>
-  <!-- <script src="common-script.js"></script> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 </head>
 
 <body>
   <header>
-    <h1>My website</h1>
+    <h1>Punt de llibres</h1>
   </header>
   <section layout:fragment="content">
     <p>Page content goes here</p>
   </section>
   <footer>
-    <p>My footer</p>
-    <p layout:fragment="footer">Custom footer here</p>
+    <p class="text-center">Punt de llibres - Tots els drets reservats</p>
+    <p layout:fragment="footer"></p>
   </footer>
 </body>
 

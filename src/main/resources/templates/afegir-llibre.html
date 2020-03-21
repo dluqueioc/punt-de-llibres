@@ -1,94 +1,84 @@
-<html lang="ca">
+<!DOCTYPE html>
+<html layout:decorate="~{layout/base.html}">
+    <head>
+        <title>Afegir llibre</title>
+        <link rel="stylesheet" type="text/css" href="/css/estils.css">
+        <script type="text/javascript" src="/js/afegirLlibre.js"></script>
+    </head>
 
-<head>
-    <meta charset="utf-8" />
-    <title>Afegir llibre</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/estils.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script type="text/javascript" src="js/afegirLlibre.js"></script>
-</head>
-
-<body>
-    <main>
-        <header>
-            <h1>Punt de llibres</h1>
-        </header>
-        <nav></nav>
-        <article>
-            <section>
-                <h3>Afegir llibre</h3>
-                <form id="formAfegirLlibre">
-                    <div class="row">
-                        <div class="col">
-                            <input type="text" class="form-control" id="titol" placeholder="Títol">
-                            <input type="text" class="form-control" id="ISBN" placeholder="ISBN">
-                            <input type="text" class="form-control" id="autor" placeholder="Autor">
-                            <input type="text" class="form-control" id="editorial" placeholder="Editorial">
-                            <div class="form-group">
-                                <select class="form-control" id="genere">
-                                    <option selected value="">Gènere</option>
-                                    <option value="prosa">Prosa</option>
-                                    <option value="poesia">Poesia</option>
-                                    <option value="teatre">Teatre</option>
-                                    <option value="llibre_de_text">Llibre de text</option>
-                                    <option value="altres">Altres</option>
-                                </select>
+    <body>
+        <section layout:fragment="content">
+            <article>
+                <section>
+                    <h3>Afegir llibre</h3>
+                    <form id="formAfegirLlibre" method="POST" action="/books">
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" class="form-control" id="titol" placeholder="Títol">
+                                <input type="text" class="form-control" id="ISBN" placeholder="ISBN">
+                                <input type="text" class="form-control" id="autor" placeholder="Autor">
+                                <input type="text" class="form-control" id="editorial" placeholder="Editorial">
+                                <div class="form-group">
+                                    <select class="form-control" id="genere">
+                                        <option selected value="">Gènere</option>
+                                        <option value="prosa">Prosa</option>
+                                        <option value="poesia">Poesia</option>
+                                        <option value="teatre">Teatre</option>
+                                        <option value="llibre_de_text">Llibre de text</option>
+                                        <option value="altres">Altres</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control" id="estil">
+                                        <option selected value="">Estil</option>
+                                        <option value="ciencia_ficcio">Ciència ficció</option>
+                                        <option value="historica">Històrica</option>
+                                        <option value="psicologica">Psicològica</option>
+                                        <option value="romantica">Romàntica</option>
+                                        <option value="terror">Terror</option>
+                                        <option value="policiaca">Policíaca</option>
+                                        <option value="aprenentatge">Aprenentatge</option>
+                                        <option value="altres">Altres</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control" id="idioma">
+                                        <option selected value="">Idioma</option>
+                                        <option value="catala">Català</option>
+                                        <option value="castella">Castellà</option>
+                                        <option value="angles">Anglés</option>
+                                        <option value="frances">Francés</option>
+                                        <option value="alemany">Alemany</option>
+                                        <option value="italia">Italià</option>
+                                        <option value="altres">Altres</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control" id="estatConserv">
+                                        <option selected value="">Estat de conservació</option>
+                                        <option value="com_nou">Com nou</option>
+                                        <option value="en_bon_estat">En bon estat</option>
+                                        <option value="accpetable">Acceptable</option>
+                                    </select>
+                                </div>
+                                <input type="text" class="form-control" id="edicio" placeholder="Edició">
                             </div>
-                            <div class="form-group">
-                                <select class="form-control" id="estil">
-                                    <option selected value="">Estil</option>
-                                    <option value="ciencia_ficcio">Ciència ficció</option>
-                                    <option value="historica">Històrica</option>
-                                    <option value="psicologica">Psicològica</option>
-                                    <option value="romantica">Romàntica</option>
-                                    <option value="terror">Terror</option>
-                                    <option value="policiaca">Policíaca</option>
-                                    <option value="aprenentatge">Aprenentatge</option>
-                                    <option value="altres">Altres</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select class="form-control" id="idioma">
-                                    <option selected value="">Idioma</option>
-                                    <option value="catala">Català</option>
-                                    <option value="castella">Castellà</option>
-                                    <option value="angles">Anglés</option>
-                                    <option value="frances">Francés</option>
-                                    <option value="alemany">Alemany</option>
-                                    <option value="italia">Italià</option>
-                                    <option value="altres">Altres</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select class="form-control" id="estatConserv">
-                                    <option selected value="">Estat de conservació</option>
-                                    <option value="com_nou">Com nou</option>
-                                    <option value="en_bon_estat">En bon estat</option>
-                                    <option value="accpetable">Acceptable</option>
-                                </select>
-                            </div>
-                            <input type="text" class="form-control" id="edicio" placeholder="Edició">
-                        </div>
-                        <div class="col">
-                            <img src="img/default-profile-picture.jpg" id="imgPerfil"
-                                alt="Imatge per defecte d'un usuari">
-                            <div class="form-group">
-                                <label for="selectorFoto">Selecciona una foto de perfil</label>
-                                <input type="file" class="form-control-file" id="selArxiu">
+                            <div class="col">
+                                <img src="img/default-profile-picture.jpg" id="imgPerfil"
+                                    alt="Imatge per defecte d'un usuari">
+                                <div class="form-group">
+                                    <label for="selectorFoto">Selecciona una foto de perfil</label>
+                                    <input type="file" class="form-control-file" id="selArxiu">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <button type="submit" id="botoSubmit" class="btn btn-primary btn-lg">Afegeix llibre</button>
-                    </div>
-                </form>
-            </section>
-            <section></section>
-        </article>
-        <footer></footer>
-    </main>
-</body>
-
+                        <div class="row">
+                            <button type="submit" id="botoSubmit" class="btn btn-primary btn-lg">Afegeix llibre</button>
+                        </div>
+                    </form>
+                </section>
+                <section></section>
+            </article>
+        </section>
+    </body>
 </html>
