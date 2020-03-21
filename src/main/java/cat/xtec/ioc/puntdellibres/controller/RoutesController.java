@@ -33,4 +33,9 @@ public class RoutesController {
     return "llibres-disponibles";
   }
 
+  @GetMapping("/afegir-llibre")
+  public String afegirLlibre(final Model model) {
+    return "afegir-llibre";
+  }
+
 }
