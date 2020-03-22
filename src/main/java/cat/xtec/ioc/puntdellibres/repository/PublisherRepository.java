@@ -7,4 +7,5 @@ import cat.xtec.ioc.puntdellibres.model.Publisher;
 
 @RepositoryRestResource(exported = false)
 public interface PublisherRepository extends CrudRepository<Publisher, Integer> {
+  public Publisher findByName(String publisherName);
 }

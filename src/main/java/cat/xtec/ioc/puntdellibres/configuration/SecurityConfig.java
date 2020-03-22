@@ -38,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     http.authorizeRequests()
       .antMatchers("/api/**").hasRole("USER")
+      .antMatchers("/afegir-llibre").hasRole("USER")
       .and().formLogin().loginPage("/login").permitAll()
         .and().authorizeRequests().anyRequest().permitAll();
 

@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import cat.xtec.ioc.puntdellibres.model.Book;
 import cat.xtec.ioc.puntdellibres.model.User;
 import cat.xtec.ioc.puntdellibres.repository.BookRepository;
+import cat.xtec.ioc.puntdellibres.repository.GenreRepository;
+import cat.xtec.ioc.puntdellibres.repository.LanguageRepository;
+import cat.xtec.ioc.puntdellibres.repository.ThemeRepository;
 import cat.xtec.ioc.puntdellibres.repository.UserRepository;
 
 @Controller
@@ -18,6 +21,12 @@ public class RoutesController {
   private BookRepository bookRepository;
   @Autowired
   private UserRepository userRepository;
+  @Autowired
+  private GenreRepository genreRepository;
+  @Autowired
+  private ThemeRepository themeRepository;
+  @Autowired
+  private LanguageRepository languageRepository;
 
   @GetMapping("/")
   public String home(final Model model) {
@@ -34,7 +43,6 @@ public class RoutesController {
 
   @GetMapping("/llibres-disponibles")
   public String llibresDisponibles(final Model model, Principal user) {
-    Iterable<Book> books = bookRepository.findAll();
     if (user == null) {
       model.addAttribute("books", bookRepository.findAll());
     } else {
@@ -48,7 +56,9 @@ public class RoutesController {
 
   @GetMapping("/afegir-llibre")
   public String afegirLlibre(final Model model) {
+    model.addAttribute("genres", genreRepository.findAll());
+    model.addAttribute("languages", languageRepository.findAll());
+    model.addAttribute("themes", themeRepository.findAll());
     return "afegir-llibre";
   }
-
 }

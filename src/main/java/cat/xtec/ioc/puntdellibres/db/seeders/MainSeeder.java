@@ -18,6 +18,7 @@ import cat.xtec.ioc.puntdellibres.model.Genre;
 import cat.xtec.ioc.puntdellibres.model.Language;
 import cat.xtec.ioc.puntdellibres.model.Message;
 import cat.xtec.ioc.puntdellibres.model.Publisher;
+import cat.xtec.ioc.puntdellibres.model.Theme;
 import cat.xtec.ioc.puntdellibres.model.User;
 import cat.xtec.ioc.puntdellibres.repository.AuthorRepository;
 import cat.xtec.ioc.puntdellibres.repository.BookRepository;
@@ -28,6 +29,7 @@ import cat.xtec.ioc.puntdellibres.repository.GenreRepository;
 import cat.xtec.ioc.puntdellibres.repository.LanguageRepository;
 import cat.xtec.ioc.puntdellibres.repository.MessageRepository;
 import cat.xtec.ioc.puntdellibres.repository.PublisherRepository;
+import cat.xtec.ioc.puntdellibres.repository.ThemeRepository;
 import cat.xtec.ioc.puntdellibres.repository.UserRepository;
 import lombok.Getter;
 
@@ -44,6 +46,8 @@ public class MainSeeder implements CommandLineRunner {
   private BookStatusRepository bookStatusRepository;
   @Autowired
   private GenreRepository genreRepository;
+  @Autowired
+  private ThemeRepository themeRepository;
   @Autowired
   private LanguageRepository languageRepository;
   @Autowired
@@ -75,8 +79,8 @@ public class MainSeeder implements CommandLineRunner {
     seedAuthorsTable(10);
     seedGenresTable();
     seedLanguagesTable();
+    seedThemesTable();
     seedBookStatusesTable();
-    seedLanguagesTable();
     seedPublishersTable();
     seedBooksTable();
     seedExchangeStatusesTable();
@@ -107,14 +111,13 @@ public class MainSeeder implements CommandLineRunner {
   private void seedAuthorsTable(final int quantity) {
     for (int i = 1; i <= quantity; i++) {
       final Author author = new Author();
-      author.setName(faker.name().firstName());
-      author.setLastName(faker.name().lastName());
+      author.setName(faker.name().firstName() + " " + faker.name().lastName());
       authorRepository.save(author);
     }
   }
 
   private void seedGenresTable() {
-    final String[] genres = { "drama", "romantic", "sci-fi" };
+    final String[] genres = { "Narrativa", "Poesia", "Llibre de text" };
 
     for (final String name : genres) {
       final Genre genre = new Genre();
@@ -123,8 +126,19 @@ public class MainSeeder implements CommandLineRunner {
     }
   }
 
+  private void seedThemesTable() {
+    final String[] themes = { "Ciència ficció", "Històrica", "Psicològica", "Romàntica", "Policíaca", "Aprenentage",
+        "Altres" };
+
+    for (final String name : themes) {
+      final Theme theme = new Theme();
+      theme.setName(name);
+      themeRepository.save(theme);
+    }
+  }
+
   private void seedLanguagesTable() {
-    final String[] languages = { "Catalan", "Spanish", "English" };
+    final String[] languages = { "Català", "Castellà", "Anglès" };
 
     for (final String name : languages) {
       final Language language = new Language();

@@ -11,12 +11,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.Data;
 
 @Entity
@@ -27,7 +29,7 @@ public class Book {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(name = "isbn")
+  @Column(name = "isbn", nullable = true)
   @Size(min = 10, max = 20)
   private String isbn;
 
@@ -36,6 +38,7 @@ public class Book {
   @Size(min = 1, max = 100)
   private String title;
 
+  @JsonIgnore
   @JoinColumn(name = "author_id", insertable = false, updatable = false)
   @ManyToOne(targetEntity = Author.class, fetch = FetchType.LAZY)
   private Author author;
@@ -43,6 +46,10 @@ public class Book {
   @Column(name = "author_id")
   private Integer authorId;
 
+  @Transient
+  private String authorName;
+
+  @JsonIgnore
   @JoinColumn(name = "publisher_id", insertable = false, updatable = false)
   @ManyToOne(targetEntity = Publisher.class, fetch = FetchType.LAZY)
   private Publisher publisher;
@@ -50,6 +57,10 @@ public class Book {
   @Column(name = "publisher_id")
   private Integer publisherId;
 
+  @Transient
+  private String publisherName;
+
+  @JsonIgnore
   @JoinColumn(name = "genre_id", insertable = false, updatable = false)
   @ManyToOne(targetEntity = Genre.class, fetch = FetchType.LAZY)
   private Genre genre;
@@ -59,11 +70,12 @@ public class Book {
 
   @JoinColumn(name = "theme_id", insertable = false, updatable = false)
   @ManyToOne(targetEntity = Theme.class, fetch = FetchType.LAZY)
-  private Genre theme;
+  private Theme theme;
 
   @Column(name = "theme_id")
   private Integer themeId;
 
+  @JsonIgnore
   @JoinColumn(name = "language_id", insertable = false, updatable = false)
   @ManyToOne(targetEntity = Language.class, fetch = FetchType.LAZY)
   private Language language;
@@ -79,6 +91,7 @@ public class Book {
   @Size(max = 100)
   private String preservation;
 
+  @JsonIgnore
   @JoinColumn(name = "user_id", insertable = false, updatable = false)
   @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
   private User user;

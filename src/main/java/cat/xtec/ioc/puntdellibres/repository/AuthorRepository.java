@@ -7,4 +7,5 @@ import cat.xtec.ioc.puntdellibres.model.Author;
 
 @RepositoryRestResource(path = "authors")
 public interface AuthorRepository extends PagingAndSortingRepository<Author, Integer> {
+  public Author findByName(String authorName);
 }

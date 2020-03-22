@@ -2,7 +2,7 @@
 <html layout:decorate="~{layout/base.html}">
     <head>
         <title>Afegir llibre</title>
-        <link rel="stylesheet" type="text/css" href="/css/estils.css">
+        <link rel="stylesheet" type="text/css" href="/css/afegir-llibre.css">
         <script type="text/javascript" src="/js/afegirLlibre.js"></script>
     </head>
 
@@ -11,46 +11,29 @@
             <article>
                 <section>
                     <h3>Afegir llibre</h3>
-                    <form id="formAfegirLlibre" method="POST" action="/books">
+                    <form id="formAfegirLlibre">
                         <div class="row">
                             <div class="col">
-                                <input type="text" class="form-control" id="titol" placeholder="Títol">
-                                <input type="text" class="form-control" id="ISBN" placeholder="ISBN">
-                                <input type="text" class="form-control" id="autor" placeholder="Autor">
-                                <input type="text" class="form-control" id="editorial" placeholder="Editorial">
+                                <input type="text" class="form-control" id="titol" placeholder="Títol" name="title">
+                                <input type="text" class="form-control" id="ISBN" placeholder="ISBN" name="isbn">
+                                <input type="text" class="form-control" id="autor" placeholder="Autor" name="authorName">
+                                <input type="text" class="form-control" id="editorial" placeholder="Editorial" name="publisherName">
                                 <div class="form-group">
-                                    <select class="form-control" id="genere">
+                                    <select class="form-control" id="genere" name="genreId">
                                         <option selected value="">Gènere</option>
-                                        <option value="prosa">Prosa</option>
-                                        <option value="poesia">Poesia</option>
-                                        <option value="teatre">Teatre</option>
-                                        <option value="llibre_de_text">Llibre de text</option>
-                                        <option value="altres">Altres</option>
+                                        <option th:each="genre : ${genres}" th:attr="value=${genre.id}">[[ ${genre.name} ]]</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <select class="form-control" id="estil">
-                                        <option selected value="">Estil</option>
-                                        <option value="ciencia_ficcio">Ciència ficció</option>
-                                        <option value="historica">Històrica</option>
-                                        <option value="psicologica">Psicològica</option>
-                                        <option value="romantica">Romàntica</option>
-                                        <option value="terror">Terror</option>
-                                        <option value="policiaca">Policíaca</option>
-                                        <option value="aprenentatge">Aprenentatge</option>
-                                        <option value="altres">Altres</option>
+                                    <select class="form-control" id="estil" name="theme">
+                                        <option selected value="">Temàtica</option>
+                                        <option th:each="theme : ${themes}" th:attr="value=${theme.id}">[[ ${theme.name} ]]</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <select class="form-control" id="idioma">
+                                    <select class="form-control" id="idioma" name="languageId">
                                         <option selected value="">Idioma</option>
-                                        <option value="catala">Català</option>
-                                        <option value="castella">Castellà</option>
-                                        <option value="angles">Anglés</option>
-                                        <option value="frances">Francés</option>
-                                        <option value="alemany">Alemany</option>
-                                        <option value="italia">Italià</option>
-                                        <option value="altres">Altres</option>
+                                        <option th:each="language : ${languages}" th:attr="value=${language.id}">[[ ${language.name} ]]</option>
                                     </select>
                                 </div>
                                 <div class="form-group">

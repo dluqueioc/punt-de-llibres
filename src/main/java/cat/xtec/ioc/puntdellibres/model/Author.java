@@ -29,11 +29,6 @@ public class Author {
   @Size(min = 3, max = 50)
   private String name;
 
-  @Column(name = "last_name")
-  @NotNull
-  @Size(min = 3, max = 50)
-  private String lastName;
-
   @ManyToMany(mappedBy = "authorsLiked")
   private Set<User> likedBy;
 

@@ -10,7 +10,7 @@
 
             <ul>
                 <li th:each="book : ${books}">
-                    <p>[[${book.title + ' (' + book.user.username + ')'}]]</p>
+                    <p>[[${book.author.name + ' - ' + book.title + ' (' + book.user.username + ')'}]]</p>
                 </li>
             </ul>
 

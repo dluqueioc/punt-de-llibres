@@ -1,37 +1,54 @@
 $(document).ready(function () {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function (e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
+
     $("#selArxiu").change(function () {
         readURL(this);
     });
     $("#formAfegirLlibre").submit(function (event) {
-        // validar(event);
+        event.preventDefault();
+        if (! validar()) return;
+        var data = {
+            title: $('[name=title]').val(),
+            isbn: $('[name=isbn]').val() || null,
+            authorName: $('[name=authorName]').val(),
+            publisherName: $('[name=publisherName]').val(),
+            genreId: $('[name=genreId]').val(),
+            language: $('[name=language]').val()
+        }
+        $.ajax({
+            type: "POST",
+            url: '/api/books',
+            data: JSON.stringify(data),
+            contentType:'application/json; charset=utf-8',
+            dataType: 'json',
+        })
+            .then(() => {
+                var another = confirm('Llibre introduït correctament. Vols introduir un altre llibre?');
+                if (! another) {
+                    location = '/';
+                }
+            })
+            .fail(() => alert('S\'ha produït un error'));
     });
 });
 
-function validar(event) {
-    if (!esTitolValid() || !esValidISBN() ||
-        !esValidAutor() || !esValidEditorial() ||
-        !esValidGenere() || !esValidEstil() ||
-        !esValidIdioma() || !esValidEstatConserv() ||
-        !esValidEdicio()
+function validar() {
+    return !(!esTitolValid() || !esValidAutor() ||
+        !esValidEditorial() || !esValidGenere() ||
+        !esValidEstil() || !esValidIdioma() ||
+        !esValidEstatConserv() || !esValidEdicio()
         // || !esValidArxiu()
-    ) {
-        event.preventDefault();
-    }
+    );
 }
 
 function esTitolValid() {
     var titol = $('#titol').val();
     if (titol === "") {
         alert("El camp títol no pot estar buit");
-        return false;
-    }
-    return true;
-}
-
-function esValidISBN() {
-    var ISBN = $('#ISBN').val();
-    if (ISBN === "") {
-        alert("El camp ISBN no pot estar buit");
         return false;
     }
     return true;
