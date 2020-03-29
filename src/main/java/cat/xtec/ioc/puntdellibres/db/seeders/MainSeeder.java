@@ -72,37 +72,37 @@ public class MainSeeder implements CommandLineRunner {
 
   @Override
   public void run(final String... args) throws Exception {
-    if (activeProfile.equals("Unknown")) {
-      persist = true;
-    }
-    seedUsersTable();
-    seedAuthorsTable(10);
-    seedGenresTable();
-    seedLanguagesTable();
-    seedThemesTable();
-    seedBookStatusesTable();
-    seedPublishersTable();
-    seedBooksTable();
-    seedExchangeStatusesTable();
-    seedExchangesTable();
-    seedMessagesTable();
+    // if (activeProfile.equals("Unknown")) {
+    //   persist = true;
+    // }
+    // seedUsersTable();
+    // seedAuthorsTable(10);
+    // seedGenresTable();
+    // seedLanguagesTable();
+    // seedThemesTable();
+    // seedBookStatusesTable();
+    // seedPublishersTable();
+    // seedBooksTable();
+    // seedExchangeStatusesTable();
+    // seedExchangesTable();
+    // seedMessagesTable();
   }
 
   private void seedUsersTable() {
     final User user1 = new User();
     user1.setPassword(new BCryptPasswordEncoder().encode("test123"));
-    user1.setUsername("john");
-    user1.setEmail("john@test.com");
-    user1.setName("john");
+    user1.setUsername("Joan");
+    user1.setEmail("joan@test.com");
+    user1.setName("Joan");
     user1.setLastName("doe");
     user1.setLocation("11111");
     userRepository.save(user1);
 
     final User user2 = new User();
     user2.setPassword(new BCryptPasswordEncoder().encode("test123"));
-    user2.setUsername("jane");
-    user2.setEmail("jane@test.com");
-    user2.setName("jane");
+    user2.setUsername("Carla");
+    user2.setEmail("carla@test.com");
+    user2.setName("Carla");
     user2.setLastName("doe");
     user2.setLocation("11111");
     userRepository.save(user2);
@@ -158,7 +158,7 @@ public class MainSeeder implements CommandLineRunner {
   }
 
   private void seedBookStatusesTable() {
-    final String[] bookStatuses = { "available", "unavailable", "reserved" };
+    final String[] bookStatuses = { "disponible", "no disponible", "reservat" };
 
     for (final String name : bookStatuses) {
       final BookStatus bookStatus = new BookStatus();
@@ -176,10 +176,13 @@ public class MainSeeder implements CommandLineRunner {
       book.setAuthorId(random(1, 10));
       book.setGenreId(random(1, 3));
       book.setLanguageId(random(1, 3));
-      book.setUserId(id % 2 == 1 ? 1 : 2);
+      book.setUserId(id <= 5 ? 1 : 2);
       book.setPublisherId(random(1, 3));
       book.setEdition("1st edition");
       books.add(book);
+      if (id == 10) {
+        book.setBookStatusId(3);
+      }
       if (persist) {
         bookRepository.save(book);
       }

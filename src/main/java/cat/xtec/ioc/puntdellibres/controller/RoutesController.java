@@ -30,15 +30,15 @@ public class RoutesController {
 
   @GetMapping("/")
   public String home(final Model model) {
-	  Iterable<Book> books = bookRepository.findAll();
-	  model.addAttribute("books", books);
+    Iterable<Book> books = bookRepository.findAll();
+    model.addAttribute("books", books);
     return "home";
   }
 
   @GetMapping("/login")
   public String login(final Model model) {
-      model.addAttribute("user", new User());
-      return "login";
+    model.addAttribute("user", new User());
+    return "login";
   }
 
   @GetMapping("/llibres-disponibles")
@@ -50,7 +50,7 @@ public class RoutesController {
       Integer userId = userRepository.findByUsername(username).getId();
       model.addAttribute("books", bookRepository.findAllButMine(userId));
     }
-
+    model.addAttribute("loggedIn", user != null);
     return "llibres-disponibles";
   }
 

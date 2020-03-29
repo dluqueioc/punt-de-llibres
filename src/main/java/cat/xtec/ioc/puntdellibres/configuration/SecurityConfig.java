@@ -32,15 +32,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure (HttpSecurity http) throws Exception {
+    http
+      .authorizeRequests()
+      // .antMatchers("/api/**").hasRole("USER")
+      .antMatchers("/afegir-llibre").hasRole("USER")
+      .and().formLogin().loginPage("/login").permitAll()
+      .and().authorizeRequests().anyRequest().permitAll()
+      .and().csrf().disable();
+
     // http.authorizeRequests()
     //   .anyRequest()
     //   .permitAll();
-
-    http.authorizeRequests()
-      .antMatchers("/api/**").hasRole("USER")
-      .antMatchers("/afegir-llibre").hasRole("USER")
-      .and().formLogin().loginPage("/login").permitAll()
-        .and().authorizeRequests().anyRequest().permitAll();
 
     // http.authorizeRequests()
     //   .anyRequest().authenticated()

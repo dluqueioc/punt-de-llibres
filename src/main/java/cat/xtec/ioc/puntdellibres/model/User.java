@@ -34,7 +34,7 @@ public class User {
   private List<GrantedAuthority> roles;
 
   public User() {}
-  
+
   public User(String username, String password, List<GrantedAuthority> roles) {
     this.username = username;
     this.password = password;
@@ -109,6 +109,7 @@ public class User {
     inverseJoinColumns = @JoinColumn(name = "language_id"))
   private Set<Language> languagesLiked;
 
+  @JsonIgnore
   @OneToMany(
     mappedBy = "user",
     cascade = CascadeType.ALL,

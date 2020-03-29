@@ -33,14 +33,19 @@ public class BookController {
    private UserRepository userRepository;
 
    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON)
-   public Iterable<Book> index() {
-      System.out.println("HERE");
-      return bookRepository.findAll();
+   public Iterable<Book> index(Principal user) {
+      if (user == null) {
+         return bookRepository.findAll();
+      } else {
+         String username = user.getName();
+         Integer userId = userRepository.findByUsername(username).getId();
+         return bookRepository.findAllWithUsers(userId);
+      }
    }
 
    // @GetMapping("/prova")
    // public Iterable<User> indexUser() {
-   //    return userRepository.findAll();
+   // return userRepository.findAll();
    // }
 
    @PostMapping("")
