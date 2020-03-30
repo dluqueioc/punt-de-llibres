@@ -17,7 +17,7 @@ $(document).ready(function () {
             authorName: $('[name=authorName]').val(),
             publisherName: $('[name=publisherName]').val(),
             genreId: $('[name=genreId]').val(),
-            language: $('[name=language]').val()
+            languageId: $('[name=languageId]').val()
         }
         $.ajax({
             type: "POST",
@@ -37,10 +37,11 @@ $(document).ready(function () {
 });
 
 function validar() {
-    return !(!esTitolValid() || !esValidAutor() ||
-        !esValidEditorial() || !esValidGenere() ||
-        !esValidEstil() || !esValidIdioma() ||
-        !esValidEstatConserv() || !esValidEdicio()
+    return !(!esTitolValid() || !esValidISBN() ||
+        !esValidAutor() || !esValidEditorial() ||
+        !esValidGenere() || !esValidTematica() ||
+        !esValidIdioma() || !esValidEstatConserv()
+        //|| !esValidEdicio()
         // || !esValidArxiu()
     );
 }
@@ -49,6 +50,10 @@ function esTitolValid() {
     var titol = $('#titol').val();
     if (titol === "") {
         alert("El camp títol no pot estar buit");
+        return false;
+    }
+    if (titol.length > 100) {
+        alert("El títol no pot ocupar més de 100 caràcters");
         return false;
     }
     return true;
@@ -64,9 +69,8 @@ function esValidAutor() {
 }
 
 function esValidEditorial() {
-    var editorial = $('#editorial').val();
-    if (editorial === "") {
-        alert("El camp editorial no pot estar buit");
+    if ($('#editorial').find(":selected").text() == "Editorial") {
+        alert("Has d'escollir una editorial");
         return false;
     }
     return true;
@@ -80,9 +84,9 @@ function esValidGenere() {
     return true;
 }
 
-function esValidEstil() {
-    if ($('#estil').find(":selected").text() == "Estil") {
-        alert("Has d'escollir un estil");
+function esValidTematica() {
+    if ($('#estil').find(":selected").text() == "Temàtica") {
+        alert("Has d'escollir una temàtica");
         return false;
     }
     return true;
@@ -97,8 +101,13 @@ function esValidIdioma() {
 }
 
 function esValidEstatConserv() {
-    if ($('#estatConserv').find(":selected").text() == "Estat de conservació") {
-        alert("Has d'escollir un estat de conservació");
+    var estatConserv = $('#estatConserv').val();
+
+    if (estatConserv === "") {
+        return true;
+    }
+    if (estatConserv.length > 100) {
+        alert("La descripció de l'estat de conservació no pot superar els 100 caràcters");
         return false;
     }
     return true;
@@ -128,6 +137,77 @@ function esValidArxiu() {
         }
     }
     return true;
+}
+
+function esValidISBN() {
+    var isbn = $('#ISBN').val();
+    var result = false;
+
+    if (isbn.length > 0) {
+        isbn = isbn.replace( /-/g, "" ); // remove '-' symbols
+        isbn = isbn.replace( / /g, "" ); // remove whiteSpace
+
+        switch (isbn.length) {
+        	case 10 :
+        		result = isValidISBN10(isbn);
+        		break;
+        	case 13 :
+        		result = isValidISBN13(isbn);
+        		break;
+        }
+        if (!result) {
+            alert("L'ISBN introduït no és vàlid");
+        }
+        return result;
+    }
+    return true;
+}
+
+function isValidISBN10(isbn) {
+	var result = false;
+
+	// ^ - start string
+	// \d - digit
+	// {9} - nine
+	// \d{9} - nine digits
+	// (\d|X) - digit or 'X' char
+	// (\d|X){1} - one digit or 'X' char
+	// $ - end string
+	var regex = new RegExp( /^\d{9}(\d|X){1}$/ );
+
+	if ( regex.test( isbn ) ) {
+		var sum = 0;
+
+
+    // result = (isbn[0] * 1 + isbn[1] * 2 + isbn[2] * 3 + isbn[3] * 4 + ... + isbn[9] * 10) mod 11 == 0
+		for ( var i = 0; i < 9; i++ ) {
+			sum += isbn[i] * (i+1);
+		}
+		sum += isbn[9] == 'X' ? 10 : isbn[9] * 10;
+
+		result = sum % 11 == 0;
+	}
+	return result;
+}
+
+function isValidISBN13(isbn) {
+	var result = false;
+
+	if ( !isNaN( isbn ) ) { // isNaN - is Not a Number, !isNaN - is a number
+		var index = 0;
+		var sum = 0;
+
+    //result = (isbn[0] * 1 + isbn[1] * 3 + isbn[2] * 1 + isbn[3] * 3 + ... + isbn[12] * 1) mod 10 == 0
+		for ( var i = 0; i < isbn.length; i++ ) {
+			sum += isbn[i] * (isOddNumber(index++) ? 3 : 1 );
+		}
+		result = sum % 10 == 0;
+	}
+	return result;
+}
+
+function isOddNumber (value) {
+	return value % 2 != 0;
 }
 
 function readURL(input) {

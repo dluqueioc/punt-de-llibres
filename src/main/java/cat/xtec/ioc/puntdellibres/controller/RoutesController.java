@@ -2,6 +2,7 @@ package cat.xtec.ioc.puntdellibres.controller;
 
 import java.security.Principal;
 
+import cat.xtec.ioc.puntdellibres.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,11 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import cat.xtec.ioc.puntdellibres.model.Book;
 import cat.xtec.ioc.puntdellibres.model.User;
-import cat.xtec.ioc.puntdellibres.repository.BookRepository;
-import cat.xtec.ioc.puntdellibres.repository.GenreRepository;
-import cat.xtec.ioc.puntdellibres.repository.LanguageRepository;
-import cat.xtec.ioc.puntdellibres.repository.ThemeRepository;
-import cat.xtec.ioc.puntdellibres.repository.UserRepository;
 
 @Controller
 public class RoutesController {
@@ -27,6 +23,8 @@ public class RoutesController {
   private ThemeRepository themeRepository;
   @Autowired
   private LanguageRepository languageRepository;
+  @Autowired
+  private PublisherRepository publisherRepository;
 
   @GetMapping("/")
   public String home(final Model model) {
@@ -56,6 +54,7 @@ public class RoutesController {
 
   @GetMapping("/afegir-llibre")
   public String afegirLlibre(final Model model) {
+    model.addAttribute("publishers", publisherRepository.findAll());
     model.addAttribute("genres", genreRepository.findAll());
     model.addAttribute("languages", languageRepository.findAll());
     model.addAttribute("themes", themeRepository.findAll());
