@@ -23,7 +23,8 @@ $(document).ready(function () {
             type: "POST",
             url: '/api/books',
             data: JSON.stringify(data),
-            contentType:'application/json; charset=utf-8',
+            contentType: 'application/json; charset=utf-8',
+            enctype: 'multipart/form-data',
             dataType: 'json',
         })
             .then(() => {
