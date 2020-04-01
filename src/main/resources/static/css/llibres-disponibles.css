@@ -8,3 +8,16 @@
 .fade-enter, .fade-leave-to {
   opacity: 0;
 }
+
+h3.author-isbn {
+  vertical-align: text-bottom;
+}
+
+h3.author-isbn span {
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+[v-cloak] {
+  display: none;
+}
