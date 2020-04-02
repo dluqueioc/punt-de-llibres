@@ -93,5 +93,10 @@ new Vue({
     getOptions(prop) {
       return this.books.map(el => el[prop].name).filter((el, index, self) => self.indexOf(el) === index).sort();
     },
+
+    async requestBook(bookId) {
+      const res = await $.post(`/api/exchanges/${bookId}`);
+      console.log(res);
+    }
   }
 });

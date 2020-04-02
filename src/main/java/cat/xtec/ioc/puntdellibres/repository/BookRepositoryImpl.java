@@ -21,9 +21,6 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
 
     @Override
     public Iterable<Book> findAllButMine(Integer userId) {
-        // Query q = this.em.createQuery("SELECT o FROM Order o JOIN FETCH o.items i
-        // WHERE o.id = :id");
-
         TypedQuery<Book> query = em.createQuery(
                 "SELECT book FROM Book book WHERE book.userId != :userId AND book.bookStatusId = 1", Book.class);
         Iterable<Book> books = query.setParameter("userId", userId).getResultList();

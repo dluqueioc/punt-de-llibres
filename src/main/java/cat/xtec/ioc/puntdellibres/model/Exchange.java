@@ -1,5 +1,8 @@
 package cat.xtec.ioc.puntdellibres.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.type.DateType;
@@ -29,6 +33,13 @@ public class Exchange {
 
   @Column(name = "status_id")
   private Integer statusId;
+
+  @OneToMany(
+    mappedBy = "exchange",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true
+  )
+  private List<UserWantsBook> books;
 
   @CreatedDate
   private DateType createdDate;

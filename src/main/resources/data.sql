@@ -7,6 +7,7 @@ TRUNCATE TABLE themes CASCADE;
 TRUNCATE TABLE books CASCADE;
 TRUNCATE TABLE users CASCADE;
 TRUNCATE TABLE authors CASCADE;
+TRUNCATE TABLE exchange_statuses CASCADE;
 
 INSERT INTO users (id, username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES (1, 'Jaume_A', crypt(crypt('12345678', gen_salt('bf')), gen_salt('bf')), 'Jaume', 'Alepuz Bria', '08004', NULL, 'jaualbr@yahoo.es', '2020-01-01 10:00:00', NULL, 0);
 INSERT INTO users (id, username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES (2, 'PepElLector', crypt('12345678', gen_salt('bf')), 'Josep', 'Garcia', '08024', NULL, 'test@test.com', '2020-02-02 12:05:00', NULL, 0);
@@ -73,3 +74,10 @@ INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id,
 INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id) VALUES (8, '978-84-672-2978-3', 'Tierra Firme', 7, 6, 1, 7, 2, '1ª Edició', '2020-03-14 14:00:00', 'Molt bon estat', 1, 5);
 INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id) VALUES (9, '13:978-84-948248-9-0', 'Yo pongo el muerto', 8, 7, 1, 6, 2, '1ª Edició', '2020-03-14 16:00:00', 'Molt bon estat. Amb dedicatòria personal', 1, 7);
 INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id) VALUES (10, '13:978-84-947805-3-0', 'Huidos', 8, 7, 1, 6, 2, '1ª Edició', '2020-03-15 08:00:00', 'Molt bon estat. Amb dedicatòria personal', 1, 9);
+
+INSERT INTO exchange_statuses(name) VALUES ('iniciat');
+INSERT INTO exchange_statuses(name) VALUES ('pendent');
+INSERT INTO exchange_statuses(name) VALUES ('aprovat');
+INSERT INTO exchange_statuses(name) VALUES ('finalitzat');
+INSERT INTO exchange_statuses(name) VALUES ('rebutjat');
+INSERT INTO exchange_statuses(name) VALUES ('eliminat');
