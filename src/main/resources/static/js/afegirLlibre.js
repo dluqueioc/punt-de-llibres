@@ -257,10 +257,3 @@ function isOddNumber (value) {
 
 
 
-
-
-
-
-
-
-
