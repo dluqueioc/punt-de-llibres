@@ -1,13 +1,14 @@
 $(document).ready(function () {
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
+    $('select').material_select();
     $(document).ajaxSend(function (e, xhr, options) {
         xhr.setRequestHeader(header, token);
     });
 
-    $("#selArxiu").change(function () {
-        readURL(this);
-    });
+//    $("#selArxiu").change(function () {
+//        readURL(this);
+//    });
     $("#formAfegirLlibre").submit(function (event) {
         event.preventDefault();
         if (! validar()) return;
@@ -16,8 +17,11 @@ $(document).ready(function () {
             isbn: $('[name=isbn]').val() || null,
             authorName: $('[name=authorName]').val(),
             publisherName: $('[name=publisherName]').val(),
-            genreId: $('[name=genreId]').val(),
+            genreId : $('[name=genreId]').val(),
+            //theme: $('[name=theme]').val(),
             languageId: $('[name=languageId]').val()
+            //preservation: $('[name=preservation]').val() || null,
+            //edition: $('[name=edition]').val() || null,
         }
         $.ajax({
             type: "POST",
@@ -43,7 +47,7 @@ function validar() {
         !esValidGenere() || !esValidTematica() ||
         !esValidIdioma() || !esValidEstatConserv()
         //|| !esValidEdicio()
-        // || !esValidArxiu()
+        //|| !esValidArxiu()
     );
 }
 
@@ -211,18 +215,18 @@ function isOddNumber (value) {
 	return value % 2 != 0;
 }
 
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-            $('#imgPerfil').attr('src', e.target.result);
-        }
-
-        reader.readAsDataURL(input.files[0]);
-        alert("imatge seleccionada canviada")
-    }
-}
+//function readURL(input) {
+//    if (input.files && input.files[0]) {
+//        var reader = new FileReader();
+//
+//        reader.onload = function (e) {
+//            $('#imgPerfil').attr('src', e.target.result);
+//        }
+//
+//        reader.readAsDataURL(input.files[0]);
+//        alert("imatge seleccionada canviada")
+//    }
+//}
 
 
 
