@@ -2,92 +2,95 @@
 <html layout:decorate="~{layout/base.html}">
 
 <head>
-	<meta charset="UTF-8"> 
-    <title>Afegir llibre</title>
-    <script type="text/javascript" src="js/afegirLlibre.js"></script>
+<meta charset="UTF-8">
+<title>Afegir llibre</title>
+<script type="text/javascript" src="js/afegirLlibre.js"></script>
 </head>
 
 <body>
-<section layout:fragment="content">
-    <article>
-        <section>
-            <h3>Afegir llibre</h3>
-            <form class="col s12" id="formAfegirLlibre">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input id="titol" type="text" class="validate" name="title">
-                        <label for="titol">Títol</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <input id="ISBN" type="text" class="validate" name="isbn">
-                        <label for="isbn">ISBN</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <input id="autor" type="text" class="validate" name="authorName">
-                        <label for="autor">Autor</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <select id="editorial" name="publisherName">
-                            <option value="" disabled selected>Editorial</option>
-                            <option th:each="publisher : ${publishers}" th:attr="value=${publisher.id}">[[
-                                ${publisher.name} ]]</option>
-                        </select>
-                    </div>
-                    <div class="input-field col s12">
-                        <select id="genere" name="genreId">
-                            <option value="" disabled selected>Gènere</option>
-                            <option th:each="genre : ${genres}" th:attr="value=${genre.id}">[[
-                                ${genre.name} ]]</option>
-                        </select>
-                    </div>
-                    <div class="input-field col s12">
-                        <select id="estil" name="theme">
-                            <option value="" disabled selected>Temàtica</option>
-                            <option th:each="theme : ${themes}" th:attr="value=${theme.id}">[[
-                                ${theme.name} ]]</option>
-                        </select>
-                    </div>
-                    <div class="input-field col s12">
-                        <select id="idioma" name="languageId">
-                            <option value="" disabled selected>Idioma</option>
-                            <option th:each="language : ${languages}" th:attr="value=${language.id}">[[
-                                ${language.name} ]]</option>
-                        </select>
-                    </div>
-                    <div class="input-field col s12">
-                        <input id="estatConserv" type="text" class="validate" name="preservation">
-                        <label for="estatConserv">Estat de conservació</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <input id="edicio" type="text" class="validate" name="edition">
-                        <label for="edicio">Edició</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <form action="#">
-                            <div class="file-field input-field">
-                                <div class="btn">
-                                    <span>Foto del llibre</span>
-                                    <input type="file" id="fotoLlibre">
-                                </div>
-                                <div class="file-path-wrapper">
-                                    <input class="file-path validate" type="text">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="input-field col s12">
-                        <button id="botoSubmit" class="btn waves-effect waves-light btn-large" type="submit" name="action">Afegeix
-                            llibre
-                            <i class="material-icons right">send</i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </section>
-    </article>
-</section>
-<footer>
-    <p layout:fragment="footer"></p>
-</footer>
+	<section layout:fragment="content">
+		<article>
+			<section>
+				<h3>Afegir llibre</h3>
+				<form class="col s12" id="formAfegirLlibre">
+					<div class="row">
+						<div class="input-field col s12">
+							<input id="titol" type="text" class="validate" name="title">
+							<label for="titol">Títol</label>
+						</div>
+						<div class="input-field col s12">
+							<input id="ISBN" type="text" class="validate" name="isbn">
+							<label for="isbn">ISBN</label>
+						</div>
+						<div class="input-field col s12">
+							<input id="autor" type="text" class="validate" name="authorName">
+							<label for="autor">Autor</label>
+						</div>
+						<div class="input-field col s12">
+							<input id="editorial" type="text" class="validate"
+								name="publisher"> <label for="autor">Editorial</label>
+						</div>
+						<div class="input-field col s12">
+							<select id="genere" name="genreId">
+								<option value="" disabled selected>Gènere</option>
+								<option th:each="genre : ${genres}" th:attr="value=${genre.id}">[[
+									${genre.name} ]]</option>
+							</select>
+						</div>
+						<div class="input-field col s12">
+							<select id="estil" name="theme">
+								<option value="" disabled selected>Temàtica</option>
+								<option th:each="theme : ${themes}" th:attr="value=${theme.id}">[[
+									${theme.name} ]]</option>
+							</select>
+						</div>
+						<div class="input-field col s12">
+							<select id="idioma" name="languageId">
+								<option value="" disabled selected>Idioma</option>
+								<option th:each="language : ${languages}"
+									th:attr="value=${language.id}">[[ ${language.name} ]]</option>
+							</select>
+						</div>
+						<div class="input-field col s12">
+							<input id="estatConserv" type="text" class="validate"
+								name="preservation"> <label for="estatConserv">Estat
+								de conservació</label>
+						</div>
+						<div class="input-field col s12">
+							<input id="edicio" type="text" class="validate" name="edition">
+							<label for="edicio">Edició</label>
+						</div>
+						<div class="input-field col s6">
+							<form action="#">
+								<div class="file-field input-field">
+									<div class="btn">
+										<span>Foto del llibre</span> <input type="file"
+											id="selArxiu">
+									</div>
+									<div class="file-path-wrapper">
+										<input class="file-path validate" type="text">
+									</div>
+								</div>
+							</form>
+						</div>
+						<div>
+							<img class="responsive-img" src="https://picsum.photos/100/160" id="imgLlibre"
+								alt="Imatge del llibre">
+						</div>
+						<div class="input-field col s12">
+							<button id="botoSubmit"
+								class="btn waves-effect waves-light btn-large" type="submit"
+								name="action">
+								Afegeix llibre <i class="material-icons right">send</i>
+							</button>
+						</div>
+					</div>
+				</form>
+			</section>
+		</article>
+	</section>
+	<footer>
+		<p layout:fragment="footer"></p>
+	</footer>
 </body>
 </html>

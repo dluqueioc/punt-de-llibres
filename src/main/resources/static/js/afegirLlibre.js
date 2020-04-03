@@ -6,19 +6,31 @@ $(document).ready(function () {
         xhr.setRequestHeader(header, token);
     });
 
-//    $("#selArxiu").change(function () {
-//        readURL(this);
-//    });
+    $("#selArxiu").change(function () {
+        readURL(this);
+    });
     $("#formAfegirLlibre").submit(function (event) {
         event.preventDefault();
         if (! validar()) return;
+        
+        console.log($("#titol").val());
+        console.log($("#ISBN").val());
+        console.log($("#autor").val());
+        console.log($("#editorial").val());
+        console.log($("#genere").val());
+        console.log($("#estil").val());
+        console.log($("#idioma").val());
+        console.log($("#estatConserv").val())
+        console.log($("#edicio").val());
+        console.log($("#selArxiu").val());
+        
         var data = {
             title: $('[name=title]').val(),
             isbn: $('[name=isbn]').val() || null,
             authorName: $('[name=authorName]').val(),
             publisherName: $('[name=publisherName]').val(),
             genreId : $('[name=genreId]').val(),
-            //theme: $('[name=theme]').val(),
+            //themeId: $('[name=themeId]').val(),
             languageId: $('[name=languageId]').val()
             //preservation: $('[name=preservation]').val() || null,
             //edition: $('[name=edition]').val() || null,
@@ -45,9 +57,8 @@ function validar() {
     return !(!esTitolValid() || !esValidISBN() ||
         !esValidAutor() || !esValidEditorial() ||
         !esValidGenere() || !esValidTematica() ||
-        !esValidIdioma() || !esValidEstatConserv()
-        //|| !esValidEdicio()
-        //|| !esValidArxiu()
+        !esValidIdioma() || !esValidEstatConserv() ||
+        !esValidEdicio() || !esValidArxiu()
     );
 }
 
@@ -70,15 +81,24 @@ function esValidAutor() {
         alert("El camp autor no pot estar buit");
         return false;
     }
+    if (autor.length > 50) {
+        alert("El nom de l'autor no pot ocupar més de 50 caràcters");
+        return false;
+    }
     return true;
 }
 
 function esValidEditorial() {
-    if ($('#editorial').find(":selected").text() == "Editorial") {
-        alert("Has d'escollir una editorial");
-        return false;
-    }
-    return true;
+	 var editorial = $('#editorial').val();
+	 if (editorial === "") {
+		 alert("El camp editorial no pot estar buit");
+	     return false;
+	 }
+	 if (editorial.length > 50) {
+		 alert("L'editorial no pot ocupar més de 50 caràcters");
+	     return false;
+	 }
+	 return true;
 }
 
 function esValidGenere() {
@@ -107,7 +127,6 @@ function esValidIdioma() {
 
 function esValidEstatConserv() {
     var estatConserv = $('#estatConserv').val();
-
     if (estatConserv === "") {
         return true;
     }
@@ -121,7 +140,10 @@ function esValidEstatConserv() {
 function esValidEdicio() {
     var edicio = $('#edicio').val();
     if (edicio === "") {
-        alert("El camp edició no pot estar buit");
+        return true;
+    }
+    if (edicio.length > 50) {
+        alert("El nom de l'edició no pot superar els 50 caràcters");
         return false;
     }
     return true;
@@ -129,8 +151,7 @@ function esValidEdicio() {
 
 function esValidArxiu() {
     if ($('#selArxiu')[0].files.length === 0) {
-        alert("No has escollit una imatge de perfil!");
-        return false;
+        return true;
     }
     if ($('#selArxiu')[0].files.length > 0) {
         var arxiu = $('#selArxiu')[0].files[0];
@@ -142,6 +163,19 @@ function esValidArxiu() {
         }
     }
     return true;
+}
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#imgLlibre').attr('src', e.target.result);
+            $('#imgLlibre').width(100);
+            $('#imgLlibre').height(160);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
 }
 
 function esValidISBN() {
@@ -215,18 +249,7 @@ function isOddNumber (value) {
 	return value % 2 != 0;
 }
 
-//function readURL(input) {
-//    if (input.files && input.files[0]) {
-//        var reader = new FileReader();
-//
-//        reader.onload = function (e) {
-//            $('#imgPerfil').attr('src', e.target.result);
-//        }
-//
-//        reader.readAsDataURL(input.files[0]);
-//        alert("imatge seleccionada canviada")
-//    }
-//}
+
 
 
 
