@@ -18,6 +18,12 @@
     <body class="container">
         <header>
             <h1>Punt de llibres</h1>
+            <p sec:authorize="isAuthenticated()">
+                <span th:text ="${#authentication.getPrincipal().getUsername()}"></span>
+            </p>
+            <p sec:authorize="isAnonymous()">
+                <a href="/login">Login</a>
+            </p>
         </header>
         <section layout:fragment="content">
             <p>Page content goes here</p>
