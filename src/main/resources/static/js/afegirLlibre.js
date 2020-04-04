@@ -1,18 +1,21 @@
 $(document).ready(function () {
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
+    // var token = $("meta[name='_csrf']").attr("content");
+    // var header = $("meta[name='_csrf_header']").attr("content");
     $('select').material_select();
-    $(document).ajaxSend(function (e, xhr, options) {
-        xhr.setRequestHeader(header, token);
-    });
+    // $(document).ajaxSend(function (e, xhr, options) {
+    //     xhr.setRequestHeader(header, token);
+    // });
 
     $("#selArxiu").change(function () {
         readURL(this);
     });
     $("#formAfegirLlibre").submit(function (event) {
         event.preventDefault();
+
+        console.log('here');
+
         if (! validar()) return;
-        
+
         console.log($("#titol").val());
         console.log($("#ISBN").val());
         console.log($("#autor").val());
@@ -23,17 +26,17 @@ $(document).ready(function () {
         console.log($("#estatConserv").val())
         console.log($("#edicio").val());
         console.log($("#selArxiu").val());
-        
+
         var data = {
             title: $('[name=title]').val(),
             isbn: $('[name=isbn]').val() || null,
             authorName: $('[name=authorName]').val(),
             publisherName: $('[name=publisherName]').val(),
             genreId : $('[name=genreId]').val(),
-            //themeId: $('[name=themeId]').val(),
-            languageId: $('[name=languageId]').val()
-            //preservation: $('[name=preservation]').val() || null,
-            //edition: $('[name=edition]').val() || null,
+            themeId: $('[name=themeId]').val(),
+            languageId: $('[name=languageId]').val(),
+            preservation: $('[name=preservation]').val(),
+            edition: $('[name=edition]').val(),
         }
         $.ajax({
             type: "POST",
