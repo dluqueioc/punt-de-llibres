@@ -9,7 +9,7 @@ TRUNCATE TABLE users RESTART IDENTITY CASCADE;
 TRUNCATE TABLE authors RESTART IDENTITY CASCADE;
 TRUNCATE TABLE exchange_statuses RESTART IDENTITY CASCADE;
 
-INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('Jaume_A', crypt(crypt('12345678', gen_salt('bf')), gen_salt('bf')), 'Jaume', 'Alepuz Bria', '08004', NULL, 'jaualbr@yahoo.es', '2020-01-01 10:00:00', NULL, 0);
+INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('Jaume_A', crypt('12345678', gen_salt('bf')), 'Jaume', 'Alepuz Bria', '08004', NULL, 'jaualbr@yahoo.es', '2020-01-01 10:00:00', NULL, 0);
 INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('PepElLector', crypt('12345678', gen_salt('bf')), 'Josep', 'Garcia', '08024', NULL, 'test@test.com', '2020-02-02 12:05:00', NULL, 0);
 INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('Llibrefila83', crypt('12345678', gen_salt('bf')), 'Montse', 'Martinez Rovira', '08004', NULL, 'mmrov@test.cat', '2020-03-02 20:15:30', NULL, 0);
 INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('maria_ga', crypt('12345678', gen_salt('bf')), 'Maria', 'Garcia Alvarez', '08001', NULL, 'mariaga@test.cat', '2020-03-03 12:00:00', NULL, 0);
