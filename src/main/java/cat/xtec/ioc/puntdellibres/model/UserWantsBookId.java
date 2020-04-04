@@ -5,13 +5,13 @@ import java.util.Objects;
 
 public class UserWantsBookId implements Serializable {
   private static final long serialVersionUID = 1L;
-  private Long exchangeId;
-  private Long userId;
-  private Long bookId;
+  private Integer exchangeId;
+  private Integer userId;
+  private Integer bookId;
 
   public UserWantsBookId() {}
 
-  public UserWantsBookId (Long exchangeId, Long userId, Long bookId) {
+  public UserWantsBookId (Integer exchangeId, Integer userId, Integer bookId) {
       this.exchangeId = exchangeId;
       this.userId = userId;
       this.bookId = bookId;

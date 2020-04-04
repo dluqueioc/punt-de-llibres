@@ -29,16 +29,17 @@ public class UserWantsBook {
   private Exchange exchange;
 
   @Column(name = "exchange_id")
-  private Long exchangeId;
+  private Integer exchangeId;
 
   @Id
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "user_id", insertable = false, updatable = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
+  @JsonIgnore
   private User user;
 
   @Column(name = "user_id")
-  private Long userId;
+  private Integer userId;
 
   @Id
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -47,5 +48,5 @@ public class UserWantsBook {
   private Book book;
 
   @Column(name = "book_id")
-  private Long bookId;
+  private Integer bookId;
 }

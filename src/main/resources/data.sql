@@ -1,25 +1,25 @@
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
-TRUNCATE TABLE genres CASCADE;
-TRUNCATE TABLE languages CASCADE;
-TRUNCATE TABLE publishers CASCADE;
-TRUNCATE TABLE themes CASCADE;
-TRUNCATE TABLE books CASCADE;
-TRUNCATE TABLE users CASCADE;
-TRUNCATE TABLE authors CASCADE;
-TRUNCATE TABLE exchange_statuses CASCADE;
+TRUNCATE TABLE genres RESTART IDENTITY CASCADE;
+TRUNCATE TABLE languages RESTART IDENTITY CASCADE;
+TRUNCATE TABLE publishers RESTART IDENTITY CASCADE;
+TRUNCATE TABLE themes RESTART IDENTITY CASCADE;
+TRUNCATE TABLE books RESTART IDENTITY CASCADE;
+TRUNCATE TABLE users RESTART IDENTITY CASCADE;
+TRUNCATE TABLE authors RESTART IDENTITY CASCADE;
+TRUNCATE TABLE exchange_statuses RESTART IDENTITY CASCADE;
 
-INSERT INTO users (id, username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES (1, 'Jaume_A', crypt(crypt('12345678', gen_salt('bf')), gen_salt('bf')), 'Jaume', 'Alepuz Bria', '08004', NULL, 'jaualbr@yahoo.es', '2020-01-01 10:00:00', NULL, 0);
-INSERT INTO users (id, username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES (2, 'PepElLector', crypt('12345678', gen_salt('bf')), 'Josep', 'Garcia', '08024', NULL, 'test@test.com', '2020-02-02 12:05:00', NULL, 0);
-INSERT INTO users (id, username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES (3, 'Llibrefila83', crypt('12345678', gen_salt('bf')), 'Montse', 'Martinez Rovira', '08004', NULL, 'mmrov@test.cat', '2020-03-02 20:15:30', NULL, 0);
-INSERT INTO users (id, username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES (4, 'maria_ga', crypt('12345678', gen_salt('bf')), 'Maria', 'Garcia Alvarez', '08001', NULL, 'mariaga@test.cat', '2020-03-03 12:00:00', NULL, 0);
-INSERT INTO users (id, username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES (5, 'montse_mt', crypt('12345678', gen_salt('bf')), 'Montserrat', 'Martinez Torres', '08001', NULL, 'montsemt@test.cat', '2020-03-04 12:00:00', NULL, 0);
-INSERT INTO users (id, username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES (6, 'jordi_ln', crypt('12345678', gen_salt('bf')), 'Jordi', 'Lopez Navarro', '08002', NULL, 'jordiln@test.cat', '2020-03-05 12:00:00', NULL, 0);
-INSERT INTO users (id, username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES (7, 'manel_sn', crypt('12345678', gen_salt('bf')), 'Manel', 'Sanchez Romero', '08002', NULL, 'manelsr@test.cat', '2020-03-06 12:00:00', NULL, 0);
-INSERT INTO users (id, username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES (8, 'david_rd', crypt('12345678', gen_salt('bf')), 'David', 'Rodriguez Diaz', '08003', NULL, 'davidrd@test.cat', '2020-03-07 12:00:00', NULL, 0);
-INSERT INTO users (id, username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES (9, 'joan_fm', crypt('12345678', gen_salt('bf')), 'Joan', 'Fernandez Muñoz', '08003', NULL, 'joanfm@test.cat', '2020-03-08 12:00:00', NULL, 0);
-INSERT INTO users (id, username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES (10, 'carme_ph', crypt('12345678', gen_salt('bf')), 'Carme', 'Perez Hernandez', '08002', NULL, 'carmeph@test.cat', '2020-03-09 12:00:00', NULL, 0);
-INSERT INTO users (id, username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES (11, 'marc_gm', crypt('12345678', gen_salt('bf')), 'Marc', 'Gonzalez Moreno', '08003', NULL, 'marcgm@test.cat', '2020-03-10 12:00:00', NULL, 0);
+INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('Jaume_A', crypt(crypt('12345678', gen_salt('bf')), gen_salt('bf')), 'Jaume', 'Alepuz Bria', '08004', NULL, 'jaualbr@yahoo.es', '2020-01-01 10:00:00', NULL, 0);
+INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('PepElLector', crypt('12345678', gen_salt('bf')), 'Josep', 'Garcia', '08024', NULL, 'test@test.com', '2020-02-02 12:05:00', NULL, 0);
+INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('Llibrefila83', crypt('12345678', gen_salt('bf')), 'Montse', 'Martinez Rovira', '08004', NULL, 'mmrov@test.cat', '2020-03-02 20:15:30', NULL, 0);
+INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('maria_ga', crypt('12345678', gen_salt('bf')), 'Maria', 'Garcia Alvarez', '08001', NULL, 'mariaga@test.cat', '2020-03-03 12:00:00', NULL, 0);
+INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('montse_mt', crypt('12345678', gen_salt('bf')), 'Montserrat', 'Martinez Torres', '08001', NULL, 'montsemt@test.cat', '2020-03-04 12:00:00', NULL, 0);
+INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('jordi_ln', crypt('12345678', gen_salt('bf')), 'Jordi', 'Lopez Navarro', '08002', NULL, 'jordiln@test.cat', '2020-03-05 12:00:00', NULL, 0);
+INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('manel_sn', crypt('12345678', gen_salt('bf')), 'Manel', 'Sanchez Romero', '08002', NULL, 'manelsr@test.cat', '2020-03-06 12:00:00', NULL, 0);
+INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('david_rd', crypt('12345678', gen_salt('bf')), 'David', 'Rodriguez Diaz', '08003', NULL, 'davidrd@test.cat', '2020-03-07 12:00:00', NULL, 0);
+INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('joan_fm', crypt('12345678', gen_salt('bf')), 'Joan', 'Fernandez Muñoz', '08003', NULL, 'joanfm@test.cat', '2020-03-08 12:00:00', NULL, 0);
+INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('carme_ph', crypt('12345678', gen_salt('bf')), 'Carme', 'Perez Hernandez', '08002', NULL, 'carmeph@test.cat', '2020-03-09 12:00:00', NULL, 0);
+INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('marc_gm', crypt('12345678', gen_salt('bf')), 'Marc', 'Gonzalez Moreno', '08003', NULL, 'marcgm@test.cat', '2020-03-10 12:00:00', NULL, 0);
 
 
 INSERT INTO authors (id, name) VALUES (1, 'Frank Herbert');

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/base.html}">
+
+<head>
+  <title>Els meus intercanvis</title>
+</head>
+
+<body>
+  <section layout:fragment="content" id="app" class="els-meus-intercanvis-page" v-cloak>
+    <h1 class="text-center mb-5">
+      Els meus intercanvis
+    </h1>
+
+    <h4>Els meus intercanvis oberts</h4>
+    <p v-if="! pendingExchanges.length">No tens intercanvis oberts</p>
+    <div v-for="exchange in openExchanges" class="exchange">
+      <ul>
+        <li v-for="book in exchange.books">
+          <p>Títol: {{ exchange.books[0].book.title }}</p>
+          <p>Intercanvi sol·licitat per {{ exchangeStarter(book, exchange) }}</p>
+          <a :href="`/llibres-disponibles?filter=user&q=${getOtherUser(exchange).user.id}`">Veure tots els llibres de {{ getOtherUser(exchange).user.username }}</a>
+        </li>
+      </ul>
+    </div>
+
+    <h4>Els meus intercanvis pendents d'aprovació</h4>
+    <p v-if="! pendingExchanges.length">No tens intercanvis pendents d'aprovació</p>
+    <div v-for="exchange in pendingExchanges">
+      <ul>
+        <li v-for="book in exchange.books">
+          <p>Títol: {{ exchange.books[0].book.title }}</p>
+          <p>Intercanvi sol·licitat per {{ exchangeStarter(book, exchange) }}</p>
+          <a :href="`/llibres-disponibles?filter=user&q=${getOtherUser(exchange).user.id}`">Veure tots els llibres de {{ getOtherUser(exchange).user.username }}</a>
+        </li>
+      </ul>
+    </div>
+
+  </section>
+
+  <footer>
+    <p layout:fragment="footer"></p>
+  </footer>
+
+  <th:block layout:fragment="script">
+      <script th:inline="javascript">
+          /*<![CDATA[*/ window.myUserId = /*[[${myUserId}]]*/ null;
+          /*]]>*/
+      </script>
+      <script th:src="@{/js/els-meus-intercanvis.js}"></script>
+  </th:block>
+</body>
+
+</html>

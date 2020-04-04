@@ -1,6 +1,8 @@
 package cat.xtec.ioc.puntdellibres.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import cat.xtec.ioc.puntdellibres.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import cat.xtec.ioc.puntdellibres.model.Book;
+import cat.xtec.ioc.puntdellibres.model.Exchange;
 import cat.xtec.ioc.puntdellibres.model.User;
 
 @Controller
@@ -25,6 +28,8 @@ public class RoutesController {
   private LanguageRepository languageRepository;
   @Autowired
   private PublisherRepository publisherRepository;
+  @Autowired
+  private ExchangeRepository exchangeRepository;
 
   @GetMapping("/")
   public String home(final Model model) {
@@ -59,5 +64,20 @@ public class RoutesController {
     model.addAttribute("languages", languageRepository.findAll());
     model.addAttribute("themes", themeRepository.findAll());
     return "afegir-llibre";
+  }
+
+  @GetMapping("/els-meus-intercanvis")
+  public String elsMeusIntercanvis(final Model model, Principal user) {
+    Iterable<Exchange> myExchanges = exchangeRepository.findMyExchanges(user);
+    model.addAttribute("myExchanges", myExchanges);
+
+    String username = user.getName();
+    User me = userRepository.findByUsername(username);
+    Integer myUserId = me.getId();
+    model.addAttribute("myUserId", myUserId);
+
+    System.out.println("myUserId: " + myUserId);
+
+    return "els-meus-intercanvis";
   }
 }

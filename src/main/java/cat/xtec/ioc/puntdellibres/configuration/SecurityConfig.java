@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .authorizeRequests()
       // .antMatchers("/api/**").hasRole("USER")
       .antMatchers("/afegir-llibre").hasRole("USER")
+      .antMatchers("/els-meus-intercanvis").hasRole("USER")
       .and().formLogin().loginPage("/login").permitAll()
       .and().authorizeRequests().anyRequest().permitAll()
       .and().csrf().disable();

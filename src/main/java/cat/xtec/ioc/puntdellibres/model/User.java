@@ -19,6 +19,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -117,6 +118,7 @@ public class User {
   )
   private List<Book> books;
 
+  @JsonBackReference
   @OneToMany(
     mappedBy = "userId",
     cascade = CascadeType.ALL,

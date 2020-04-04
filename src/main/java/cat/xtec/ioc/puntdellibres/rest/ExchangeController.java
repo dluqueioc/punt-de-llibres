@@ -31,12 +31,19 @@ public class ExchangeController {
    @Autowired
    private ExchangeRepository exchangeRepository;
 
+   @GetMapping(value = "", produces = MediaType.APPLICATION_JSON)
+   public Iterable<Exchange> getAll() {
+      return exchangeRepository.findAll();
+   }
+
+   @GetMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON)
+   public Iterable<Exchange> getMyExchanges(Principal user) {
+      return exchangeRepository.findMyExchanges(user);
+   }
+
    @PostMapping(value = "/{bookId}", produces = MediaType.APPLICATION_JSON)
-   public Exchange index(@PathVariable("bookId") String bookId) {
-      exchangeRepository.create(Integer.parseInt(bookId));
-      // Exchange d = exchangeRepository.create(Integer.parseInt(bookId));
-      // System.out.println(d);
-      // return d;
-      return new Exchange();
+   public Exchange index(@PathVariable("bookId") String bookId, Principal user) {
+      Exchange exchange = exchangeRepository.create(Integer.parseInt(bookId), user);
+      return exchange;
    }
 }

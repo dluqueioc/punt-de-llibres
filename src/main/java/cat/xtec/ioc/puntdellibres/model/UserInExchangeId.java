@@ -5,12 +5,12 @@ import java.util.Objects;
 
 public class UserInExchangeId implements Serializable {
   private static final long serialVersionUID = 1L;
-  private Long userId;
-  private Long exchangeId;
+  private Integer userId;
+  private Integer exchangeId;
 
   public UserInExchangeId() {}
 
-  public UserInExchangeId (Long userId, Long exchangeId) {
+  public UserInExchangeId (Integer userId, Integer exchangeId) {
       this.userId = userId;
       this.exchangeId = exchangeId;
   }

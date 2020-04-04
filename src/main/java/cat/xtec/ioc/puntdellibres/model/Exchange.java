@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.hibernate.type.DateType;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -29,10 +31,11 @@ public class Exchange {
 
   @JoinColumn(name = "status_id", insertable = false, updatable = false)
   @ManyToOne(targetEntity = ExchangeStatus.class, fetch = FetchType.LAZY)
+  @JsonIgnore
   private ExchangeStatus status;
 
   @Column(name = "status_id")
-  private Integer statusId;
+  private Integer statusId = 1;
 
   @OneToMany(
     mappedBy = "exchange",
@@ -40,6 +43,13 @@ public class Exchange {
     orphanRemoval = true
   )
   private List<UserWantsBook> books;
+
+  @OneToMany(
+    mappedBy = "exchange",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true
+  )
+  private List<UserInExchange> users;
 
   @CreatedDate
   private DateType createdDate;
