@@ -65,7 +65,7 @@ INSERT INTO book_statuses (name) VALUES ('reservat');
 
 
 INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id) VALUES (1, '84-339-2055-3', 'Mar de fondo', 4, 1, 1, 4, 2, '1ª Edició', '2020-03-10 12:00:00', 'Coberta desencolada', 1, 1);
-INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id) VALUES (2, '84-339-3022-2', 'El juego del escodite', 4, 1, 1, 1, 2, '3ª Edicio', '2020-03-11 12:00:00', 'Fulles envellides', 1, 1);
+INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id) VALUES (2, '84-339-3022-2', 'El juego del escondite', 4, 1, 1, 1, 2, '3ª Edicio', '2020-03-11 12:00:00', 'Fulles envellides', 1, 1);
 INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id) VALUES (3, '84-297-1701-3', 'La clau de vidre', 3, 2, 1, 3, 1, '1ª Edició', '2020-03-12 12:00:00', 'Bon estat', 1, 2);
 INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id) VALUES (4, '978-607-16-2013-2', 'El héroe de las mil caras', 2, 3, 2, 2, 2, '2ª edició - 2ª reimpressió', '2020-03-13 12:00:00', 'Bon estat', 1, 3);
 INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id) VALUES (5, '978 0 340 96019 69', 'Dune', 1, 4, 1, 1, 3, '50th anniversary edition', '2020-03-13 14:00:00', 'Capa plàstica de la coberta deteriorada', 1, 2);
@@ -76,8 +76,9 @@ INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id,
 INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id) VALUES (10, '13:978-84-947805-3-0', 'Huidos', 8, 7, 1, 6, 2, '1ª Edició', '2020-03-15 08:00:00', 'Molt bon estat. Amb dedicatòria personal', 1, 9);
 
 INSERT INTO exchange_statuses(name) VALUES ('iniciat');
-INSERT INTO exchange_statuses(name) VALUES ('pendent');
+INSERT INTO exchange_statuses(name) VALUES ('complet');
+INSERT INTO exchange_statuses(name) VALUES ('pendent aprovació');
 INSERT INTO exchange_statuses(name) VALUES ('aprovat');
-INSERT INTO exchange_statuses(name) VALUES ('finalitzat');
 INSERT INTO exchange_statuses(name) VALUES ('rebutjat');
+INSERT INTO exchange_statuses(name) VALUES ('finalitzat');
 INSERT INTO exchange_statuses(name) VALUES ('eliminat');

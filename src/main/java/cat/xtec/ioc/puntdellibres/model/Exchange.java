@@ -51,6 +51,13 @@ public class Exchange {
   )
   private List<UserInExchange> users;
 
+  @OneToMany(
+    mappedBy = "exchange",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true
+  )
+  private List<UserApprovesExchange> approvals;
+
   @CreatedDate
   private DateType createdDate;
 }

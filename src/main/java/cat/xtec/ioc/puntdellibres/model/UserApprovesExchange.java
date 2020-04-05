@@ -10,7 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -18,15 +17,15 @@ import org.hibernate.annotations.OnDeleteAction;
 import lombok.Data;
 
 @Entity
-@Table(name = "user_in_exchange")
-@IdClass(UserInExchangeId.class)
+@Table(name = "user_approves_exchange")
+@IdClass(UserApprovesExchangeId.class)
 @Data
-public class UserInExchange {
+public class UserApprovesExchange {
+  @JsonIgnore
   @Id
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "exchange_id", insertable = false, updatable = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
-  @JsonIgnore
   private Exchange exchange;
 
   @Column(name = "exchange_id")
@@ -36,9 +35,12 @@ public class UserInExchange {
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "user_id", insertable = false, updatable = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
-  @JsonManagedReference
+  @JsonIgnore
   private User user;
 
   @Column(name = "user_id")
   private Integer userId;
+
+  @Column(name = "approved")
+  Boolean approved;
 }

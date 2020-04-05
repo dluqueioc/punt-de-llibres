@@ -1,8 +1,6 @@
 package cat.xtec.ioc.puntdellibres.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
 
 import cat.xtec.ioc.puntdellibres.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,8 +73,6 @@ public class RoutesController {
     User me = userRepository.findByUsername(username);
     Integer myUserId = me.getId();
     model.addAttribute("myUserId", myUserId);
-
-    System.out.println("myUserId: " + myUserId);
 
     return "els-meus-intercanvis";
   }
