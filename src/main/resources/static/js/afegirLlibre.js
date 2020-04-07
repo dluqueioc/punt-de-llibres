@@ -35,8 +35,8 @@ $(document).ready(function () {
             genreId : $('[name=genreId]').val(),
             themeId: $('[name=themeId]').val(),
             languageId: $('[name=languageId]').val(),
-            preservation: $('[name=preservation]').val(),
-            edition: $('[name=edition]').val(),
+            preservation: $('[name=preservation]').val() || null,
+            edition: $('[name=edition]').val() || null,
         }
         $.ajax({
             type: "POST",

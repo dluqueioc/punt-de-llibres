@@ -1,22 +1,48 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout/base.html}">
-    <head>
-        <title>Login</title>
-    </head>
+<head>
+<title>Login</title>
+<meta charset="UTF-8">
+</head>
 
-    <body>
-        <section layout:fragment="content">
-            <form action="#" th:action="@{/login}" th:object="${user}" method="post">
-              <input type="text" name="username" th:field="*{username}">
-              <input type="password" name="password" th:field="*{password}">
-              <input type="submit" value="enviar">
-            </form>
-        </section>
+<body>
+	<section layout:fragment="content">
+		<h3>Iniciar sessió</h3>
+		<p class="info">
+			Si encara no estàs registrat, pots registrar-te <a href="#">AQUÍ</a>
+		<div class="valign-wrapper row login-box">
+			<div class="card hoverable col s12 teal lighten-5">
+				<form class="col s12" action="#" th:action="@{/login}"
+					th:object="${user}" method="post">
+					<div class="card-content center-align">
+						<img src="/img/sample-logo-170x150.png" alt="logo">
+					</div>
+					<div class="row">
+						<div class="input-field col s12 center-align">
+							<i class="material-icons prefix">person</i> <input type="text"
+								class="validate" name="username" th:field="*{username}">
+							<label for="username">Nom usuari</label>
+						</div>
+						<div class="input-field col s12 center-align">
+							<i class="material-icons prefix">lock</i> <input type="password"
+								name="password" th:field="*{password}"> <label
+								for="password">Contrasenya</label>
+						</div>
+						<div class="input-field col s12 center-align">
+							<button id="botoSubmit"
+								class="btn waves-effect waves-light btn-large" type="submit"
+								name="action" value="enviar">Inicia sessió</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
 
-        <footer>
-            <p layout:fragment="custom-footer">
-                This is some footer content from content page 1
-            </p>
-        </footer>
-    </body>
+	</section>
+
+	<footer>
+		<p layout:fragment="custom-footer">This is some footer content
+			from content page 1</p>
+	</footer>
+</body>
 </html>
