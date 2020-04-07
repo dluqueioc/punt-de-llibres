@@ -66,7 +66,7 @@ public class BookController {
       if (publisher == null) {
          publisher = new Publisher();
          publisher.setName(newBook.getPublisherName());
-         publisherRepository.save(publisher);
+         publisherRepository.save(publisher);   
       }
 
       String username = user.getName();
@@ -74,6 +74,7 @@ public class BookController {
       newBook.setUserId(userId);
 
       newBook.setAuthorId(author.getId());
+      newBook.setPublisherId(publisher.getId());
       return bookRepository.save(newBook);
    }
 }

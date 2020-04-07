@@ -1,33 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-    <head>
-        <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">
-            Punt de llibres
-        </title>
-        <link
-            rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-            crossorigin="anonymous"
-        />
-        <link rel="stylesheet" href="/css/main.css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<head>
+<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">
+	Punt de llibres</title>
+<!-- <link -->
+<!-- rel="stylesheet" -->
+<!-- href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" -->
+<!-- integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" -->
+<!-- crossorigin="anonymous" -->
+<link rel="stylesheet" href="/css/main.css" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></
         <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-    </head>
-
-    <body class="container">
-        <header>
-            <h1>Punt de llibres</h1>
-        </header>
-        <section layout:fragment="content">
-            <p>Page content goes here</p>
-        </section>
-        <footer>
-            <p class="text-center">
-                Punt de llibres - Tots els drets reservats
-            </p>
-            <p layout:fragment="footer"></p>
-        </footer>
-        <th:block layout:fragment="script"></th:block>
-    </body>
+</head>
+<body class="container">
+	<header>
+		<h1>Punt de llibres</h1>
+	</header>
+	<section layout:fragment="content">
+		<p>Page content goes here</p>
+	</section>
+	<footer>
+		<p class="text-center">Punt de llibres - Tots els drets reservats
+		</p>
+		<p layout:fragment="footer"></p>
+	</footer>
+	<th:block layout:fragment="script"></th:block>
+</body>
 </html>
