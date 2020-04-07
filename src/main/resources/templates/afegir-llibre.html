@@ -17,7 +17,12 @@
                                 <input type="text" class="form-control" id="titol" placeholder="Títol" name="title">
                                 <input type="text" class="form-control" id="ISBN" placeholder="ISBN" name="isbn">
                                 <input type="text" class="form-control" id="autor" placeholder="Autor" name="authorName">
-                                <input type="text" class="form-control" id="editorial" placeholder="Editorial" name="publisherName">
+                                <div class="form-group">
+                                    <select class="form-control" id="editorial" name="publisherName">
+                                        <option selected value="">Editorial</option>
+                                        <option th:each="publisher : ${publishers}" th:attr="value=${publisher.id}">[[ ${publisher.name} ]]</option>
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <select class="form-control" id="genere" name="genreId">
                                         <option selected value="">Gènere</option>
@@ -36,14 +41,7 @@
                                         <option th:each="language : ${languages}" th:attr="value=${language.id}">[[ ${language.name} ]]</option>
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <select class="form-control" id="estatConserv">
-                                        <option selected value="">Estat de conservació</option>
-                                        <option value="com_nou">Com nou</option>
-                                        <option value="en_bon_estat">En bon estat</option>
-                                        <option value="accpetable">Acceptable</option>
-                                    </select>
-                                </div>
+                                <input type="text" class="form-control" id="estatConserv" placeholder="Estat de conservació" name="preservation">
                                 <input type="text" class="form-control" id="edicio" placeholder="Edició">
                             </div>
                             <div class="col">
