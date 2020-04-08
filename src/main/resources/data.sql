@@ -22,58 +22,58 @@ INSERT INTO users (username, password, name, last_name, location, geo_location, 
 INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('marc_gm', crypt('12345678', gen_salt('bf')), 'Marc', 'Gonzalez Moreno', '08003', NULL, 'marcgm@test.cat', '2020-03-10 12:00:00', NULL, 0);
 
 
-INSERT INTO authors (id, name) VALUES (1, 'Frank Herbert');
-INSERT INTO authors (id, name) VALUES (2, 'Joseph Campbell');
-INSERT INTO authors (id, name) VALUES (3, 'Dashiell Hammet');
-INSERT INTO authors (id, name) VALUES (4, 'Patricia Highsmith');
-INSERT INTO authors (id, name) VALUES (5, 'Richard Ford');
-INSERT INTO authors (id, name) VALUES (6, 'Eduardo Mendoza');
-INSERT INTO authors (id, name) VALUES (7, 'Matilde Asensi');
-INSERT INTO authors (id, name) VALUES (8, 'Enric V. Alepuz Llopis');
+INSERT INTO authors (name) VALUES ('Frank Herbert');
+INSERT INTO authors (name) VALUES ('Joseph Campbell');
+INSERT INTO authors (name) VALUES ('Dashiell Hammet');
+INSERT INTO authors (name) VALUES ('Patricia Highsmith');
+INSERT INTO authors (name) VALUES ('Richard Ford');
+INSERT INTO authors (name) VALUES ('Eduardo Mendoza');
+INSERT INTO authors (name) VALUES ('Matilde Asensi');
+INSERT INTO authors (name) VALUES ('Enric V. Alepuz Llopis');
 
 
-INSERT INTO genres (id, name) VALUES (1, 'Novel·la');
-INSERT INTO genres (id, name) VALUES (2, 'Assaig');
-INSERT INTO genres (id, name) VALUES (3, 'Poesia');
+INSERT INTO genres (name) VALUES ('Novel·la');
+INSERT INTO genres (name) VALUES ('Assaig');
+INSERT INTO genres (name) VALUES ('Poesia');
 
 
-INSERT INTO languages (id, name) VALUES (1, 'Català');
-INSERT INTO languages (id, name) VALUES (2, 'Castellà');
-INSERT INTO languages (id, name) VALUES (3, 'Anglès');
+INSERT INTO languages (name) VALUES ('Català');
+INSERT INTO languages (name) VALUES ('Castellà');
+INSERT INTO languages (name) VALUES ('Anglès');
 
 
-INSERT INTO publishers (id, name) VALUES (1, 'Anagrama');
-INSERT INTO publishers (id, name) VALUES (2, 'Edicions 62');
-INSERT INTO publishers (id, name) VALUES (3, 'Fondo de Cultura Económica');
-INSERT INTO publishers (id, name) VALUES (4, 'Hodder');
-INSERT INTO publishers (id, name) VALUES (5, 'Planeta');
-INSERT INTO publishers (id, name) VALUES (6, 'Círculo de lectores');
-INSERT INTO publishers (id, name) VALUES (7, 'Alféizar');
+INSERT INTO publishers (name) VALUES ('Anagrama');
+INSERT INTO publishers (name) VALUES ('Edicions 62');
+INSERT INTO publishers (name) VALUES ('Fondo de Cultura Económica');
+INSERT INTO publishers (name) VALUES ('Hodder');
+INSERT INTO publishers (name) VALUES ('Planeta');
+INSERT INTO publishers (name) VALUES ('Círculo de lectores');
+INSERT INTO publishers (name) VALUES ('Alféizar');
 
 
-INSERT INTO themes (id, name) VALUES (1, 'Ciència-ficció');
-INSERT INTO themes (id, name) VALUES (2, 'Antropologia');
-INSERT INTO themes (id, name) VALUES (3, 'Novel·la negra');
-INSERT INTO themes (id, name) VALUES (4, 'Suspens');
-INSERT INTO themes (id, name) VALUES (5, 'Realisme social');
-INSERT INTO themes (id, name) VALUES (6, 'Guerra civil i postguerra');
-INSERT INTO themes (id, name) VALUES (7, 'Aventures');
+INSERT INTO themes (name) VALUES ('Ciència-ficció');
+INSERT INTO themes (name) VALUES ('Antropologia');
+INSERT INTO themes (name) VALUES ('Novel·la negra');
+INSERT INTO themes (name) VALUES ('Suspens');
+INSERT INTO themes (name) VALUES ('Realisme social');
+INSERT INTO themes (name) VALUES ('Guerra civil i postguerra');
+INSERT INTO themes (name) VALUES ('Aventures');
 
 INSERT INTO book_statuses (name) VALUES ('disponible');
 INSERT INTO book_statuses (name) VALUES ('no disponible');
 INSERT INTO book_statuses (name) VALUES ('reservat');
 
 
-INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id) VALUES (1, '84-339-2055-3', 'Mar de fondo', 4, 1, 1, 4, 2, '1ª Edició', '2020-03-10 12:00:00', 'Coberta desencolada', 1, 1);
-INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id) VALUES (2, '84-339-3022-2', 'El juego del escondite', 4, 1, 1, 1, 2, '3ª Edicio', '2020-03-11 12:00:00', 'Fulles envellides', 1, 1);
-INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id) VALUES (3, '84-297-1701-3', 'La clau de vidre', 3, 2, 1, 3, 1, '1ª Edició', '2020-03-12 12:00:00', 'Bon estat', 1, 2);
-INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id) VALUES (4, '978-607-16-2013-2', 'El héroe de las mil caras', 2, 3, 2, 2, 2, '2ª edició - 2ª reimpressió', '2020-03-13 12:00:00', 'Bon estat', 1, 3);
-INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id) VALUES (5, '978 0 340 96019 69', 'Dune', 1, 4, 1, 1, 3, '50th anniversary edition', '2020-03-13 14:00:00', 'Capa plàstica de la coberta deteriorada', 1, 2);
-INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id) VALUES (6, '978-84-339-7938-4', 'Francamente, Frank', 5, 1, 1, 5, 2, '1ª Edició', '2020-03-14 08:00:00', 'Bon estat', 1, 6);
-INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id) VALUES (7, '978-84-08-09725-9', 'Riña de gatos', 6, 5, 1, 6, 2, '1ª Edició', '2020-03-14 10:00:00', 'Petita ruptura en la sobrecoberta', 1, 5);
-INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id) VALUES (8, '978-84-672-2978-3', 'Tierra Firme', 7, 6, 1, 7, 2, '1ª Edició', '2020-03-14 14:00:00', 'Molt bon estat', 1, 5);
-INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id) VALUES (9, '13:978-84-948248-9-0', 'Yo pongo el muerto', 8, 7, 1, 6, 2, '1ª Edició', '2020-03-14 16:00:00', 'Molt bon estat. Amb dedicatòria personal', 1, 7);
-INSERT INTO books (id, isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id) VALUES (10, '13:978-84-947805-3-0', 'Huidos', 8, 7, 1, 6, 2, '1ª Edició', '2020-03-15 08:00:00', 'Molt bon estat. Amb dedicatòria personal', 1, 9);
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('84-339-2055-3', 'Mar de fondo', 4, 1, 1, 4, 2, '1ª Edició', '2020-03-10 12:00:00', 'Coberta desencolada', 1, 1, 'mar_de_fondo.jpg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('84-339-3022-2', 'El juego del escondite', 4, 1, 1, 1, 2, '3ª Edicio', '2020-03-11 12:00:00', 'Fulles envellides', 1, 1, 'el_juego_del_escondite.jpg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('84-297-1701-3', 'La clau de vidre', 3, 2, 1, 3, 1, '1ª Edició', '2020-03-12 12:00:00', 'Bon estat', 1, 2, 'la_clau_de_vidre.jpg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-607-16-2013-2', 'El héroe de las mil caras', 2, 3, 2, 2, 2, '2ª edició - 2ª reimpressió', '2020-03-13 12:00:00', 'Bon estat', 1, 3, 'el_heroe_de_las_mil_caras.jpg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978 0 340 96019 69', 'Dune', 1, 4, 1, 1, 3, '50th anniversary edition', '2020-03-13 14:00:00', 'Capa plàstica de la coberta deteriorada', 1, 2, 'dune.jpg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-84-339-7938-4', 'Francamente, Frank', 5, 1, 1, 5, 2, '1ª Edició', '2020-03-14 08:00:00', 'Bon estat', 1, 6, 'francamente_frank.jpg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-84-08-09725-9', 'Riña de gatos', 6, 5, 1, 6, 2, '1ª Edició', '2020-03-14 10:00:00', 'Petita ruptura en la sobrecoberta', 1, 5, 'rina_de_gatos.jpg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-84-672-2978-3', 'Tierra Firme', 7, 6, 1, 7, 2, '1ª Edició', '2020-03-14 14:00:00', 'Molt bon estat', 1, 5, 'tierra_firme.jpg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('13:978-84-948248-9-0', 'Yo pongo el muerto', 8, 7, 1, 6, 2, '1ª Edició', '2020-03-14 16:00:00', 'Molt bon estat. Amb dedicatòria personal', 1, 7, 'yo_pongo_el_muerto.jpg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('13:978-84-947805-3-0', 'Huidos', 8, 7, 1, 6, 2, '1ª Edició', '2020-03-15 08:00:00', 'Molt bon estat. Amb dedicatòria personal', 1, 9, 'huidos.jpg');
 
 INSERT INTO exchange_statuses(name) VALUES ('iniciat');
 INSERT INTO exchange_statuses(name) VALUES ('complet');
