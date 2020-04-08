@@ -38,6 +38,7 @@
                         v-for="book in booksThatTheOtherUserWants(exchange.books)"
                     >
                         <p>Títol: {{ book.book.title }}</p>
+                        <img :src="`/img/covers/${book.book.cover}`">
                     </li>
 
                     <h5>Llibres que jo vull obtenir</h5>
@@ -46,6 +47,7 @@
                         v-for="book in booksThatIWant(exchange.books)"
                     >
                         <p>Títol: {{ book.book.title }}</p>
+                        <img :src="`/img/covers/${book.book.cover}`">
                     </li>
                 </ul>
 
@@ -82,6 +84,7 @@
                         v-for="book in booksThatTheOtherUserWants(exchange.books)"
                     >
                         <p>Títol: {{ book.book.title }}</p>
+                        <img :src="`/img/covers/${book.book.cover}`">
                     </li>
 
                     <h5>Llibres que jo vull obtenir</h5>
@@ -90,6 +93,7 @@
                         v-for="book in booksThatIWant(exchange.books)"
                     >
                         <p>Títol: {{ book.book.title }}</p>
+                        <img :src="`/img/covers/${book.book.cover}`">
                     </li>
                 </ul>
 
@@ -123,7 +127,7 @@
                 <ul class="books-in-exchange">
                     <h5>
                         Llibres que {{ getOtherUser(exchange).user.username }}
-                        vol obtenir
+                        obtindrà
                     </h5>
                     <li
                         class="mb-3"
@@ -132,7 +136,7 @@
                         <p>Títol: {{ book.book.title }}</p>
                     </li>
 
-                    <h5>Llibres que jo vull obtenir</h5>
+                    <h5>Llibres que jo obtindré</h5>
                     <li
                         class="mb-3"
                         v-for="book in booksThatIWant(exchange.books)"
