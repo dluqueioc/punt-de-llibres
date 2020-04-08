@@ -2,24 +2,160 @@
 <html layout:decorate="~{layout/base.html}">
     <head>
         <title>Llibres disponibles</title>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/css/llibres-disponibles.css"
+        />
     </head>
 
     <body>
-        <section layout:fragment="content">
-            <ul>
-                <li sec:authorize="hasRole('ROLE_USER')"
-                    th:each="book : ${books}">
-                    <p>[[${book.author.name + ' - ' + book.title + ' (' + book.user.username + ')'}]]</p>
-                </li>
-                <li sec:authorize="isAnonymous()"
-                    th:each="book : ${books}">
-                    <p>[[${book.author.name + ' - ' + book.title}]]</p>
-                </li>
-            </ul>
+        <section
+            layout:fragment="content"
+            id="app"
+            class="llibres-disponibles-page"
+            v-cloak
+        >
+            <h1 class="text-center mb-5">
+                Llibres disponibles {{ filteredByUser ? fromUserText : '' }}
+            </h1>
+
+            <p v-if="! loggedIn">
+                Per veure quins usuaris tenen aquest llibre disponible i demanar
+                un intercanvi, hauràs d'iniciar sessió
+            </p>
+
+            <div class="row filter my-4">
+                <div class="form-group col-3">
+                    <label>Filtra per...</label>
+                    <select class="form-control" v-model="filter">
+                        <option value="author">Autor</option>
+                        <option value="title">Títol</option>
+                        <option value="genre">Gènere</option>
+                        <option value="theme">Temàtica</option>
+                        <option value="language">Idioma</option>
+                        <option value="publisher">Editorial</option>
+                    </select>
+                </div>
+                <div class="form-group col-offset-1 col-8">
+                    <label>&nbsp;</label>
+                    <select
+                        class="form-control"
+                        v-if="filter && showSelect"
+                        v-model="selectFilterValue"
+                    >
+                        <option v-for="option in options">{{ option }}</option>
+                    </select>
+                    <div v-if="filter && filter !== 'owner' && ! showSelect" class="input-group">
+                        <input
+                            type="text"
+                            class="form-control"
+                            v-model="inputFilterValue"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-list">
+                <transition-group name="fade" mode="out-in">
+                    <div
+                        :key="book.id"
+                        v-for="book in booksShown"
+                        class="d-flex flex-row flex-wrap card mb-5"
+                    >
+                        <div
+                            class="book-image w-25 p-3 d-flex justify-content-center align-items-center border-right"
+                        >
+                            <img
+                                src="https://picsum.photos/100/160"
+                                :alt="book.title"
+                            />
+                        </div>
+                        <div
+                            class="book-details w-75 md-w-50 px-5 py-3 flex-grow-1"
+                        >
+                            <h3 class="font-weight-bold">
+                                {{ book.title }}
+                            </h3>
+                            <div class="mb-5">
+                                <h3 class="author-isbn text-muted">
+                                    <em>{{ book.author.name }}</em>
+                                    <span>({{ book.isbn }})</span>
+                                </h3>
+                            </div>
+                            <div class="row">
+                                <p class="col-5">
+                                    <span class="font-weight-bold">Editorial: </span
+                                    >{{ book.publisher.name }}
+                                </p>
+                                <p class="col-6 col-offset-1">
+                                    <span class="font-weight-bold">Gènere: </span>{{
+                                    book.genre.name }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p class="col-5">
+                                    <span class="font-weight-bold">Temàtica: </span>{{
+                                    book.theme.name }}
+                                </p>
+                                <p class="col-6 col-offset-1">
+                                    <span class="font-weight-bold">Idioma: </span>{{
+                                    book.language.name }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p class="col-5">
+                                    <span class="font-weight-bold">Edició: </span>{{
+                                    book.edition }}
+                                </p>
+                                <p class="col-6 col-offset-1">
+                                    <span class="font-weight-bold"
+                                        >Estat de conservació: </span
+                                    >{{ book.preservation }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="border-top w-100 p-3" v-if="loggedIn">
+                            <div class="d-flex row">
+                                <div
+                                    class="col-4 d-flex align-items-center justify-content-center"
+                                >
+                                    Disponible de l'usuari: {{
+                                    book.user.username }}
+                                </div>
+                                <div
+                                    class="col-4 d-flex align-items-center justify-content-center"
+                                >
+                                    <img
+                                        class="user-image rounded-circle"
+                                        src="/img/default-profile-picture.jpg"
+                                    />
+                                </div>
+                                <div
+                                    class="col-4 d-flex align-items-center justify-content-center"
+                                >
+                                    <img
+                                        class="user-image"
+                                        src="/img/arrows.svg"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </transition-group>
+            </div>
         </section>
 
         <footer>
             <p layout:fragment="footer"></p>
         </footer>
+
+        <th:block layout:fragment="script">
+            <script th:inline="javascript">
+                /*<![CDATA[*/ window.loggedIn = /*[[${loggedIn}]]*/ null;
+                /*]]>*/
+            </script>
+            <script th:src="@{/js/llibres-disponibles.js}"></script>
+        </th:block>
     </body>
 </html>

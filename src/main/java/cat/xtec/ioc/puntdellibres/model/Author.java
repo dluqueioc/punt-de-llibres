@@ -14,6 +14,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Entity
@@ -32,6 +35,7 @@ public class Author {
   @ManyToMany(mappedBy = "authorsLiked")
   private Set<User> likedBy;
 
+  @JsonIgnore
   @OneToMany(
     mappedBy = "author",
     cascade = CascadeType.ALL,

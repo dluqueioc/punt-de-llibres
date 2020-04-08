@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
-@Table(name = "exchange_statuses")
+@Table(name = "book_statuses")
 @Data
 public class BookStatus {
   @Id

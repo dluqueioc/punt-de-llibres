@@ -6,17 +6,15 @@
 
     <body>
         <section layout:fragment="content">
-            <p>This is a paragraph from content page 1</p>
-
             <ul>
                 <li th:each="book : ${books}">
-                    <p>[[${book.author.name + ' - ' + book.title + ' (' + book.user.username + ')'}]]</p>
+                    <p>[[${book.author.name + ' - ' + book.title + ' (' + book.user.username + ', ' + book.bookStatus.name + ')'}]]</p>
                 </li>
             </ul>
 
             <p th:if="${status}">[[${status}]]</p>
 
-            <button onclick="logout()">logout</button>
+            <button sec:authorize="hasRole('ROLE_USER')" onclick="logout()">Sortir</button>
 
             <script>
                 function logout() {
