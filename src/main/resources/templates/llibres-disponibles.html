@@ -7,11 +7,6 @@
 	href="/css/llibres-disponibles.css" />
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <script type="/js/llibres-disponibles.js"></script>
-<script>
-	$(document).ready(function() {
-		$('select').material_select();
-	});
-</script>
 </head>
 
 <body>
@@ -36,8 +31,9 @@
 		<div class="row filter">
 			<div class="col s12">
 				<div class="row">
-					<div class="input-field input-group col s4">
-						<select class="input-field" v-model="filter">
+					<div class="input-field col s4">
+						<select v-model="filter" id="select-type">
+							<option value="" disabled selected>Tria una opció...</option>
 							<option value="author">Autor</option>
 							<option value="title">Títol</option>
 							<option value="genre">Gènere</option>
@@ -46,23 +42,48 @@
 							<option value="publisher">Editorial</option>
 						</select> <label>Filtra per...</label>
 					</div>
-					<div class="input-field input-group col s8">
-						<select class="form-control" v-if="filter && showSelect"
-							v-model="selectFilterValue">
-							<option v-for="option in options">{{ option }}</option>
+
+					<div class="input-field col s8" id="select-genre-container" v-show="filter == 'genre'">
+						<select id="select-genre">
+							<option value="" disabled selected>Tria una opció...</option>
+							<option v-for="option in getOptions('genre')" :value="option">{{ option }}</option>
 						</select>
-						<div v-if="filter && filter !== 'owner' && ! showSelect"
-							class="input-group">
-							<input type="text" class="form-control"
-								v-model="inputFilterValue" />
+					</div>
+
+					<div class="input-field col s8" id="select-language-container" v-show="filter == 'language'">
+						<select id="select-language">
+							<option value="" disabled selected>Tria una opció...</option>
+							<option v-for="option in getOptions('language')" :value="option">{{ option }}</option>
+						</select>
+					</div>
+
+					<div class="input-field col s8" id="select-publisher-container" v-show="filter == 'publisher'">
+						<select id="select-publisher">
+							<option value="" disabled selected>Tria una opció...</option>
+							<option v-for="option in getOptions('publisher')" :value="option">{{ option }}</option>
+						</select>
+					</div>
+
+					<div class="input-field col s8" id="select-theme-container" v-show="filter == 'theme'">
+						<select id="select-theme">
+							<option value="" disabled selected>Tria una opció...</option>
+							<option v-for="option in getOptions('theme')" :value="option">{{ option }}</option>
+						</select>
+					</div>
+
+					<div class="input-field col s8" id="input-value-container" v-show="['author', 'title'].includes(filter)">
+						<div class="input-field">
+							<input type="text" v-model="inputFilterValue" id="input-value" />
 						</div>
 					</div>
+
 				</div>
 			</div>
 		</div>
 
 		<!-- Book cards -->
-		<div class="row" :key="book.id" v-for="book in booksShown">
+		<transition-group name="fade" mode="out-in">
+			<div class="row" :key="book.id" v-for="book in booksShown">
 			<div class="col s12">
 				<div class="card horizontal hoverable teal lighten-5">
 					<div class="col s3 card-image">
@@ -103,7 +124,6 @@
 							</div>
 						</div>
 						<div class="row card-action" v-if="loggedIn">
-
 							<div class="col s4 center-align">
 								<p>Disponible de l'usuari: {{ book.user.username }}</p>
 							</div>
@@ -120,7 +140,8 @@
 					</div>
 				</div>
 			</div>
-		</div>
+			</div>
+		</transition-group>
 
 <!-- Versió Bootstrap del filtre que funcionava -->
 
