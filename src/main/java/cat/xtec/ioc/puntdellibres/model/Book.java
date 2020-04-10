@@ -103,6 +103,9 @@ public class Book {
   @Column(name = "book_status_id")
   private Integer bookStatusId = 1;
 
+  @Column(name = "cover")
+  private String cover = "default.jpg";
+
   @CreationTimestamp
   private LocalDateTime createdDate;
 }

@@ -3,18 +3,16 @@ package cat.xtec.ioc.puntdellibres.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class UserWantsBookId implements Serializable {
+public class UserApprovesExchangeId implements Serializable {
   private static final long serialVersionUID = 1L;
   private Integer exchangeId;
   private Integer userId;
-  private Integer bookId;
 
-  public UserWantsBookId() {}
+  public UserApprovesExchangeId() {}
 
-  public UserWantsBookId (Integer exchangeId, Integer userId, Integer bookId) {
+  public UserApprovesExchangeId (Integer exchangeId, Integer userId) {
       this.exchangeId = exchangeId;
       this.userId = userId;
-      this.bookId = bookId;
   }
 
   @Override
@@ -22,11 +20,10 @@ public class UserWantsBookId implements Serializable {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
 
-    UserWantsBookId userWantsBookId = (UserWantsBookId) o;
+    UserApprovesExchangeId userApprovesExchangeId = (UserApprovesExchangeId) o;
 
-    return exchangeId.equals(userWantsBookId.exchangeId) &&
-      userId.equals(userWantsBookId.userId) &&
-      bookId.equals(userWantsBookId.bookId);
+    return exchangeId.equals(userApprovesExchangeId.exchangeId) &&
+        userId.equals(userApprovesExchangeId.userId);
   }
 
   @Override

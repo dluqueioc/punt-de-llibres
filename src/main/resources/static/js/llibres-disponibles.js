@@ -142,5 +142,9 @@ new Vue({
 
             return options[prop];
         },
-    },
+
+        async requestBook(bookId) {
+            const res = await $.post(`/api/exchanges/${bookId}`);
+        }
+    }
 });

@@ -17,10 +17,10 @@ import org.hibernate.annotations.OnDeleteAction;
 import lombok.Data;
 
 @Entity
-@Table(name = "user_wants_book")
-@IdClass(UserWantsBookId.class)
+@Table(name = "user_approves_exchange")
+@IdClass(UserApprovesExchangeId.class)
 @Data
-public class UserWantsBook {
+public class UserApprovesExchange {
   @JsonIgnore
   @Id
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -41,12 +41,6 @@ public class UserWantsBook {
   @Column(name = "user_id")
   private Integer userId;
 
-  @Id
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "book_id", insertable = false, updatable = false)
-  @OnDelete(action = OnDeleteAction.CASCADE)
-  private Book book;
-
-  @Column(name = "book_id")
-  private Integer bookId;
+  @Column(name = "approved")
+  Boolean approved;
 }
