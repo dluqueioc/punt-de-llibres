@@ -61,3 +61,6 @@ p {
 	display: none;
 }
 
+#input-value-container {
+	margin-top: 0;
+}

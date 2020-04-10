@@ -102,7 +102,7 @@ new Vue({
             var vm = this;
 
             Vue.nextTick(() => {
-                $('select').material_select();
+                $('select').formSelect();
 
                 $('#select-type').change(function (e) {
                     const { value } = e.target;
@@ -110,7 +110,7 @@ new Vue({
                     vm.filter = $(this).val();
 
                     if (['author', 'title'].includes(value)) {
-                        $('#input-value-container').val('')
+                        $('#input-value-container').val('');
                     } else {
                         vm.selectFilterValue = $(`#select-${value}`).val();
                     }
@@ -118,18 +118,23 @@ new Vue({
 
                 const filters = ['genre', 'language', 'publisher', 'theme'];
 
-                filters.forEach(filter => {
+                filters.forEach((filter) => {
                     $(`#select-${filter}`).change(function (e) {
                         vm.selectFilterValue = $(this).val();
                     });
                 });
 
                 $("#input-value-container, [id^='select-']").hide();
+
+                M.AutoInit();
             });
         },
 
         getOptions(prop) {
-            return this.books.map(el => el[prop].name).filter((el, index, self) => self.indexOf(el) === index).sort();
+            return this.books
+                .map((el) => el[prop].name)
+                .filter((el, index, self) => self.indexOf(el) === index)
+                .sort();
         },
 
         options(prop) {
@@ -145,6 +150,6 @@ new Vue({
 
         async requestBook(bookId) {
             const res = await $.post(`/api/exchanges/${bookId}`);
-        }
-    }
+        },
+    },
 });
