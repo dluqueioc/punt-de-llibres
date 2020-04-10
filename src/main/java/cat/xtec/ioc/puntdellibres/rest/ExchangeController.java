@@ -75,6 +75,11 @@ public class ExchangeController {
             exchange.setStatusId(3);
          } else {
             exchange.setStatusId(4);
+            List<UserWantsBook> booksInExchange = exchange.getBooks();
+            for (UserWantsBook bookWanted : booksInExchange) {
+               Book book = bookWanted.getBook();
+               book.setBookStatusId(3);
+            }
          }
       }
 
@@ -107,6 +112,7 @@ public class ExchangeController {
             Book book = bookRepository.findById(bookInExchange.getBookId()).get();
             Integer previousOwner = book.getUserId();
             book.setUserId(previousOwner == myUserId ? otherUserId : myUserId);
+            book.setBookStatusId(2);
             bookRepository.save(book);
          }
       }
