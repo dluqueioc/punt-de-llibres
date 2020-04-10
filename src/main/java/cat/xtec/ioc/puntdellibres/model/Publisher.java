@@ -26,6 +26,4 @@ public class Publisher {
   @Size(min = 3, max = 50)
   private String name;
 
-  @ManyToMany(mappedBy = "authorsLiked")
-  private Set<User> likedBy;
 }

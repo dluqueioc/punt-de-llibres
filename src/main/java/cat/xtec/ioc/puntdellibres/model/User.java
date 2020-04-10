@@ -95,6 +95,13 @@ public class User {
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "language_id"))
   private Set<Language> languagesLiked;
+  
+  @ManyToMany
+  @JoinTable(
+    name = "user_likes_style",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "style_id"))
+  private Set<Style> stylesLiked;
 
   @OneToMany(
     mappedBy = "user",

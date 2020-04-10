@@ -45,24 +45,29 @@ public class Book {
   // @Size(min = 1, max = 50)
   // private String author;
 
-  @Column(name = "publisher")
-  @Size(min = 1, max = 50)
-  private String publisher;
+  //@Column(name = "publisher")
+  //@Size(min = 1, max = 50)
+  //private String publisher;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "author_id", nullable = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
   private Author author;
 
-  // @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  // @JoinColumn(name = "publisher_id", nullable = false)
-  // @OnDelete(action = OnDeleteAction.CASCADE)
-  // private Publisher publisher;
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "publisher_id", nullable = false)
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  private Publisher publisher;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "genre_id", nullable = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
   private Genre genre;
+  
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "style_id", nullable = false)
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  private Style style;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "language_id", nullable = false)
