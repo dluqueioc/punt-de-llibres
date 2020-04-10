@@ -95,6 +95,14 @@ INSERT INTO book_statuses (name) VALUES ('disponible');
 INSERT INTO book_statuses (name) VALUES ('no disponible');
 INSERT INTO book_statuses (name) VALUES ('reservat');
 
+INSERT INTO exchange_statuses(name) VALUES ('iniciat');
+INSERT INTO exchange_statuses(name) VALUES ('complet');
+INSERT INTO exchange_statuses(name) VALUES ('pendent aprovació');
+INSERT INTO exchange_statuses(name) VALUES ('aprovat');
+INSERT INTO exchange_statuses(name) VALUES ('rebutjat');
+INSERT INTO exchange_statuses(name) VALUES ('finalitzat');
+INSERT INTO exchange_statuses(name) VALUES ('eliminat');
+
 INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('84-339-2055-3', 'Mar de fondo', 4, 1, 1, 4, 2, '1ª Edició', '2020-03-10 12:00:00', 'Coberta desencolada', 1, 1, 'mar_de_fondo.jpg');
 INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('84-339-3022-2', 'El juego del escondite', 4, 1, 1, 1, 2, '3ª Edicio', '2020-03-11 12:00:00', 'Fulles envellides', 1, 1, 'el_juego_del_escondite.jpg');
 INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('84-297-1701-3', 'La clau de vidre', 3, 2, 1, 3, 1, '1ª Edició', '2020-03-12 12:00:00', 'Bon estat', 1, 2, 'la_clau_de_vidre.jpg');
