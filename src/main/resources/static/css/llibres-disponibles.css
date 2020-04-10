@@ -1,23 +1,63 @@
 .user-image {
-  width: 100px;
+	max-width: 100px;
+	max-height: 100px;
+}
+
+.arrows-image {
+	max-width: 80px;
+	max-height: 80px;
+}
+
+.negreta {
+	font-weight: bold;
+}
+
+p {
+	font-size: 12;
+}
+
+.column {
+  float: left;
+  width: 50%;
+}
+
+.dades {
+	margin: 20px;
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+	transition: opacity .5s;
 }
+
 .fade-enter, .fade-leave-to {
-  opacity: 0;
+	opacity: 0;
 }
 
-h3.author-isbn {
-  vertical-align: text-bottom;
+.author-isbn {
+	vertical-align: text-bottom;
 }
 
-h3.author-isbn span {
-  font-size: 14px;
-  vertical-align: middle;
+.author-isbn span {
+	font-size: 14px;
+	vertical-align: middle;
+}
+
+#imgLlibre {
+	max-width: 250px;
+	max-height: 310px;
+	padding-left: 10px;
+	margin: 40px;
+	margin-left: auto;
+  	margin-right: auto;
+}
+
+.card.horizontal {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
 }
 
 [v-cloak] {
-  display: none;
+	display: none;
 }
+

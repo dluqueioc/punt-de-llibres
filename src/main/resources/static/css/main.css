@@ -6,3 +6,15 @@ header h1 {
 footer {
   margin-top: 50px;
 }
+
+h3 {
+	text-align: center;
+}
+
+.info {
+	text-align: center;
+}
+
+.botoSubmit {
+	margin: 20px;
+}

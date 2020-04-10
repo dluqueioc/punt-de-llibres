@@ -54,7 +54,7 @@ public class RoutesController {
 
   @GetMapping("/afegir-llibre")
   public String afegirLlibre(final Model model) {
-    model.addAttribute("publishers", publisherRepository.findAll());
+    //model.addAttribute("publishers", publisherRepository.findAll());
     model.addAttribute("genres", genreRepository.findAll());
     model.addAttribute("languages", languageRepository.findAll());
     model.addAttribute("themes", themeRepository.findAll());
