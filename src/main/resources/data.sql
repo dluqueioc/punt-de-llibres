@@ -27,6 +27,7 @@ INSERT INTO users (username, password, name, last_name, location, geo_location, 
 INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('Big_Mom', crypt('12345678', gen_salt('bf')), 'Noelia', 'Serrano', '08840', NULL, 'noelia@test.cat', '2020-03-10 12:40:00', NULL, 0);
 INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('Jenny_Oneil', crypt('12345678', gen_salt('bf')), 'Jennyfer', 'Garrido', '08830', NULL, 'jenny@test.cat', '2020-03-10 12:45:00', NULL, 0);
 INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('JordiMatik', crypt('12345678', gen_salt('bf')), 'Jordi', 'Montserrat', '08830', NULL, 'jordi@test.cat', '2020-03-10 12:45:00', NULL, 0);
+INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('Narcissique', crypt('12345678', gen_salt('bf')), 'Georgina', 'Soler', '08012', NULL, 'georgy@test.cat', '2020-03-12 12:55:00', NULL, 0);
 
 INSERT INTO authors (name) VALUES ('Frank Herbert');
 INSERT INTO authors (name) VALUES ('Joseph Campbell');
@@ -45,6 +46,8 @@ INSERT INTO authors (name) VALUES ('James Price & Zy Nicholson');
 INSERT INTO authors (name) VALUES ('Kentaro Miura');
 INSERT INTO authors (name) VALUES ('Plató');
 INSERT INTO authors (name) VALUES ('Stephen King');
+INSERT INTO authors (name) VALUES ('Anònim');
+INSERT INTO authors (name) VALUES ('Jaime Berenguer Amenós');
 
 INSERT INTO genres (name) VALUES ('Novel·la');
 INSERT INTO genres (name) VALUES ('Assaig');
@@ -53,6 +56,8 @@ INSERT INTO genres (name) VALUES ('Teatre');
 INSERT INTO genres (name) VALUES ('Manga');
 INSERT INTO genres (name) VALUES ('Guia');
 INSERT INTO genres (name) VALUES ('Diàleg');
+INSERT INTO genres (name) VALUES ('Gramàtica');
+INSERT INTO genres (name) VALUES ('Còmic americà');
 
 INSERT INTO languages (name) VALUES ('Català');
 INSERT INTO languages (name) VALUES ('Castellà');
@@ -76,6 +81,8 @@ INSERT INTO publishers (name) VALUES ('Third Éditions');
 INSERT INTO publishers (name) VALUES ('Panini Manga');
 INSERT INTO publishers (name) VALUES ('Piggyback');
 INSERT INTO publishers (name) VALUES ('Plaza Janés');
+INSERT INTO publishers (name) VALUES ('Bosch');
+INSERT INTO publishers (name) VALUES ('Debolsillo');
 
 INSERT INTO themes (name) VALUES ('Ciència-ficció');
 INSERT INTO themes (name) VALUES ('Antropologia');
@@ -90,6 +97,8 @@ INSERT INTO themes (name) VALUES ('Novela de terror');
 INSERT INTO themes (name) VALUES ('Discurs filosòfic');
 INSERT INTO themes (name) VALUES ('Manga seinen');
 INSERT INTO themes (name) VALUES ('Guia de videojoc');
+INSERT INTO themes (name) VALUES ('Educatiu');
+INSERT INTO themes (name) VALUES ('Poesia èpica');
 
 INSERT INTO book_statuses (name) VALUES ('disponible');
 INSERT INTO book_statuses (name) VALUES ('no disponible');
@@ -113,13 +122,16 @@ INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, lan
 INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-84-672-2978-3', 'Tierra Firme', 7, 6, 1, 7, 2, '1ª Edició', '2020-03-14 14:00:00', 'Molt bon estat', 1, 5, 'tierra_firme.jpg');
 INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('13:978-84-948248-9-0', 'Yo pongo el muerto', 8, 7, 1, 6, 2, '1ª Edició', '2020-03-14 16:00:00', 'Molt bon estat. Amb dedicatòria personal', 1, 7, 'yo_pongo_el_muerto.jpg');
 INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('13:978-84-947805-3-0', 'Huidos', 8, 7, 1, 6, 2, '1ª Edició', '2020-03-15 08:00:00', 'Molt bon estat. Amb dedicatòria personal', 1, 9, 'huidos.jpg');
-INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-0-521-61263-0', 'The Tragedy Of King Lear', 9, 8, 4, 8, 3, 'Edició de 2012', '2020-04-10 08:00:00', 'Amb subratllats i anotacions a llapis', 1, 12, 'cover.jpg');
-INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-0-19-953581-1', 'Hamlet', 9, 9, 4, 8, 3, 'Edició de 2008', '2020-04-10 08:50:00', 'Amb subratllats i anotacions a llapis', 1, 12, 'cover.jpg');
-INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-2-07-041239-6', 'Le Rouge et le Noir', 11, 11, 4, 9, 4, 'Edició de 2000', '2020-04-10 10:00:00', 'Pàgines envellides', 1, 17, 'cover.jpg');
-INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('84-206-3662-2', 'El banquete', 16, 12, 7, 11, 2, 'Setena reimpressió de 2005', '2020-04-11 12:44:00', 'Amb subratllats i anotacions a llapis', 1, 19, 'cover.jpg');
-INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('84-376-0539-3', 'Ensayos I', 10, 10, 2, 11, 2, 'Setena edició', '2020-04-12 13:59:00', 'En molt bon estat', 1, 13, 'cover.jpg');
-INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-84-01-33710-9', 'Duma Key', 17, 17, 1, 10, 2, 'Primera edició', '2020-04-12 18:00:00', 'Edició tapa dura ben conservada', 1, 18, 'cover.jpg');
-INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-0-521-61263-0', 'Crime and Punishment', 13, 13, 1, 9, 4, 'Translation by Pevear and Volokhonsky', '2020-04-13 23:59:00', 'Com nou', 1, 13, 'cover.jpg');
-INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-2-37784-106-6', 'À l''encre des Tènebres', 12, 14, 2, 1, 4, 'Primera edició', '2020-04-14 08:00:00', 'Edició tapa dura com nova', 1, 14, 'cover.jpg');
-INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-1-906064-83-9', 'Dragon Age II, la guía completa oficial', 14, 16, 6, 13, 2, '1ª Edició', '2020-04-14 18:30:00', 'Edició tapa tova en molt bon estat', 1, 15, 'cover.jpg');
-INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-84-9167-015-5', 'Maximum Berserk 15', 15, 1, 5, 12, 2, '1ª Edició', '2020-04-16 08:30:00', 'Només llegit una vegada', 1, 16, 'cover.jpg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-0-521-61263-0', 'The Tragedy Of King Lear', 9, 8, 4, 8, 3, 'Edició de 2012', '2020-04-10 08:00:00', 'Amb subratllats i anotacions a llapis', 1, 12, 'the_tragedy_of_king_lear.jpeg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-0-19-953581-1', 'Hamlet', 9, 9, 4, 8, 3, 'Edició de 2008', '2020-04-10 08:50:00', 'Amb subratllats i anotacions a llapis', 1, 12, 'hamlet.jpeg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-2-07-041239-6', 'Le Rouge et le Noir', 11, 11, 1, 9, 4, 'Edició de 2000', '2020-04-10 10:00:00', 'Pàgines envellides', 1, 17, 'le_rouge_et_le_noir.jpeg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('84-206-3662-2', 'El banquete', 16, 12, 7, 11, 2, 'Setena reimpressió de 2005', '2020-04-11 12:44:00', 'Amb subratllats i anotacions a llapis', 1, 19, 'el_banquete.jpeg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('84-376-0539-3', 'Ensayos I', 10, 10, 2, 11, 2, 'Setena edició', '2020-04-12 13:59:00', 'En molt bon estat', 1, 13, 'ensayos_i.jpeg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-84-01-33710-9', 'Duma Key', 17, 17, 1, 10, 2, 'Primera edició', '2020-04-12 18:00:00', 'Edició tapa dura ben conservada', 1, 18, 'duma_key.jpeg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-0-521-61263-0', 'Crime and Punishment', 13, 13, 1, 9, 3, 'Translation by Pevear and Volokhonsky', '2020-04-13 23:59:00', 'Com nou', 1, 13, 'crime_and_punishment.jpeg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-2-37784-106-6', 'Berserk À l''encre des Tènebres', 12, 14, 2, 1, 4, 'Primera edició', '2020-04-14 08:00:00', 'Edició tapa dura com nova', 1, 14, 'berserk_a_lencre_des_tenebres.jpeg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-1-906064-83-9', 'Dragon Age II, la guía completa oficial', 14, 16, 6, 13, 2, '1ª Edició', '2020-04-14 18:30:00', 'Edició tapa tova en molt bon estat', 1, 15, 'dragon_age_ii_la_guia_oficial_completa.jpeg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-84-9167-015-5', 'Maximum Berserk 15', 15, 1, 5, 12, 2, '1ª Edició', '2020-04-16 08:30:00', 'Només llegit una vegada', 1, 16, 'maximum_berserk_1.jpeg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-84-7676-964-5', 'Gramática griega', 19, 18, 8, 14, 2, '37ª Edició', '2020-04-16 08:35:00', 'Com nou', 1, 20, 'gramatica_griega.jpeg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('84-376-0426-5', 'Cantar de Roldán', 18, 10, 3, 15, 2, '8ª Edició', '2020-04-16 18:35:00', 'Amb subratllats i anotacions a llapis però ben conservat', 1, 20, 'cantar_de_roldan.jpeg');
+INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-84-8346-651-3', 'El nacimiento del pistolero (La Torre Oscura cómic 1)', 17, 19, 9, 1, 2, '1ª Edició', '2020-04-16 22:35:00', 'Com nou', 1, 18, 'el_nacimiento_del_pistolero_comic.jpeg');

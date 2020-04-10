@@ -1,7 +1,7 @@
 $(document).ready(function () {
     // var token = $("meta[name='_csrf']").attr("content");
     // var header = $("meta[name='_csrf_header']").attr("content");
-    $('select').material_select();
+    $('select').formSelect();
     // $(document).ajaxSend(function (e, xhr, options) {
     //     xhr.setRequestHeader(header, token);
     // });
