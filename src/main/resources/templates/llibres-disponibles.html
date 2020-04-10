@@ -219,13 +219,11 @@
                                             src="/img/default-profile-picture.jpg"
                                         />
                                     </div>
-                                    <div class="col s4 center-align">
-                                        <a href="#" target="_blank">
-                                            <img
-                                                class="arrows-image responsive-img"
-                                                src="/img/arrows.svg"
-                                            />
-                                        </a>
+                                    <div class="col s4 center-align" @click="requestBook(book.id)">
+                                        <img
+                                            class="arrows-image responsive-img"
+                                            src="/img/arrows.svg"
+                                        />
                                     </div>
                                 </div>
                             </div>

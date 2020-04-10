@@ -41,4 +41,10 @@ public class UserInExchange {
 
   @Column(name = "user_id")
   private Integer userId;
+
+  @Column(name = "approved")
+  Boolean approved;
+
+  @Column(name = "completed")
+  Boolean completed;
 }

@@ -42,6 +42,10 @@ new Vue({
     },
 
     methods: {
+        me(exchange) {
+            return exchange.users.find(user => user.userId === this.myUserId);
+        },
+
         iWantTheBook(book) {
             return book.userId == this.myUserId;
         },
@@ -61,7 +65,7 @@ new Vue({
         showApproveButtons(exchange) {
             return (
                 exchange.statusId === 2 &&
-                exchange.approvals.find((a) => a.userId !== this.myUserId)
+                this.me(exchange).approved !== null
             );
         },
 
@@ -69,14 +73,12 @@ new Vue({
             let iHaveDecided = false;
             let iApprove = false;
 
-            exchange.approvals.forEach((a) => {
-                if (a.userId === this.myUserId) {
-                    iHaveDecided = true;
-                    iApprove = a.approved;
-                }
-            });
+            const me = this.me(exchange);;
 
-            return { iHaveDecided, iApprove };
+            return {
+                iHaveDecided: me.approved !== null,
+                iApprove: me.approved
+            };
         },
 
         async postApproval(exchangeId, approve) {

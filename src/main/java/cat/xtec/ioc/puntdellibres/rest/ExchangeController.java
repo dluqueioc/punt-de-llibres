@@ -15,12 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cat.xtec.ioc.puntdellibres.model.Book;
 import cat.xtec.ioc.puntdellibres.model.Exchange;
-import cat.xtec.ioc.puntdellibres.model.UserApprovesExchange;
 import cat.xtec.ioc.puntdellibres.model.UserInExchange;
 import cat.xtec.ioc.puntdellibres.model.UserWantsBook;
 import cat.xtec.ioc.puntdellibres.repository.BookRepository;
 import cat.xtec.ioc.puntdellibres.repository.ExchangeRepository;
-import cat.xtec.ioc.puntdellibres.repository.UserApprovesExchangeRepository;
+import cat.xtec.ioc.puntdellibres.repository.UserInExchangeRepository;
 import cat.xtec.ioc.puntdellibres.repository.UserRepository;
 
 @RestController
@@ -30,13 +29,13 @@ public class ExchangeController {
    private ExchangeRepository exchangeRepository;
 
    @Autowired
-   private UserApprovesExchangeRepository userApprovesExchangeRepository;
-
-   @Autowired
    private UserRepository userRepository;
 
    @Autowired
    private BookRepository bookRepository;
+
+   @Autowired
+   private UserInExchangeRepository userInExchangeRepository;
 
    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON)
    public Iterable<Exchange> getAll() {
@@ -59,19 +58,26 @@ public class ExchangeController {
          Principal user) {
       // TODO: validation
 
-      UserApprovesExchange approval = new UserApprovesExchange();
-      approval.setExchangeId(Integer.parseInt(exchangeId));
-      approval.setApproved(approve);
       String username = user.getName();
       Integer userId = userRepository.findByUsername(username).getId();
-      approval.setUserId(userId);
-      userApprovesExchangeRepository.save(approval);
+
+      Integer totalUsersWhoApproved = 0;
+      List<UserInExchange> usersInExchange = userInExchangeRepository.findByExchangeId(Integer.parseInt(exchangeId));
+      for (UserInExchange userInExchange : usersInExchange) {
+         if (userInExchange.getUserId() == userId) {
+            userInExchange.setApproved(approve);
+            userInExchangeRepository.save(userInExchange);
+         }
+         if (Boolean.TRUE.equals(userInExchange.getApproved())) {
+            totalUsersWhoApproved++;
+         }
+      }
 
       Exchange exchange = exchangeRepository.findById(Integer.parseInt(exchangeId)).get();
       if (!approve) {
          exchange.setStatusId(5);
       } else {
-         if (exchange.getApprovals().size() == 1) {
+         if (totalUsersWhoApproved == 1) {
             exchange.setStatusId(3);
          } else {
             exchange.setStatusId(4);
@@ -92,21 +98,31 @@ public class ExchangeController {
    public Exchange close(@PathVariable("exchangeId") String exchangeId, @RequestParam(required = true) Boolean close, Principal user) {
       // TODO: validation
       Exchange exchange = exchangeRepository.findById(Integer.parseInt(exchangeId)).get();
-      exchange.setStatusId(close ? 6 : 5);
-      exchangeRepository.save(exchange);
+      List<UserInExchange> usersInExchange = exchange.getUsers();
+      String username = user.getName();
+      Integer myUserId = userRepository.findByUsername(username).getId();
+      Integer totalUsersWhoClosed = 0;
+      Integer otherUserId = null;
 
-      if (close) {
-         String username = user.getName();
-         Integer myUserId = userRepository.findByUsername(username).getId();
-         List<UserInExchange> users = exchange.getUsers();
-
-         Integer otherUserId = null;
-         for (UserInExchange userInExchange : users) {
+      if (! close) {
+         exchange.setStatusId(5);
+      } else {
+         for (UserInExchange userInExchange : usersInExchange) {
             if (userInExchange.getUserId() != myUserId) {
                otherUserId = userInExchange.getUserId();
-               break;
+            } else {
+               userInExchange.setCompleted(true);
+               userInExchangeRepository.save(userInExchange);
+            }
+            if (Boolean.TRUE.equals(userInExchange.getCompleted())) {
+               totalUsersWhoClosed++;
             }
          }
+      }
+
+      if (totalUsersWhoClosed == 2) {
+         exchange.setStatusId(6);
+
          List<UserWantsBook> books = exchange.getBooks();
          for (UserWantsBook bookInExchange : books) {
             Book book = bookRepository.findById(bookInExchange.getBookId()).get();
@@ -117,6 +133,7 @@ public class ExchangeController {
          }
       }
 
+      exchangeRepository.save(exchange);
       return exchange;
    }
 }
