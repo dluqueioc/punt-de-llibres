@@ -34,9 +34,9 @@ import cat.xtec.ioc.puntdellibres.repository.UserRepository;
 import lombok.Getter;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
+// import org.springframework.stereotype.Component;
 
-@Component
+// @Component
 public class MainSeeder implements CommandLineRunner {
   @Autowired
   private UserRepository userRepository;
@@ -72,20 +72,20 @@ public class MainSeeder implements CommandLineRunner {
 
   @Override
   public void run(final String... args) throws Exception {
-    // if (activeProfile.equals("Unknown")) {
-    //   persist = true;
-    // }
-    // seedUsersTable();
-    // seedAuthorsTable(10);
-    // seedGenresTable();
-    // seedLanguagesTable();
-    // seedThemesTable();
-    // seedBookStatusesTable();
-    // seedPublishersTable();
-    // seedBooksTable();
-    // seedExchangeStatusesTable();
-    // seedExchangesTable();
-    // seedMessagesTable();
+    if (activeProfile.equals("Unknown")) {
+      persist = true;
+    }
+    seedUsersTable();
+    seedAuthorsTable(10);
+    seedGenresTable();
+    seedLanguagesTable();
+    seedThemesTable();
+    seedBookStatusesTable();
+    seedPublishersTable();
+    seedBooksTable();
+    seedExchangeStatusesTable();
+    seedExchangesTable();
+    seedMessagesTable();
   }
 
   private void seedUsersTable() {
