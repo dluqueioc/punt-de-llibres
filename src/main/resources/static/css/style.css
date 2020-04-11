@@ -91,6 +91,7 @@ pre {
 
 .main-content-container {
     width: 80%;
+    min-height: calc(100vh - 300px);
     margin: auto;
 }
 
