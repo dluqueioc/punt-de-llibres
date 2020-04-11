@@ -76,4 +76,12 @@ public class RoutesController {
 
     return "els-meus-intercanvis";
   }
+  
+  @GetMapping("/llibres-oferits")
+  public String llibresOferits (final Model model) {
+	  //Integer userId = 1;
+	  //Ara mostra tots. Falta filtre per mostrar només els de l'usuari que solicita intercanvi
+	  model.addAttribute("books", bookRepository.findAll());
+	  return "llibres-oferits";
+  }
 }
