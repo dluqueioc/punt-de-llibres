@@ -29,7 +29,7 @@ public class RoutesController {
   @Autowired
   private ExchangeRepository exchangeRepository;
 
-  @GetMapping("/")
+  @GetMapping(value={"", "/", "home"})
   public String home(final Model model) {
     Iterable<Book> books = bookRepository.findAll();
     model.addAttribute("books", books);

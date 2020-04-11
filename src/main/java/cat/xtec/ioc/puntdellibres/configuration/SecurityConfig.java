@@ -22,41 +22,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Bean
   public BCryptPasswordEncoder bCryptPasswordEncoder() {
-    return  new BCryptPasswordEncoder();
+    return new BCryptPasswordEncoder();
   }
 
   @Override
-  protected void configure (AuthenticationManagerBuilder auth) throws Exception {
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.userDetailsService(userService).passwordEncoder(encoder);
   }
 
   @Override
-  protected void configure (HttpSecurity http) throws Exception {
-    http
-      .authorizeRequests()
-      // .antMatchers("/api/**").hasRole("USER")
-      .antMatchers("/afegir-llibre").hasRole("USER")
-      .antMatchers("/els-meus-intercanvis").hasRole("USER")
-      .and().formLogin().loginPage("/login").permitAll()
-      .and().authorizeRequests().anyRequest().permitAll()
-      .and().csrf().disable();
+  protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests()
+        // .antMatchers("/api/**").hasRole("USER")
+        .antMatchers("/registre").access("isAnonymous()")
+        .antMatchers("/afegir-llibre").hasRole("USER").antMatchers("/els-meus-intercanvis").hasRole("USER").and()
+        .formLogin().loginPage("/login").permitAll().and().authorizeRequests().anyRequest().permitAll().and().csrf()
+        .disable();
 
-    // http.authorizeRequests()
-    //   .anyRequest()
-    //   .permitAll();
-
-    // http.authorizeRequests()
-    //   .anyRequest().authenticated()
-    //   .and().formLogin()
-    //   .loginPage("/login").permitAll()
-    //   .and()
-    //   .logout()
-    //   .logoutSuccessUrl("/");
-      // .antMatchers("/").access("hasRole('ROLE_USER')")
-      // .and()
-      // .authorizeRequests()
-      // .anyRequest()
-      // .permitAll();
+    // http.authorizeRequests().anyRequest().permitAll();
   }
-
 }

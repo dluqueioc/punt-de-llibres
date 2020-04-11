@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/base.html}">
+
+<head>
+  <title>Register</title>
+</head>
+
+<body>
+  <section layout:fragment="content">
+    <form method="post" th:object="${user}" th:action="@{/registre}">
+        <input type="text" name="username" th:value="*{username}" placeholder="Nom d'usuari"/>
+        <input type="email" name="email" th:value="*{email}" placeholder="Correu electrònic"/>
+        <input type="password" name="password" th:value="*{password}" placeholder="Contrasenya"/>
+        <input type="password" name="password2" placeholder="Confirma la teva contrasenya"/>
+        <button type="submit">Registre</button>
+    </form>
+  </section>
+</body>
+
+</html>
