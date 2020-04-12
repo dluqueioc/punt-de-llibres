@@ -23,21 +23,26 @@
     <div class="nav-wrapper container">
       <a id="logo-container" href="#" class="brand-logo">PDL</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="#">Què és punts de llibres?</a></li>
-        <li><a href="#">Llibres disponibles</a></li>
-        <li><a href="#">Els meus llibres</a></li>
-        <li><a href="#">Els meus intercanvis</a></li>
-        <li><a href="#">Inicia Sessió</a></li>
-        <li><a href="#">Registra't</a></li>
+        <li><a href="/home#about-us">Què és Punt de Llibres?</a></li>
+        <li><a href="/llibres-disponibles">Llibres disponibles</a></li>
+        <li sec:authorize="isAuthenticated()"><a href="/els-meus-llibres">Els meus llibres</a></li>
+        <li sec:authorize="isAuthenticated()"><a href="/els-meus-intercanvis">Els meus intercanvis</a></li>
+        <li sec:authorize="isAnonymous()"><a href="/login">Inicia Sessió</a></li>
+        <li sec:authorize="isAnonymous()"><a href="/registre">Registra't</a></li>
+        <li sec:authorize="isAuthenticated()"><a href="/usuari" th:text="${#authentication.getPrincipal().getUsername()}"></a></li>
+        <li sec:authorize="isAuthenticated()"><a href="/logout">Tanca sessió</a></li>
+        
       </ul>
 
       <ul id="nav-mobile" class="light-sea-green sidenav">
-        <li><a href="#">Què és Punt de Llibres?</a></li>
-        <li><a href="#">Llibres disponibles</a></li>
-        <li><a href="#">Els meus llibres</a></li>
-        <li><a href="#">Els meus intercanvis</a></li>
-        <li><a href="#">Inicia Sessió</a></li>
-        <li><a href="#">Registra't</a></li>
+        <li><a href="/home#about-us">Què és Punt de Llibres?</a></li>
+        <li><a href="/llibres-disponibles">Llibres disponibles</a></li>
+        <li sec:authorize="isAuthenticated()"><a href="/els-meus-llibres">Els meus llibres</a></li>
+        <li sec:authorize="isAuthenticated()"><a href="/els-meus-intercanvis">Els meus intercanvis</a></li>
+        <li sec:authorize="isAnonymous()"><a href="/login">Inicia Sessió</a></li>
+        <li sec:authorize="isAnonymous()"><a href="/registre">Registra't</a></li>
+        <li sec:authorize="isAuthenticated()"><a href="/usuari" th:text="${#authentication.getPrincipal().getUsername()}"></a></li>
+        <li sec:authorize="isAuthenticated()"><a href="/logout">Tanca sessió</a></li>
       </ul>
       <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
@@ -47,10 +52,11 @@
     <h1>Punt de llibres</h1>
   </header>
   -->
+  <main>
   <section layout:fragment="content">
     <p>Page content goes here</p>
   </section>
-
+  </main>
   <footer class="page-footer light-sea-green">
     <div class="container">
       <div class="row">
@@ -59,12 +65,12 @@
           <p class="oyster-bay-text">Son un grup d'estudiants de l'IOC del cicle de Desenvolupament d'aplicacions Web que ens hem dedicat a la realització d'aquest projecte amb totes les nostres energies, tal i com si es tractés d'un projecte real i no només d'un treball per aprovar una assignatura.</p>
         </div>
         <div class="col l3 s12">
-          <h5 class="azure-text">Settings</h5>
+          <h5 class="azure-text">Informació</h5>
           <ul>
-            <li><a class="azure-text" href="#!">Política de privacitat</a></li>
-            <li><a class="azure-text" href="#!">Condicions d'ús</a></li>
-            <li><a class="azure-text" href="#!">Avís legal</a></li>
-            <li><a class="azure-text" href="#!">Link 4</a></li>
+            <li><a class="azure-text" href="/privacitat">Política de privacitat</a></li>
+            <li><a class="azure-text" href="/condicions-us">Condicions d'ús</a></li>
+            <li><a class="azure-text" href="/avis-legal">Avís legal</a></li>
+            <li><a class="azure-text" href="cookies">Cookies</a></li>
           </ul>
         </div>
         <div class="col l3 s12">
@@ -85,6 +91,11 @@
       </div>
     </div>
     <p layout:fragment="footer"></p>
+        <div class="footer-copyright atoll">
+      <div class="container">
+      © Copyright 2020 Grup 3 IOC DAW M12 Projecte de Desenvolupament d'Aplicacions Web | <a href="mailto:info@puntdellibres.cat" class="azure-text light">info@puntdellibres.cat</a>
+      </div>
+      </div>
   </footer>
   
   <!--  Scripts-->
@@ -92,6 +103,7 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
+  <script src="https://code.iconify.design/1/1.0.5/iconify.min.js"></script>
   <th:block layout:fragment="script"></th:block>
 </body>
 
