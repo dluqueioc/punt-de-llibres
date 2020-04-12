@@ -104,7 +104,7 @@ public class Book {
   private Integer bookStatusId = 1;
 
   @Column(name = "cover")
-  private String cover = "default.jpg";
+  private String cover = "default-book.png";
 
   @CreationTimestamp
   private LocalDateTime createdDate;
