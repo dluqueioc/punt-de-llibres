@@ -8,93 +8,95 @@
 
 nav ul a,
 nav .brand-logo,
-.sidenav li a {
-    color: #feffff;
+.sidenav li a{
+  color: #FEFFFF;
 }
 
 p {
-    line-height: 2rem;
+  line-height: 2rem;
 }
 
 .sidenav-trigger {
-    color: #feffff;
+  color: #FEFFFF;
 }
 
 .parallax-container {
-    min-height: 380px;
-    line-height: 0;
-    height: auto;
-    color: rgba(255, 255, 255, 0.9);
+  min-height: 380px;
+  line-height: 0;
+  height: auto;
+  color: rgba(255,255,255,.9);
 }
-.parallax-container .section {
+  .parallax-container .section {
     width: 100%;
+  }
+
+@media only screen and (max-width : 992px) {
+  .parallax-container .section {
+    position: absolute;
+    top: 40%;
+  }
+  #index-banner .section {
+    top: 10%;
+  }
 }
 
-@media only screen and (max-width: 992px) {
-    .parallax-container .section {
-        position: absolute;
-        top: 40%;
-    }
-    #index-banner .section {
-        top: 10%;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    #index-banner .section {
-        top: 0;
-    }
+@media only screen and (max-width : 600px) {
+  #index-banner .section {
+    top: 0;
+  }
 }
 
 .icon-block {
-    padding: 0 15px;
+  padding: 0 15px;
 }
 .icon-block .material-icons {
-    font-size: inherit;
+  font-size: inherit;
 }
 
 footer.page-footer {
-    margin: 0;
-    padding-bottom: 20px;
+  margin: 0;
 }
 
-nav ul a,
-footer p,
-footer a {
-    font-family: 'Segoe UI semibold';
+nav ul a, footer p, footer a{
+    font-family: "Segoe UI semibold";
 }
 
-* Custom Stylesheet */
+/* Custom Stylesheet */
 
 /**
  * PesonalitzaciÃ³ Materialize Social
  */
 
 .icon-block {
-    padding: 0 15px;
+  padding: 0 15px;
 }
 .icon-block .material-icons {
-    font-size: inherit;
+	font-size: inherit;
 }
 
-pre {
-    padding: 16px 20px 0px;
+pre{
+      padding: 16px 20px 0px;
     background: #eee;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
 
-.info {
-    font-size: 1.3rem;
-    text-align: center;
+.info{
+  font-size: 1.3rem;
+  text-align: center;
 }
 
-.main-content-container {
-    width: 80%;
-    min-height: calc(100vh - 300px);
-    margin: auto;
-}
 
-h3 {
-	text-align: center;
-}
+/**
+ * Pesonalització per baixar el footer en pàgines amb poc de contingut
+ */
+ 
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
