@@ -1,38 +1,99 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout/base.html}">
-    <head>
-        <title>Home</title>
-    </head>
+<head>
+  <title>Punt de Llibres | Pàgina principal</title>
+</head>
+<body>
+<section layout:fragment="content">
+  <div class="carousel carousel-slider">
+      <div class="carousel-fixed-item">
+          <div class="container">
+              <h1 class="header center azure-text text-lighten-2">Punt de Llibres (títol h1)</h1>
+          </div>
+      </div>
+      <a class="carousel-item" href="#one!"><img src="img/background1.jpg"></a>
+      <a class="carousel-item" href="#two!"><img src="img/background2.jpg"></a>
+      <a class="carousel-item" href="#three!"><img src="img/background3.jpg"></a>
+  </div>
+  
+  <div class="container">
+    <div class="section">
+        <!--DARRERS LLIBRES AFEGITS-->
+        <h4 class="black-pearl-text center">Darrers llibres afegits:</h4>
+        <div class="row">
+        
+            <div class="col s12 m3" th:each="book,iterStat : ${books}" th:unless="${iterStat.index > 3}">
+                <div class="card">
+                    <div class="card-content">
+                    <img class="responsive-img" src=[[${book.cover}]]>
+                    <div class="card-action atoll">
+                    <a class="azure-text" href="#">[[${book.title}]]</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 
+            <div class="col s12 m3">
+                <div class="card">
+                    <div class="card-content">
+                    <img class="responsive-img" src="img/feminism.jpg">
+                    <div class="card-action atoll">
+                    <a class="azure-text" href="#">Llibre2</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m3">
+                <div class="card">
+                    <div class="card-content">
+                    <img class="responsive-img" src="img/feminism.jpg">
+                    <div class="card-action atoll">
+                    <a class="azure-text" href="#">Llibre3</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m3">
+                <div class="card">
+                    <div class="card-content">
+                    <img class="responsive-img" src="img/feminism.jpg">
+                    <div class="card-action atoll">
+                    <a class="azure-text" href="#">Llibre4</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        -->
+    </div>
+  </div>
+  </div>
+  <div class="container">
+    <div class="section">
 
-    <body>
-        <section layout:fragment="content">
-            <p>This is a paragraph from content page 1</p>
+      <div class="row">
+        <div class="col s12 center">
+          <h3><i class="mdi-content-send brown-text"></i></h3>
+          <h4 id="about-us" class="black-pearl-text">Qué és Punt de Llibres?</h4>
+          <p class="black-pearl-text left-align">Punt de Llibres és un punt de trobada per aquells que estiguin disposats a donar-li als llibres una segona vida (o una tercera, on una quarta...).<br>
+			Aquí podràs trobar llibres a la recerca d'un nou lector, i oferir a canvi els que tens a casa, per a que una altra persona pugui reviure allò que tu ja has experimentat.<br>
+			Compartint llibres, permets que la cultura segueixi enriquint, desvetllant i fent somiar!</p>
+        </div>
+      </div>
 
-            <ul>
-                <li th:each="book : ${books}">
-                    <p>[[${book.author.name + ' - ' + book.title + ' (' + book.user.username + ')'}]]</p>
-                </li>
-            </ul>
+    </div>
+  </div>
 
-            <p th:if="${status}">[[${status}]]</p>
-
-            <button onclick="logout()">logout</button>
-
-            <script>
-                function logout() {
-                    document.querySelector('form').submit();
-                }
-            </script>
-
-            <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
-               <input hidden type="submit" value="Sign Out"/>
-            </form>
-        </section>
-
-        <footer>
-            <p layout:fragment="custom-footer">
-                This is some footer content from content page 1
-            </p>
-        </footer>
-    </body>
+  <div class="parallax-container valign-wrapper">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <div class="row center">
+          <h5 class="header col s12 light">GIF o video explicant el procés</h5>
+        </div>
+      </div>
+    </div>
+    <div class="parallax"><img src="img/background3.jpg" alt="Unsplashed background img 3"></div>
+  </div>
+ </section>
+  </body>
 </html>

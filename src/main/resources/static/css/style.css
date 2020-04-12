@@ -61,7 +61,7 @@ nav ul a, footer p, footer a{
     font-family: "Segoe UI semibold";
 }
 
-* Custom Stylesheet */
+/* Custom Stylesheet */
 
 /**
  * PesonalitzaciÃ³ Materialize Social
@@ -85,3 +85,18 @@ pre{
   font-size: 1.3rem;
   text-align: center;
 }
+
+
+/**
+ * Pesonalització per baixar el footer en pàgines amb poc de contingut
+ */
+ 
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }

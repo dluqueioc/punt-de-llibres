@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/base.html}">
+    <head>
+        <title>Home</title>
+    </head>
+
+    <body>
+        <section layout:fragment="content">
+            <p>This is a paragraph from content page 1</p>
+
+            <ul>
+                <li th:each="book : ${books}">
+                    <p>[[${book.author.name + ' - ' + book.title + ' (' + book.user.username + ')'}]]</p>
+                </li>
+            </ul>
+
+            <p th:if="${status}">[[${status}]]</p>
+
+            <button onclick="logout()">logout</button>
+
+            <script>
+                function logout() {
+                    document.querySelector('form').submit();
+                }
+            </script>
+
+            <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+               <input hidden type="submit" value="Sign Out"/>
+            </form>
+        </section>
+
+        <footer>
+            <p layout:fragment="custom-footer">
+                This is some footer content from content page 1
+            </p>
+        </footer>
+    </body>
+</html>
