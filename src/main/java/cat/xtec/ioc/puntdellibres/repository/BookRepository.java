@@ -12,4 +12,6 @@ public interface BookRepository extends PagingAndSortingRepository<Book, Integer
     value = "SELECT * FROM books LEFT JOIN users ON books.user_id = users.id WHERE books.user_id != ?1 AND books.book_status_id = 1",
     nativeQuery = true)
   public Iterable<Book> findAllWithUsers(Integer userId);
+  
+  public Iterable<Book> findByUserId(Integer userId);
 }

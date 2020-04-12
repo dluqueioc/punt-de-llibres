@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/base.html}">
+    <head>
+        <title>Els meus llibres</title>
+        <link rel="stylesheet" type="text/css" href="/css/els-meus-llibres.css" />
+    </head>
+
+    <body>
+        <section
+            layout:fragment="content"
+            id="app"
+            class="els-meus-llibres-page"
+            v-cloak
+        >
+            <h1 class="text-center mb-5">
+                Els meus llibres
+            </h1>
+
+            <h4>Els meus llibres disponibles</h4>
+            <p v-if="! filterBooks(1).length">No tens cap llibre disponible</p>
+            <div v-for="book in filterBooks(1)" >
+                <ul>
+                    <li>{{ book.title }}</li>
+                    <button @click="changeStatus(book)">Moure a no disponibles</button>
+                </ul>
+            </div>
+
+            <h4>Els meus llibres no disponibles</h4>
+            <p v-if="! filterBooks(2).length">No tens cap llibre no disponible</p>
+            <div v-for="book in filterBooks(2)" >
+                <ul>
+                    <li>{{ book.title }}</li>
+                    <button @click="changeStatus(book)">Moure a disponibles</button>
+                </ul>
+            </div>
+
+            <h4>Els meus llibres reservats</h4>
+            <p v-if="! filterBooks(3).length">No tens cap llibre no disponible</p>
+            <div v-for="book in filterBooks(3)" >
+                <ul>
+                    <li>{{ book.title }}</li>
+                </ul>
+            </div>
+        </section>
+
+        <th:block layout:fragment="script">
+            <script th:inline="javascript">
+                window.myUserId = /*[[${myUserId}]]*/ [];
+            </script>
+            <script th:src="@{/js/els-meus-llibres.js}"></script>
+        </th:block>
+    </body>
+</html>
