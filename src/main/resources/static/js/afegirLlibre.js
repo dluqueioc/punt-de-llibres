@@ -12,20 +12,7 @@ $(document).ready(function () {
     $("#formAfegirLlibre").submit(function (event) {
         event.preventDefault();
 
-        console.log('here');
-
         if (! validar()) return;
-
-        console.log($("#titol").val());
-        console.log($("#ISBN").val());
-        console.log($("#autor").val());
-        console.log($("#editorial").val());
-        console.log($("#genere").val());
-        console.log($("#estil").val());
-        console.log($("#idioma").val());
-        console.log($("#estatConserv").val())
-        console.log($("#edicio").val());
-        console.log($("#selArxiu").val());
 
         var data = {
             title: $('[name=title]').val(),
@@ -42,7 +29,7 @@ $(document).ready(function () {
             type: "POST",
             url: '/api/books',
             data: JSON.stringify(data),
-            contentType: 'application/json; charset=utf-8',
+            contentType: 'application/json',
             enctype: 'multipart/form-data',
             dataType: 'json',
         })

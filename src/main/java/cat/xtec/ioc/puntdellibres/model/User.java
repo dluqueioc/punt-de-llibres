@@ -34,7 +34,8 @@ public class User {
   @Transient
   private List<GrantedAuthority> roles;
 
-  public User() {}
+  public User() {
+  }
 
   public User(String username, String password, List<GrantedAuthority> roles) {
     this.username = username;
@@ -60,20 +61,17 @@ public class User {
   @NotNull
   @Size(min = 3, max = 100)
   @JsonIgnore
-  private String password = "prova";
+  private String password;
 
   @Column(name = "name")
-  @NotNull
   @Size(min = 3, max = 50)
   private String name;
 
   @Column(name = "last_name")
-  @NotNull
   @Size(min = 3, max = 50)
   private String lastName;
 
   @Column(name = "location")
-  @NotNull
   @Size(min = 3, max = 100)
   private String location;
 
@@ -89,41 +87,23 @@ public class User {
   private float rating;
 
   @ManyToMany
-  @JoinTable(
-    name = "user_likes_author",
-    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id")
-  )
+  @JoinTable(name = "user_likes_author", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"))
   private Set<Author> authorsLiked;
 
   @ManyToMany
-  @JoinTable(
-    name = "user_likes_genre",
-    joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "genre_id"))
+  @JoinTable(name = "user_likes_genre", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
   private Set<Genre> genresLiked;
 
   @ManyToMany
-  @JoinTable(
-    name = "user_likes_language",
-    joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "language_id"))
+  @JoinTable(name = "user_likes_language", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "language_id"))
   private Set<Language> languagesLiked;
 
   @JsonIgnore
-  @OneToMany(
-    mappedBy = "user",
-    cascade = CascadeType.ALL,
-    orphanRemoval = true
-  )
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Book> books;
 
   @JsonBackReference
-  @OneToMany(
-    mappedBy = "userId",
-    cascade = CascadeType.ALL,
-    orphanRemoval = true
-  )
+  @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<UserInExchange> exchanges;
 
   @CreationTimestamp

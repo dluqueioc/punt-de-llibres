@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import cat.xtec.ioc.puntdellibres.model.User;
@@ -18,6 +19,9 @@ import cat.xtec.ioc.puntdellibres.repository.UserRepository;
 public class UserService implements UserDetailsService {
   @Autowired
   private UserRepository userRepository;
+
+  @Autowired
+  BCryptPasswordEncoder encoder;
 
   @Override
   public UserDetails loadUserByUsername(final String username) {
@@ -31,6 +35,11 @@ public class UserService implements UserDetailsService {
     roles.add(new SimpleGrantedAuthority("ROLE_USER"));
 
     return new org.springframework.security.core.userdetails.User(username, user.getPassword(), roles);
+  }
+
+  public void save(User user) {
+      user.setPassword(encoder.encode(user.getPassword()));
+      userRepository.save(user);
   }
 
 }
