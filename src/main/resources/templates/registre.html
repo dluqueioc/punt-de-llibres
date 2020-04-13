@@ -2,18 +2,45 @@
 <html layout:decorate="~{layout/base.html}">
 
 <head>
-  <title>Register</title>
+  <title>Alta d'usuari nou | Punt de Llibres</title>
 </head>
 
 <body>
   <section layout:fragment="content">
-    <form method="post" th:object="${user}" th:action="@{/registre}">
-        <input type="text" name="username" th:value="*{username}" placeholder="Nom d'usuari"/>
-        <input type="email" name="email" th:value="*{email}" placeholder="Correu electrònic"/>
-        <input type="password" name="password" th:value="*{password}" placeholder="Contrasenya"/>
-        <input type="password" name="password2" placeholder="Confirma la teva contrasenya"/>
-        <button type="submit">Registre</button>
-    </form>
+    <h1 class="header center black-pearl-text">Crea el teu compte d'usuari</h1>
+    <div class="container">
+	  <div class="row">
+	    <div class="col l3"></div>
+	    <div class="card col l6 m12 s12">
+          <form method="post" th:object="${user}" th:action="@{/registre}">
+            <div class="input-field col s12 center-align">
+              <i class="material-icons prefix">person_outline</i>
+              <input type="text" name="username" th:field="*{username}"/>
+              <label for="username">Nom d'usuari</label>
+            </div>
+            <div class="input-field col s12 center-align">
+              <i class="material-icons prefix">mail_outline</i>
+              <input type="email" name="email" th:field="*{email}"/>
+              <label for="email">Correu electrònic</label>
+            </div>
+            <div class="input-field col s12 center-align">
+              <i class="material-icons prefix">lock_outline</i>
+              <input type="password" name="password" th:field="*{password}"/>
+              <label for="password">Contrasenya</label>
+            </div>
+            <div class="input-field col s12 center-align">
+              <i class="material-icons prefix">lock_outline</i>
+              <input type="password" name="password2"/>
+              <label for="password2">Confirma la teva contrasenya</label>
+            </div>
+            <div class="input-field col s12 center-align">
+              <button type="submit" class="btn-large waves-effect waves-light light-sea-green azure-text">Registre</button>
+            </div>
+          </form>
+        </div>
+        <div class="col l3"></div>
+      </div>
+    </div>
   </section>
 </body>
 
