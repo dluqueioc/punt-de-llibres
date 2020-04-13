@@ -12,6 +12,9 @@ import cat.xtec.ioc.puntdellibres.model.Book;
 import cat.xtec.ioc.puntdellibres.model.Exchange;
 import cat.xtec.ioc.puntdellibres.model.User;
 
+//permet ordenar (sort) dades des del controller
+import org.springframework.data.domain.Sort;
+
 @Controller
 public class RoutesController {
   @Autowired
@@ -31,7 +34,8 @@ public class RoutesController {
 
   @GetMapping(value={"", "/", "home"})
   public String home(final Model model) {
-    Iterable<Book> books = bookRepository.findAll();
+	//modificat per a que retorne els llibres a la home ordenats de més a menys recents
+	Iterable<Book> books = bookRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     model.addAttribute("books", books);
     return "home";
   }
@@ -75,5 +79,21 @@ public class RoutesController {
     model.addAttribute("myUserId", myUserId);
 
     return "els-meus-intercanvis";
+  }
+  
+  //mètodes per gestionar les peticions a les pàgines legals (estàtiques)
+  
+  @GetMapping("/privacitat")
+  public String privacitat(final Model model) {
+      return "privacitat";
+  }
+  @GetMapping("/condicions-us")
+  public String condicions(final Model model) {
+      return "condicions-us";
+  }
+  @GetMapping("/cookies")
+  public String cookies(final Model model) {
+      return "cookies";
+      
   }
 }
