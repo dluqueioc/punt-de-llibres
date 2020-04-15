@@ -160,7 +160,7 @@
                                         class="author-isbn negreta center-align"
                                     >
                                         <em>{{ book.author.name }}</em>
-                                        <span>({{ book.isbn }})</span>
+                                        <span v-show="book.isbn">({{ book.isbn }})</span>
                                     </h5>
                                     <div class="row dades">
                                         <div class="column">
