@@ -22,6 +22,7 @@
                 <ul>
                     <li>{{ book.title }}</li>
                     <button @click="changeStatus(book)">Moure a no disponibles</button>
+                    <button @click="remove(book)">&times;</button>
                 </ul>
             </div>
 
@@ -31,6 +32,7 @@
                 <ul>
                     <li>{{ book.title }}</li>
                     <button @click="changeStatus(book)">Moure a disponibles</button>
+                    <button @click="remove(book)">&times;</button>
                 </ul>
             </div>
 
