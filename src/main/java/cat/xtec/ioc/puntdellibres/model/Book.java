@@ -17,7 +17,6 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
 import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Data;
@@ -33,7 +32,7 @@ public class Book {
 
   @Column(name = "isbn", nullable = true)
   @Size(min = 10, max = 20)
-  private String isbn;
+  private String isbn = null;
 
   @Column(name = "title")
   @NotNull
