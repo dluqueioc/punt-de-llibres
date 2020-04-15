@@ -3,6 +3,8 @@ package cat.xtec.ioc.puntdellibres.controller;
 import java.security.Principal;
 
 import cat.xtec.ioc.puntdellibres.repository.*;
+import cat.xtec.ioc.puntdellibres.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,10 +30,12 @@ public class RoutesController {
   private PublisherRepository publisherRepository;
   @Autowired
   private ExchangeRepository exchangeRepository;
+  @Autowired
+  private UserService userService;
 
-  @GetMapping(value={"", "/", "home"})
+  @GetMapping(value = { "", "/", "home" })
   public String home(final Model model) {
-    Iterable<Book> books = bookRepository.findAll();
+    Iterable<Book> books = bookRepository.findLatest();
     model.addAttribute("books", books);
     return "home";
   }
@@ -75,5 +79,11 @@ public class RoutesController {
     model.addAttribute("myUserId", myUserId);
 
     return "els-meus-intercanvis";
+  }
+
+  @GetMapping("/els-meus-llibres")
+  public String elsMeusLlibres(final Model model, Principal user) {
+    model.addAttribute("myUserId", userService.findMyId(user));
+    return "els-meus-llibres";
   }
 }
