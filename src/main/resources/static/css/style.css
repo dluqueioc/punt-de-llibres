@@ -57,7 +57,11 @@ footer.page-footer {
   margin: 0;
 }
 
-nav ul a, footer p, footer a{
+/**
+ * PesonalitzaciÃ³ fonts mÃ©s gruixudes
+ */
+
+nav ul a, footer p, footer a, button, .bolder{
     font-family: "Segoe UI semibold";
 }
 
@@ -88,7 +92,7 @@ pre{
 
 
 /**
- * Pesonalització per baixar el footer en pàgines amb poc de contingut
+ * Pesonalitzaciï¿½ per baixar el footer en pï¿½gines amb poc de contingut
  */
  
   body {
@@ -100,3 +104,20 @@ pre{
   main {
     flex: 1 0 auto;
   }
+  
+  /**
+ * PesonalitzaciÃ³ per centrar contingut
+ */
+ 
+  .flexbox {
+  display: flex;
+  flew-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.centrar-columna {
+  float: none !important;
+  margin-left: auto;
+  margin-right: auto;
+}
