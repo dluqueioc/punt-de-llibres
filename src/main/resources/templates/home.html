@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout/base.html}">
 <head>
-  <title>Punt de Llibres | Pàgina principal</title>
+  <title>Pàgina principal | Punt de Llibres</title>
 </head>
 <body>
 <section layout:fragment="content">
+  <form>
+    <div class="input-field">
+      <input id="search" type="search" required>
+        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+      <i class="material-icons">close</i>
+    </div>
+  </form>
   <div class="carousel carousel-slider">
       <div class="carousel-fixed-item">
           <div class="container">
-              <h1 class="header center azure-text text-lighten-2">Punt de Llibres (títol h1)</h1>
+              <h1 class="header center azure-text text-lighten-2">Punt de Llibres</h1>
           </div>
       </div>
       <a class="carousel-item" href="#one!"><img src="img/background1.jpg"></a>
@@ -26,7 +33,7 @@
                     <div class="card-content">
                       <img class="responsive-img" th:src="${'/img/covers/' + book.cover}">
                     <div class="card-action atoll">
-                    <a class="azure-text" href="#">[[${book.title}]]</a>
+                    <a class="azure-text" href="#" th:text="${#strings.abbreviate(book.title, 30)}"></a>
                         </div>
                     </div>
                 </div>

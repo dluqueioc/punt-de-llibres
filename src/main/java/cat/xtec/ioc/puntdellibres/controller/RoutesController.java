@@ -14,6 +14,9 @@ import cat.xtec.ioc.puntdellibres.model.Book;
 import cat.xtec.ioc.puntdellibres.model.Exchange;
 import cat.xtec.ioc.puntdellibres.model.User;
 
+//permet ordenar (sort) dades des del controller
+import org.springframework.data.domain.Sort;
+
 @Controller
 public class RoutesController {
   @Autowired

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/base.html}">
+<head>
+<title>Llibres oferits</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+<link rel="stylesheet" type="text/css" href="/css/llibres-oferits.css" />
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/js/llibres-oferits.js"></script>
+</head>
+
+<body>
+	<section layout:fragment="content">
+		<div class="row">
+			<div class="col s12">
+				<h3>Llibres disponibles de l'usuari que t'ha demanat
+					l'intercanvi</h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s12">
+				<p class="info">Per seleccionar un llibre per intercanviar, prem
+					el botó verd</p>
+			</div>
+		</div>
+
+
+		<!-- Book cards -->
+		<div class="row" th:each="book : ${books}">
+			<div class="col s12">
+				<div class="card horizontal hoverable oyster-bay">
+					<div class="col s3 card-image">
+						<img class="responsive-img"
+							th:src="@{/img/covers/{cover}(cover=${book.cover})}"
+							id="imgLlibre" th:alt="${book.title}" />
+					</div>
+					<div class="col s9 card-stacked">
+						<div class="card-content">
+							<h3 class="negreta center-align" th:text="${book.title}"></h3>
+							<h5 class="author-isbn negreta center-align">
+								<em th:text="${book.author.name}"></em> <span
+									th:text="${book.isbn}"></span>
+							</h5>
+							<div class="row dades">
+								<div class="column">
+									<p class="negreta">
+										Editorial: <span th:text="${book.publisher.name}"></span>
+									</p>
+									<p class="negreta">
+										Gènere: <span th:text="${book.genre.name}"></span>
+									</p>
+									<p class="negreta">
+										Temàtica: <span th:text="${book.theme.name}"></span>
+									</p>
+								</div>
+								<div class="column">
+									<p class="negreta">
+										Idioma: <span th:text="${book.language.name}"></span>
+									</p>
+									<p class="negreta">
+										Edició: <span th:text="${book.edition}"></span>
+									</p>
+									<p class="negreta">
+										Estat de conservació: <span th:text="${book.preservation}"></span>
+									</p>
+								</div>
+							</div>
+							<div class="row card-action">
+								<div class="col s9 center-align">
+									<p>Selecciona per intercanviar</p>
+									<a class="btn-floating botoCheck" id="botoCheck"></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+	<footer>
+		<p layout:fragment="footer"></p>
+	</footer>
+</body>
+</html>
