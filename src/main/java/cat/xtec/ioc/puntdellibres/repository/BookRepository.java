@@ -9,9 +9,9 @@ import cat.xtec.ioc.puntdellibres.model.Book;
 @RepositoryRestResource(path = "books")
 public interface BookRepository extends PagingAndSortingRepository<Book, Integer>, BookRepositoryCustom {
   @Query(
-    value = "SELECT * FROM books LEFT JOIN users ON books.user_id = users.id WHERE books.user_id != ?1 AND books.book_status_id = 1",
+    value = "SELECT * FROM books LEFT JOIN users ON books.user_id = users.id WHERE books.user_id != ?1 AND books.book_status_id = 1 ORDER BY books.created_date DESC",
     nativeQuery = true)
-  public Iterable<Book> findAllWithUsers(Integer userId);
+  public Iterable<Book> findLatestWithUsers(Integer userId);
 
   @Query(value = "SELECT * FROM books ORDER BY created_date DESC", nativeQuery = true)
   public Iterable<Book> findLatest();

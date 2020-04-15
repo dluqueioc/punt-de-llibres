@@ -48,11 +48,11 @@ public class BookController {
    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON)
    public Iterable<Book> index(Principal user) {
       if (user == null) {
-         return bookRepository.findAll();
+         return bookRepository.findLatest();
       } else {
          String username = user.getName();
          Integer userId = userRepository.findByUsername(username).getId();
-         return bookRepository.findAllWithUsers(userId);
+         return bookRepository.findLatestWithUsers(userId);
       }
    }
 

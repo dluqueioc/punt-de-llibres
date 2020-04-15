@@ -4,6 +4,15 @@ new Vue({
     async created() {
         const urlParams = new URLSearchParams(window.location.search);
 
+        if (window.loggedIn) {
+            try {
+                const myExchanges = await $.get('/api/exchanges/user')
+                this.myRequestedBooks = myExchanges.flatMap(exch => exch.books.map(book => book.bookId));
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
         if (urlParams.get('filter') === 'user') {
             this.filteredByUser = true;
             try {
@@ -38,6 +47,7 @@ new Vue({
         selectFilterValue: '',
         initialRender: true,
         filteredByUser: false,
+        myRequestedBooks: []
     },
 
     watch: {
@@ -62,7 +72,6 @@ new Vue({
 
         booksShown() {
             return this.books
-                .filter((b) => b.bookStatusId === 1)
                 .filter((b) => {
                     if (
                         !this.filter ||

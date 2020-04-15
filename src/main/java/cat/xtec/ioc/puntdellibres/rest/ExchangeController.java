@@ -42,8 +42,12 @@ public class ExchangeController {
       return exchangeRepository.findAll();
    }
 
-   @GetMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON)
-   public Iterable<Exchange> getMyExchanges(Principal user) {
+   @GetMapping(value = "/user", produces = MediaType.APPLICATION_JSON)
+   public Iterable<Exchange> getMyExchanges(Principal user) throws Exception {
+      if (user == null) {
+         throw new Exception("Not logged in");
+      }
+      
       return exchangeRepository.findMyExchanges(user);
    }
 
