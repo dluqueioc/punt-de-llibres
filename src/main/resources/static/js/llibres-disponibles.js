@@ -151,5 +151,12 @@ new Vue({
         async requestBook(bookId) {
             const res = await $.post(`/api/exchanges/${bookId}`);
         },
+        
+        activaModal(bookId){
+        	console.log("mètode activat")
+        	var link = document.getElementById("confirma-peticio-2-link");
+        	link.href="#confirma-peticio"+ bookId;
+        	link.click();
+        },
     },
 });
