@@ -3,10 +3,13 @@ package cat.xtec.ioc.puntdellibres.controller;
 import java.security.Principal;
 
 import cat.xtec.ioc.puntdellibres.repository.*;
+import cat.xtec.ioc.puntdellibres.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import cat.xtec.ioc.puntdellibres.model.Book;
 import cat.xtec.ioc.puntdellibres.model.Exchange;
@@ -31,11 +34,12 @@ public class RoutesController {
   private PublisherRepository publisherRepository;
   @Autowired
   private ExchangeRepository exchangeRepository;
+  @Autowired
+  private UserService userService;
 
-  @GetMapping(value={"", "/", "home"})
+  @GetMapping(value = { "", "/", "home" })
   public String home(final Model model) {
-	//modificat per a que retorne els llibres a la home ordenats de més a menys recents
-	Iterable<Book> books = bookRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+    Iterable<Book> books = bookRepository.findLatest();
     model.addAttribute("books", books);
     return "home";
   }
@@ -80,20 +84,25 @@ public class RoutesController {
 
     return "els-meus-intercanvis";
   }
+
+  @GetMapping("/els-meus-llibres")
+  public String elsMeusLlibres(final Model model, Principal user) {
+    model.addAttribute("myUserId", userService.findMyId(user));
+    return "els-meus-llibres";
+  }
   
-  //mètodes per gestionar les peticions a les pàgines legals (estàtiques)
+  @GetMapping("/usuari")
+  public String perfil(final Model model, Principal user) {
+	  String username = user.getName();
+      model.addAttribute("userData", userRepository.findByUsername(username));
+      return "usuari";
+  }
   
-  @GetMapping("/privacitat")
-  public String privacitat(final Model model) {
-      return "privacitat";
+  @GetMapping("/modificar-dades")
+  public String modificarDades(final Model model, Principal user) {
+	  String username = user.getName();
+      model.addAttribute("userData", userRepository.findByUsername(username));
+      return "modificar-dades";
   }
-  @GetMapping("/condicions-us")
-  public String condicions(final Model model) {
-      return "condicions-us";
-  }
-  @GetMapping("/cookies")
-  public String cookies(final Model model) {
-      return "cookies";
-      
-  }
+  
 }
