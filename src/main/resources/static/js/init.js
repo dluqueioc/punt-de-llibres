@@ -9,6 +9,6 @@
         //indicators: true,
         //duration: 100,
     );
-    $('.modal').modal();
+    // $('.modal').modal();
   }); // end of document ready
 })(jQuery); // end of jQuery name space
