@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -49,19 +50,23 @@ public class User {
 
   @Column(name = "username", unique = true)
   @NotNull
-  @Size(min = 3, max = 20)
+  @Size(min = 3, max = 20, message = "El nom d'usuari ha de tenir entre {min} i {max} caràcters")
   private String username;
 
   @Column(name = "email", unique = true)
   @NotNull
-  @Size(min = 3, max = 50)
+  @Email(message = "El correu electrònic ha de ser vàlid")
+  @Size(min = 3, max = 50, message = "El correu electrònic ha de tenir entre 3 i 50 caràcters")
   private String email;
 
   @Column(name = "password")
   @NotNull
-  @Size(min = 3, max = 100)
+  @Size(min = 3, max = 100, message = "La contrasenya ha de tenir entre 3 i 100 caràcters")
   @JsonIgnore
   private String password;
+
+  @JsonIgnore
+  private String passwordConfirmation;
 
   @Column(name = "name")
   @Size(min = 3, max = 50)
