@@ -101,7 +101,7 @@ public class RoutesController {
   @GetMapping("/modificar-dades")
   public String modificarDades(final Model model, Principal user) {
 	  String username = user.getName();
-      model.addAttribute("userData", userRepository.findByUsername(username));
+      model.addAttribute("user", userRepository.findByUsername(username));
       return "modificar-dades";
   }
   
