@@ -149,14 +149,22 @@ new Vue({
         },
 
         async requestBook(bookId) {
-            const res = await $.post(`/api/exchanges/${bookId}`);
+            const res = await $.post(`/api/exchanges/${this.requestedBookId}`);
+            this.modal.close();
         },
-        
-        activaModal(bookId){
-        	console.log("mètode activat")
-        	var link = document.getElementById("confirma-peticio-2-link");
-        	link.href="#confirma-peticio"+ bookId;
-        	link.click();
+
+        activaModal(bookId) {
+            this.requestedBookId = bookId;
+            this.modal.open();
         },
+
+        tancaModal() {
+            this.modal.close();
+        }
     },
+
+    mounted() {
+        var elems = document.querySelectorAll('.modal');
+        this.modal = M.Modal.init(elems, {})[0];
+    }
 });

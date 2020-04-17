@@ -6,7 +6,6 @@
             rel="stylesheet"
             type="text/css"
             href="/css/llibres-disponibles.css"
-            
         />
     </head>
 
@@ -220,35 +219,48 @@
                                         />
                                     </div>
 
-                                    <div class="card col s4 center-align hoverable light-sea-green azure-text" @click="activaModal(book.id)">
-                                    	<!-- 
-                                        <img
-                                            class="arrows-image responsive-img"
-                                            src="/img/arrows.svg"
-                                        />
-                                         -->
-                                           	<span class="bolder">Sol·licitar intercanvi</span><br>
-                                        	<i class="medium material-icons">autorenew</i>
+                                    <div
+                                        class="card col s4 center-align hoverable light-sea-green azure-text"
+                                        @click="activaModal(book.id)"
+                                    >
+                                        <span class="bolder"
+                                            >Sol·licitar intercanvi</span
+                                        ><br />
+                                        <i class="medium material-icons"
+                                            >autorenew</i
+                                        >
                                     </div>
-                                    <div :id="'confirma-peticio'+book.id" class="modal">
-                                    <div class="modal-content">
-								      <h4 class="black-pearl-text center-align">Confirmació</h4>
-								      <p class="black-pearl-text center-align">Si us plau, confirma que vols enviar la petició d'intercanvi</p>
-								    </div>
-								    <div class="modal-footer">
-								      <a href="#" class="modal-close waves-effect waves-green btn-flat atoll-text bolder">Cancel·lar</a>
-								      <a href="#" class="modal-close waves-effect waves-green btn-flat atoll-text bolder" @click="requestBook(book.id)">Acceptar</a>
-								    </div>
-								    </div>
-
-				  </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </transition-group>
-            	 <a class="waves-effect waves-light btn modal-trigger hide" id="confirma-peticio-2-link" href="#confirma-peticio">Modal</a>
+
+            <!-- <a class="waves-effect waves-light btn modal-trigger hide" id="confirma-peticio-2-link" href="#confirma-peticio">Modal</a> -->
+
+            <div class="modal">
+                <div class="modal-content">
+                    <h4 class="black-pearl-text center-align">Confirmació</h4>
+                    <p class="black-pearl-text center-align">
+                        Si us plau, confirma que vols enviar la petició
+                        d'intercanvi
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <a
+                        @click="tancaModal"
+                        class="modal-close waves-effect waves-green btn-flat atoll-text bolder"
+                        >Cancel·lar</a
+                    >
+                    <a
+                        class="modal-close waves-effect waves-green btn-flat atoll-text bolder"
+                        @click="requestBook"
+                        >Acceptar</a
+                    >
+                </div>
+            </div>
         </section>
 
         <footer>
