@@ -7,51 +7,70 @@
 
 <body>
 	<section layout:fragment="content">
-		<h1 class="header center black-pearl-text">Modificar les meves
-			dades</h1>
+		<h1 class="header center black-pearl-text">Modificar dades</h1>
 		<div class="container">
 			<div class="row">
 
-				<form id="formModificarDades">
+				<form th:method="put" th:object="${user}"
+					th:action="@{/modificar-dades}" id="formModificarDades"
+					enctype="multipart/form-data">
 					<div>
-						<input type="text" id="username" name="username" /> <label
-							for="username">Nom d'usuari: <span
-							th:text="${userData.username}"></span></label>
+						<input type="text" id="username" name="username"
+							th:field="*{username}" /> <label for="username">Nom
+							d'usuari: </label>
 					</div>
 					<div>
-						<input type="email" id="email" name="email" /> <label for="email">Email:
-							<span th:text="${userData.email}"></span>
+						<input type="email" id="email" name="email" th:field="*{email}" />
+						<label for="email">Email: </label>
+					</div>
+					<div>
+						<input type="text" id="name" name="name" th:field="*{name}" /> <label
+							for="name">Nom: </label>
+					</div>
+					<div>
+						<input type="text" id="lastName" name="lastName"
+							th:field="*{lastName}" /> <label for="lastName">Cognom:
 						</label>
-					</div>
-					<div>
-						<input type="text" id="name" name="name" /> <label for="name">Nom:
-							<span th:text="${userData.name}"></span>
-						</label>
-					</div>
-					<div>
-						<input type="text" id="lastName" name="lastName" /> <label
-							for="lastName">Cognom: <span
-							th:text="${userData.lastName}"></span></label>
 					</div>
 					<div>
 						<input type="text" pattern="[0-9]{5}" id="location"
-							name="location" /> <label for="location">Ubicació: <span
-							th:text="${userData.location}"></span></label>
+							name="location" th:field="*{location}" /> <label for="location">Ubicació:
+						</label>
 					</div>
 					<div>
-						<input type="password" id="password" name="password" /> <label
-							for="password">Contrasenya: </label>
+						<input type="password" id="password" name="password"
+							th:field="*{password}" /> <label for="password">Contrasenya:
+						</label>
 					</div>
 					<div>
 						<input type="password" id="password2" name="password2" /> <label
 							for="password2">Repeteix la contrasenya: </label>
 					</div>
+					
+<!-- 					<div> -->
+<!-- 						<div class="file-field input-field"> -->
+<!-- 							<div class="btn"> -->
+<!-- 								<span>Foto de perfil</span> <input name="file" type="file" -->
+<!-- 									id="selFoto" /> -->
+<!-- 							</div> -->
+<!-- 							<div class="file-path-wrapper"> -->
+<!-- 								<input class="file-path validate" type="text" /> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 					<div> -->
+<!-- 						<img class="responsive-img" src="/img/default-profile-picture.jpg" -->
+<!-- 							id="imgPerfil" alt="Imatge de perfil de l'usuari" /> -->
+<!-- 					</div> -->
 
 					<div class="input-field col s12 center-align">
 						<button type="submit"
-							class="btn-large waves-effect waves-light light-sea-green azure-text">Modifica les dades</button>
+							class="btn-large waves-effect waves-light light-sea-green azure-text">Modifica
+							les dades</button>
 					</div>
 				</form>
+			</div>
+		</div>
 	</section>
 
 	<th:block layout:fragment="script">
