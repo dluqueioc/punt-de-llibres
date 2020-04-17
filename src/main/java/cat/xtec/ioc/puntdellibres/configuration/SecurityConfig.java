@@ -35,9 +35,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http.authorizeRequests()
         // .antMatchers("/api/**").hasRole("USER")
         .antMatchers("/registre").access("isAnonymous()")
-        .antMatchers("/afegir-llibre", "/els-meus-llibres", "/els-meus-intercanvis").hasRole("USER").and()
-        .formLogin().loginPage("/login").permitAll().and().authorizeRequests().anyRequest().permitAll().and().csrf()
-        .disable();
+        .antMatchers("/afegir-llibre", "/els-meus-llibres", "/els-meus-intercanvis").hasRole("USER").and().formLogin()
+        .loginPage("/login").permitAll().and().authorizeRequests().anyRequest().permitAll().and().rememberMe()
+        .key("remember-me-key").tokenValiditySeconds(3600 * 24 * 7).and().csrf().disable();
 
     // http.authorizeRequests().anyRequest().permitAll();
   }
