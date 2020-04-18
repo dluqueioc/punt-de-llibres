@@ -4,7 +4,9 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.security.Principal;
+import java.util.UUID;
 
 import javax.ws.rs.core.MediaType;
 
@@ -63,33 +65,46 @@ public class BookController {
    }
 
    @PostMapping("")
-   public ResponseEntity<Object> create(@RequestParam("title") String title, @RequestParam("isbn") String isbn, @RequestParam("authorName") String authorName, @RequestParam("publisherName") String publisherName, @RequestParam("genreId") String genreId, @RequestParam("themeId") String themeId, @RequestParam("languageId") String languageId, @RequestParam("preservation") String preservation, @RequestParam("edition") String edition, @RequestParam("file") MultipartFile[] files,
-         Principal user) throws IOException {
+   public ResponseEntity<Object> create(@RequestParam("title") String title, @RequestParam("isbn") String isbn,
+         @RequestParam("authorName") String authorName, @RequestParam("publisherName") String publisherName,
+         @RequestParam("genreId") String genreId, @RequestParam("themeId") String themeId,
+         @RequestParam("languageId") String languageId, @RequestParam("preservation") String preservation,
+         @RequestParam("edition") String edition, @RequestParam("file") MultipartFile[] files, Principal user)
+         throws IOException {
+      // TODO : Move to service, pass one single Book object as param
+
       MultipartFile file = files[0];
       String fileName = files[0].getOriginalFilename();
 
       Book newBook = new Book();
       newBook.setTitle(title);
-      if (! isbn.trim().isEmpty()) {
+      if (!isbn.trim().isEmpty()) {
          newBook.setIsbn(isbn);
       }
       newBook.setGenreId(Integer.parseInt(genreId));
       newBook.setThemeId(Integer.parseInt(themeId));
       newBook.setLanguageId(Integer.parseInt(languageId));
-      if (! preservation.isEmpty()) {
+      if (!preservation.isEmpty()) {
          newBook.setPreservation(preservation);
       }
-      if (! edition.trim().isEmpty()) {
+      if (!edition.trim().isEmpty()) {
          newBook.setEdition(edition);
       }
 
       if (!fileName.isEmpty()) {
-         BufferedOutputStream outputStream = new BufferedOutputStream(
-               new FileOutputStream(new File("./src/main/resources/static/img/covers", fileName)));
-         outputStream.write(file.getBytes());
-         outputStream.flush();
-         outputStream.close();
-         newBook.setCover(fileName);
+         File newFile = new File("./src/main/resources/static/img/covers", fileName);
+         String mimeType = Files.probeContentType(newFile.toPath());
+
+         if (mimeType.equals("image/jpeg")) {
+            FileOutputStream fileOutputStream = new FileOutputStream(newFile);
+            BufferedOutputStream outputStream = new BufferedOutputStream(fileOutputStream);
+            outputStream.write(file.getBytes());
+            outputStream.flush();
+            outputStream.close();
+            String uniqueFileName = UUID.randomUUID() + ".jpg";
+            newFile.renameTo(new File("./src/main/resources/static/img/covers", uniqueFileName));
+            newBook.setCover(uniqueFileName);
+         }
       }
 
       Author author = authorRepository.findByName(authorName);
@@ -122,7 +137,7 @@ public class BookController {
       Book book = bookRepository.findById(Integer.parseInt(bookId)).get();
       Integer status = book.getBookStatusId();
 
-      if (book.getUserId() != userService.findMyId(user) || ! (status == 1 || status == 2)) {
+      if (book.getUserId() != userService.findMyId(user) || !(status == 1 || status == 2)) {
          return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
       }
 
