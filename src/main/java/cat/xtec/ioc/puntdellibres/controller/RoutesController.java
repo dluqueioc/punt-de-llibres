@@ -93,15 +93,15 @@ public class RoutesController {
   
   @GetMapping("/usuari")
   public String perfil(final Model model, Principal user) {
-	  String username = user.getName();
-      model.addAttribute("userData", userRepository.findByUsername(username));
+	  Integer id = userService.findMyId(user);
+      model.addAttribute("userData", userRepository.findById(id).get());
       return "usuari";
   }
   
   @GetMapping("/modificar-dades")
   public String modificarDades(final Model model, Principal user) {
-	  String username = user.getName();
-      model.addAttribute("user", userRepository.findByUsername(username));
+	  Integer id = userService.findMyId(user);
+      model.addAttribute("user", userRepository.findById(id).get());
       return "modificar-dades";
   }
   
