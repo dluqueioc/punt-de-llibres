@@ -23,7 +23,8 @@
             <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
             <div class="input-field col s12 center-align">
               <i class="material-icons prefix">mail_outline</i>
-              <input type="email" id="email" name="email" th:field="*{email}"/>
+              <input type="email" id="email" name="email" th:field="*{email}" autocomplete="off" readonly
+              onfocus="this.removeAttribute('readonly')" />
               <label for="email">Correu electrònic</label>
             </div>
             <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
