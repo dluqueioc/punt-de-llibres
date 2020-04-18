@@ -1,249 +1,172 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout/base.html}">
-    <head>
-        <title>Llibres disponibles</title>
-        <link
-            rel="stylesheet"
-            type="text/css"
-            href="/css/llibres-disponibles.css"
-        />
-    </head>
+<head>
+<title>Llibres disponibles</title>
+<link rel="stylesheet" type="text/css"
+	href="/css/llibres-disponibles.css" />
+</head>
 
-    <body>
-        <section
-            layout:fragment="content"
-            id="app"
-            class="llibres-disponibles-page"
-            v-cloak
-        >
-            <div class="container">
-                <div class="row">
-                    <div class="col s12">
-                        <h3>
-                            Llibres disponibles {{ filteredByUser ? fromUserText :
-                            '' }}
-                        </h3>
-                    </div>
-                </div>
+<body>
+	<section layout:fragment="content" id="app"
+		class="llibres-disponibles-page" v-cloak>
+		<div class="container">
+			<div class="row">
+				<div class="col s12">
+					<h1 class="header center black-pearl-text">Llibres disponibles
+						{{ filteredByUser ? fromUserText : '' }}</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12">
+					<p class="info" v-if="!loggedIn">Per veure quins usuaris tenen
+						aquest llibre disponible i demanar un intercanvi, hauràs d'iniciar
+						sessió</p>
+				</div>
+			</div>
 
-                <div class="row">
-                    <div class="col s12">
-                        <p class="info" v-if="!loggedIn">
-                            Per veure quins usuaris tenen aquest llibre disponible i
-                            demanar un intercanvi, hauràs d'iniciar sessió
-                        </p>
-                    </div>
-                </div>
+			<!-- Select and search -->
+			<div class="row filter">
+				<div class="col s12">
+					<div class="row">
+						<div class="input-field col s4">
+							<select v-model="filter" id="select-type">
+								<option value="" disabled selected>Tria una opció...</option>
+								<option value="author">Autor</option>
+								<option value="title">Títol</option>
+								<option value="genre">Gènere</option>
+								<option value="theme">Temàtica</option>
+								<option value="language">Idioma</option>
+								<option value="publisher">Editorial</option>
+							</select> <label>Filtra per...</label>
+						</div>
 
-                <!-- Select and search -->
-                <div class="row filter">
-                    <div class="col s12">
-                        <div class="row">
-                            <div class="input-field col s4">
-                                <select v-model="filter" id="select-type">
-                                    <option value="" disabled selected
-                                        >Tria una opció...</option
-                                    >
-                                    <option value="author">Autor</option>
-                                    <option value="title">Títol</option>
-                                    <option value="genre">Gènere</option>
-                                    <option value="theme">Temàtica</option>
-                                    <option value="language">Idioma</option>
-                                    <option value="publisher">Editorial</option>
-                                </select>
-                                <label>Filtra per...</label>
-                            </div>
+						<div class="input-field col s8" id="select-genre-container"
+							v-show="filter == 'genre'">
+							<select id="select-genre">
+								<option value="" disabled selected>Tria una opció...</option>
+								<option v-for="option in getOptions('genre')" :value="option">{{
+									option }}</option>
+							</select>
+						</div>
 
-                            <div
-                                class="input-field col s8"
-                                id="select-genre-container"
-                                v-show="filter == 'genre'"
-                            >
-                                <select id="select-genre">
-                                    <option value="" disabled selected
-                                        >Tria una opció...</option
-                                    >
-                                    <option
-                                        v-for="option in getOptions('genre')"
-                                        :value="option"
-                                        >{{ option }}</option
-                                    >
-                                </select>
-                            </div>
+						<div class="input-field col s8" id="select-language-container"
+							v-show="filter == 'language'">
+							<select id="select-language">
+								<option value="" disabled selected>Tria una opció...</option>
+								<option v-for="option in getOptions('language')" :value="option">{{
+									option }}</option>
+							</select>
+						</div>
 
-                            <div
-                                class="input-field col s8"
-                                id="select-language-container"
-                                v-show="filter == 'language'"
-                            >
-                                <select id="select-language">
-                                    <option value="" disabled selected
-                                        >Tria una opció...</option
-                                    >
-                                    <option
-                                        v-for="option in getOptions('language')"
-                                        :value="option"
-                                        >{{ option }}</option
-                                    >
-                                </select>
-                            </div>
+						<div class="input-field col s8" id="select-publisher-container"
+							v-show="filter == 'publisher'">
+							<select id="select-publisher">
+								<option value="" disabled selected>Tria una opció...</option>
+								<option v-for="option in getOptions('publisher')"
+									:value="option">{{ option }}</option>
+							</select>
+						</div>
 
-                            <div
-                                class="input-field col s8"
-                                id="select-publisher-container"
-                                v-show="filter == 'publisher'"
-                            >
-                                <select id="select-publisher">
-                                    <option value="" disabled selected
-                                        >Tria una opció...</option
-                                    >
-                                    <option
-                                        v-for="option in getOptions('publisher')"
-                                        :value="option"
-                                        >{{ option }}</option
-                                    >
-                                </select>
-                            </div>
+						<div class="input-field col s8" id="select-theme-container"
+							v-show="filter == 'theme'">
+							<select id="select-theme">
+								<option value="" disabled selected>Tria una opció...</option>
+								<option v-for="option in getOptions('theme')" :value="option">{{
+									option }}</option>
+							</select>
+						</div>
 
-                            <div
-                                class="input-field col s8"
-                                id="select-theme-container"
-                                v-show="filter == 'theme'"
-                            >
-                                <select id="select-theme">
-                                    <option value="" disabled selected
-                                        >Tria una opció...</option
-                                    >
-                                    <option
-                                        v-for="option in getOptions('theme')"
-                                        :value="option"
-                                        >{{ option }}</option
-                                    >
-                                </select>
-                            </div>
+						<div class="input-field col s8" id="input-value-container"
+							v-show="['author', 'title'].includes(filter)">
+							<div class="input-field">
+								<input type="text" v-model="inputFilterValue" id="input-value" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-                            <div
-                                class="input-field col s8"
-                                id="input-value-container"
-                                v-show="['author', 'title'].includes(filter)"
-                            >
-                                <div class="input-field">
-                                    <input
-                                        type="text"
-                                        v-model="inputFilterValue"
-                                        id="input-value"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+			<!-- Book cards -->
+			<transition-group name="fade" mode="out-in">
+			<div class="row" :key="book.id" v-for="book in booksShown">
+				<div class="col s12">
+					<div class="card horizontal hoverable oyster-bay">
+						<div class="row">
+							<div class="col s3 card-image">
+								<img class="responsive-img" :src="`/img/covers/${book.cover}`"
+									id="imgLlibre" :alt="book.title" />
+							</div>
+						</div>
+						<div class="col s9 card-stacked">
+							<div class="row">
+								<div class="card-content">
+									<h3 class="negreta center-align">{{ book.title }}</h3>
+									<h5 class="author-isbn negreta center-align">
+										<em>{{ book.author.name }}</em> <span v-show="book.isbn">({{
+											book.isbn }})</span>
+									</h5>
+									<div class="row dades">
+										<div class="row column">
+											<p>
+												<span class="negreta">Editorial: </span> {{
+												book.publisher.name }}
+											</p>
+											<p>
+												<span class="negreta">Gènere: </span> {{ book.genre.name }}
+											</p>
+											<p>
+												<span class="negreta">Temàtica: </span> {{ book.theme.name
+												}}
+											</p>
+										</div>
+										<div class="row column">
+											<p>
+												<span class="negreta">Idioma: </span> {{ book.language.name
+												}}
+											</p>
+											<p>
+												<span class="negreta">Edició: </span> {{ book.edition }}
+											</p>
+											<p>
+												<span class="negreta">Estat de conservació: </span> {{
+												book.preservation }}
+											</p>
+										</div>
+									</div>
+								</div>
 
-                <!-- Book cards -->
-                <transition-group name="fade" mode="out-in">
-                    <div class="row" :key="book.id" v-for="book in booksShown">
-                        <div class="col s12">
-                            <div class="card horizontal hoverable teal lighten-5">
-                                <div class="col s3 card-image">
-                                    <img
-                                        class="responsive-img"
-                                        :src="`/img/covers/${book.cover}`"
-                                        id="imgLlibre"
-                                        :alt="book.title"
-                                    />
-                                </div>
-                                <div class="col s9 card-stacked">
-                                    <div class="card-content">
-                                        <h3 class="negreta center-align">
-                                            {{ book.title }}
-                                        </h3>
-                                        <h5
-                                            class="author-isbn negreta center-align"
-                                        >
-                                            <em>{{ book.author.name }}</em>
-                                            <span v-show="book.isbn">({{ book.isbn }})</span>
-                                        </h5>
-                                        <div class="row dades">
-                                            <div class="column">
-                                                <p>
-                                                    <span class="negreta"
-                                                        >Editorial:
-                                                    </span>
-                                                    {{ book.publisher.name }}
-                                                </p>
-                                                <p>
-                                                    <span class="negreta"
-                                                        >Gènere:
-                                                    </span>
-                                                    {{ book.genre.name }}
-                                                </p>
-                                                <p>
-                                                    <span class="negreta"
-                                                        >Temàtica:
-                                                    </span>
-                                                    {{ book.theme.name }}
-                                                </p>
-                                            </div>
-                                            <div class="column">
-                                                <p>
-                                                    <span class="negreta"
-                                                        >Idioma:
-                                                    </span>
-                                                    {{ book.language.name }}
-                                                </p>
-                                                <p>
-                                                    <span class="negreta"
-                                                        >Edició:
-                                                    </span>
-                                                    {{ book.edition }}
-                                                </p>
-                                                <p>
-                                                    <span class="negreta"
-                                                        >Estat de conservació:
-                                                    </span>
-                                                    {{ book.preservation }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row card-action" v-if="loggedIn">
-                                        <div class="col s4 center-align">
-                                            <p>
-                                                Disponible de l'usuari: {{
-                                                book.user.username }}
-                                            </p>
-                                        </div>
-                                        <div class="col s4 center-align">
-                                            <img
-                                                class="user-image rounded-circle circle responsive-img"
-                                                src="/img/default-profile-picture.jpg"
-                                            />
-                                        </div>
-                                        <div class="col s4 center-align" @click="requestBook(book.id)">
-                                            <img
-                                                class="arrows-image responsive-img"
-                                                src="/img/arrows.svg"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </transition-group>
-            </div>
-        </section>
+								<div class="row card-action" v-if="loggedIn">
+									<div class="col s4 center-align">
+										<p>Disponible de l'usuari: {{ book.user.username }}</p>
+									</div>
+									<div class="col s4 center-align">
+										<img class="user-image rounded-circle circle responsive-img"
+											src="/img/default-profile-picture.jpg" />
+									</div>
+									<div class="col s4 center-align" @click="requestBook(book.id)">
+										<img class="arrows-image responsive-img" src="/img/arrows.svg" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</transition-group>
 
-        <footer>
-            <p layout:fragment="footer"></p>
-        </footer>
+		</div>
+	</section>
 
-        <th:block layout:fragment="script">
-            <script th:inline="javascript">
+	<footer>
+		<p layout:fragment="footer"></p>
+	</footer>
+
+	<th:block layout:fragment="script">
+		<script th:inline="javascript">
                 /*<![CDATA[*/ window.loggedIn = /*[[${loggedIn}]]*/ null;
                 /*]]>*/
             </script>
-            <script th:src="@{/js/llibres-disponibles.js}"></script>
-        </th:block>
-    </body>
+		<script th:src="@{/js/llibres-disponibles.js}"></script>
+	</th:block>
+</body>
 </html>

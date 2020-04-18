@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/base.html}">
+
+<head>
+<title>Perfil d'usuari</title>
+</head>
+
+<body>
+	<section layout:fragment="content">
+		<h1 class="header center black-pearl-text">Les meves dades</h1>
+		<div class="container">
+			<div class="row">
+				<ul>
+					<li>Nom d'usuari: <span th:text="${userData.username}"></span></li>
+					<li>Email: <span th:text="${userData.email}"></span></li>
+					<li>Nom: <span th:text="${userData.name}"></span></li>
+					<li>Cognom: <span th:text="${userData.lastName}"></span></li>
+					<li>Ubicació (Codi Postal): <span th:text="${userData.location}"></span></li>
+					<li>Data registre: <span th:text="${userData.createdDate}"></span></li>
+				</ul>
+				<button onclick="location.href='/modificar-dades';" type="button"
+					id="botoModDades">Modificar dades</button>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

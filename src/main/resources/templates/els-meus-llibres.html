@@ -1,55 +1,232 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout/base.html}">
-    <head>
-        <title>Els meus llibres</title>
-        <link rel="stylesheet" type="text/css" href="/css/els-meus-llibres.css" />
-    </head>
+<head>
+<title>Els meus llibres</title>
+<link rel="stylesheet" type="text/css" href="/css/els-meus-llibres.css" />
+</head>
 
-    <body>
-        <section
-            layout:fragment="content"
-            id="app"
-            class="els-meus-llibres-page"
-            v-cloak
-        >
-            <h1 class="text-center mb-5">
-                Els meus llibres
-            </h1>
+<body>
+	<section layout:fragment="content" id="app"
+		class="els-meus-llibres-page" v-cloak>
+		<div class="container">
+			<div class="row">
+				<div class="col s12">
+					<h1 class="header center black-pearl-text">Els meus llibres</h1>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col s12">
+					<h4 class="center-align">Els meus llibres disponibles</h4>
+					<p class="center-align" v-if="! filterBooks(1).length">No tens
+						cap llibre disponible</p>
+				</div>
+			</div>
 
-            <h4>Els meus llibres disponibles</h4>
-            <p v-if="! filterBooks(1).length">No tens cap llibre disponible</p>
-            <div v-for="book in filterBooks(1)" >
-                <ul>
-                    <li>{{ book.title }}</li>
-                    <button @click="changeStatus(book)">Moure a no disponibles</button>
-                    <button @click="remove(book)">&times;</button>
-                </ul>
-            </div>
+			<transition-group name="fade" mode="out-in">
+				<div class="row cardLlibre" :key="book.id" v-for="book in filterBooks(1)">
+				<div class="col s12">
+					<div class="card horizontal hoverable oyster-bay">
+						<div class="row">
+							<div class="col s3 card-image">
+								<img class="responsive-img" :src="`/img/covers/${book.cover}`"
+									id="imgLlibre" :alt="book.title">
+							</div>
+						</div>
+						<div class="col s9 card-stacked">
+							<div class="row">
+								<div class="card-content">
+									<h3 class="negreta center-align">{{ book.title }}</h3>
+									<h5 class="author-isbn negreta center-align">
+										<em>{{ book.author.name }}</em> <span v-show="book.isbn">({{
+											book.isbn }})</span>
+									</h5>
+									<div class="row dades">
+										<div class=" row column">
+											<p>
+												<span class="negreta">Editorial: </span> {{
+												book.publisher.name }}
+											</p>
+											<p>
+												<span class="negreta">Gènere: </span> {{ book.genre.name }}
+											</p>
+											<p>
+												<span class="negreta">Temàtica: </span> {{ book.theme.name
+												}}
+											</p>
+										</div>
+										<div class="row column">
+											<p>
+												<span class="negreta">Idioma: </span> {{ book.language.name
+												}}
+											</p>
+											<p>
+												<span class="negreta">Edició: </span> {{ book.edition }}
+											</p>
+											<p>
+												<span class="negreta">Estat de conservació: </span> {{
+												book.preservation }}
+											</p>
+										</div>
+									</div>
+								</div>
+								<div class="row card-action">
+									<div class="col s6 center-align">
+										<a class="waves-effect waves-light btn" @click="changeStatus(book)">Moure a no disponibles</a>
+									</div>
+									<div class="col s6 center-align">
+										<a class="waves-effect waves-light btn" @click="remove(book)">Elimina el llibre</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</transition-group>
+			
+			
+			<div class="row">
+				<div class="col s12">
+					<h4 class="center-align">Els meus llibres no disponibles</h4>
+					<p class="center-align" v-if="! filterBooks(2).length">No tens
+						cap llibre no disponible</p>
+				</div>
+			</div>
+			
+			<transition-group name="fade" mode="out-in">
+				<div class="row cardLlibre" :key="book.id" v-for="book in filterBooks(2)">
+				<div class="col s12">
+					<div class="card horizontal hoverable oyster-bay">
+						<div class="row">
+							<div class="col s3 card-image">
+								<img class="responsive-img" :src="`/img/covers/${book.cover}`"
+									id="imgLlibre" :alt="book.title">
+							</div>
+						</div>
+						<div class="col s9 card-stacked">
+							<div class="row">
+								<div class="card-content">
+									<h3 class="negreta center-align">{{ book.title }}</h3>
+									<h5 class="author-isbn negreta center-align">
+										<em>{{ book.author.name }}</em> <span v-show="book.isbn">({{
+											book.isbn }})</span>
+									</h5>
+									<div class="row dades">
+										<div class=" row column">
+											<p>
+												<span class="negreta">Editorial: </span> {{
+												book.publisher.name }}
+											</p>
+											<p>
+												<span class="negreta">Gènere: </span> {{ book.genre.name }}
+											</p>
+											<p>
+												<span class="negreta">Temàtica: </span> {{ book.theme.name
+												}}
+											</p>
+										</div>
+										<div class="row column">
+											<p>
+												<span class="negreta">Idioma: </span> {{ book.language.name
+												}}
+											</p>
+											<p>
+												<span class="negreta">Edició: </span> {{ book.edition }}
+											</p>
+											<p>
+												<span class="negreta">Estat de conservació: </span> {{
+												book.preservation }}
+											</p>
+										</div>
+									</div>
+								</div>
+								<div class="row card-action">
+									<div class="col s6 center-align">
+										<a class="waves-effect waves-light btn" @click="changeStatus(book)">Moure a disponibles</a>
+									</div>
+									<div class="col s6 center-align">
+										<a class="waves-effect waves-light btn" @click="remove(book)">Elimina el llibre</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</transition-group>
+			
+			
+			<div class="row">
+				<div class="col s12">
+					<h4 class="center-align">Els meus llibres reservats</h4>
+					<p class="center-align" v-if="! filterBooks(3).length">No tens
+						cap llibre reservat</p>
+				</div>
+			</div>
+			
+			<transition-group name="fade" mode="out-in">
+					<div class="row cardLlibre" :key="book.id" v-for="book in filterBooks(3)">
+				<div class="col s12">
+					<div class="card horizontal hoverable oyster-bay">
+						<div class="row">
+							<div class="col s3 card-image">
+								<img class="responsive-img" :src="`/img/covers/${book.cover}`"
+									id="imgLlibre" :alt="book.title">
+							</div>
+						</div>
+						<div class="col s9 card-stacked">
+							<div class="row">
+								<div class="card-content">
+									<h3 class="negreta center-align">{{ book.title }}</h3>
+									<h5 class="author-isbn negreta center-align">
+										<em>{{ book.author.name }}</em> <span v-show="book.isbn">({{
+											book.isbn }})</span>
+									</h5>
+									<div class="row dades">
+										<div class=" row column">
+											<p>
+												<span class="negreta">Editorial: </span> {{
+												book.publisher.name }}
+											</p>
+											<p>
+												<span class="negreta">Gènere: </span> {{ book.genre.name }}
+											</p>
+											<p>
+												<span class="negreta">Temàtica: </span> {{ book.theme.name
+												}}
+											</p>
+										</div>
+										<div class="row column">
+											<p>
+												<span class="negreta">Idioma: </span> {{ book.language.name
+												}}
+											</p>
+											<p>
+												<span class="negreta">Edició: </span> {{ book.edition }}
+											</p>
+											<p>
+												<span class="negreta">Estat de conservació: </span> {{
+												book.preservation }}
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</transition-group>
+			
+		</div>
+	</section>
 
-            <h4>Els meus llibres no disponibles</h4>
-            <p v-if="! filterBooks(2).length">No tens cap llibre no disponible</p>
-            <div v-for="book in filterBooks(2)" >
-                <ul>
-                    <li>{{ book.title }}</li>
-                    <button @click="changeStatus(book)">Moure a disponibles</button>
-                    <button @click="remove(book)">&times;</button>
-                </ul>
-            </div>
-
-            <h4>Els meus llibres reservats</h4>
-            <p v-if="! filterBooks(3).length">No tens cap llibre no disponible</p>
-            <div v-for="book in filterBooks(3)" >
-                <ul>
-                    <li>{{ book.title }}</li>
-                </ul>
-            </div>
-        </section>
-
-        <th:block layout:fragment="script">
-            <script th:inline="javascript">
-                window.myUserId = /*[[${myUserId}]]*/ [];
-            </script>
-            <script th:src="@{/js/els-meus-llibres.js}"></script>
-        </th:block>
-    </body>
+	<th:block layout:fragment="script">
+		<script th:inline="javascript">
+			window.myUserId = /*[[${myUserId}]]*/[];
+		</script>
+		<script th:src="@{/js/els-meus-llibres.js}"></script>
+	</th:block>
+</body>
 </html>
