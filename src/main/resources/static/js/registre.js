@@ -1,16 +1,10 @@
 $(document).ready(function() {
 
-	$("#formRegistre").submit(function(event) {
-		event.preventDefault();
+	$("#form-submit-button").click(function(event) {
+		// if (!validar())
+			// return;
 
-		if (!validar())
-			return;
-
-		$.ajax({
-			url : $("#formRegistre").attr('action'),
-			type : 'post',
-			data : $("#formRegistre").serialize()
-		});
+		$("form").submit();
 	});
 });
 
@@ -24,7 +18,7 @@ function isUsernameValid() {
 		alert("El camp Nom d'usuari no pot estar buit");
 		return false;
 	}
-	if (username.lenght > 20 || username.length < 3) {
+	if (username.length > 20 || username.length < 3) {
 		alert("El nom d'usuari ha de tenir entre 3 i 20 caràcters");
 		return false;
 	}
@@ -37,7 +31,7 @@ function isEmailValid() {
 		alert("El camp email no pot estar buit");
 		return false;
 	}
-	if (email.lenght > 50) {
+	if (email.length > 50) {
 		alert("L'email no pot superar els 50 caràcters");
 		return false;
 	}
@@ -50,7 +44,7 @@ function isPasswordValid() {
 		alert("Has d'escollir una contrasenya");
 		return false;
 	}
-	if (password.lenght > 20 || password.length < 3) {
+	if (password.length > 20 || password.length < 3) {
 		alert("La contrasenya ha de tenir entre 3 i 20 caràcters");
 		return false;
 	}
