@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/base.html}">
+
+<head>
+<title>Perfil d'usuari</title>
+</head>
+
+<body>
+	<section layout:fragment="content">
+		<h1 class="header center black-pearl-text">Les meves dades</h1>
+		<div class="container">
+			<div class="row">
+				<div class="col l3"></div>
+	    			<div class="card col l6 m12 s12 center-align light-sea-green-text">
+	    							<form th:method="get" th:object="${user}"
+					th:action="@{/modificar-dades}" id="formUsuari"
+					enctype="multipart/form-data">
+					<div class="input-field col s12 center-align">
+						<i class="material-icons prefix">person_outline</i>
+						<input disabled type="text" id="username" name="username"
+							th:field="${userData.username}" class="black-pearl-text"/> <label for="username" class="light-sea-green-text">Nom
+							d'usuari: </label>
+					</div>
+					<div class="input-field col s12 center-align">
+						<i class="material-icons prefix">mail_outline</i>
+						<input disabled type="email" id="email" name="email" th:field="${userData.email}" class="black-pearl-text"/>
+						<label for="email" class="light-sea-green-text">Email: </label>
+					</div>
+					<div class="input-field col s12 center-align">
+						<i class="material-icons prefix">mode_edit</i>
+						<input disabled type="text" id="name" name="name" th:field="${userData.name}" class="black-pearl-text"/> <label
+							for="name" class="light-sea-green-text">Nom: </label>
+					</div>
+					<div class="input-field col s12 center-align">
+						<i class="material-icons prefix">mode_edit</i>
+						<input disabled type="text" id="lastName" name="lastName"
+							th:field="${userData.lastName}" class="black-pearl-text"/> <label for="lastName" class="light-sea-green-text">Cognom:
+						</label>
+					</div>
+					<div class="input-field col s12 center-align">
+						<i class="material-icons prefix">location_on</i>
+						<input disabled type="text" pattern="[0-9]{5}" id="location"
+							name="location" th:field="${userData.location}" class="black-pearl-text"/> <label for="location" class="light-sea-green-text">Ubicació:
+						</label>
+					</div>
+					<div class="input-field col s12 center-align">
+						<i class="material-icons prefix">lock_outline</i>
+						<input disabled type="password" id="password" name="password"
+							th:field="${userData.password}" class="black-pearl-text"/> <label for="password" class="light-sea-green-text">Contrasenya:
+						</label>
+					</div>
+					<div class="input-field col s12 center-align">
+						<i class="material-icons prefix">lock_outline</i>
+						<input disabled type="password" id="password2" name="password2" class="black-pearl-text" /> <label
+							for="password2" class="light-sea-green-text">Repeteix la contrasenya: </label>
+					</div>
+					
+<!-- 					<div> -->
+<!-- 						<div class="file-field input-field"> -->
+<!-- 							<div class="btn"> -->
+<!-- 								<span>Foto de perfil</span> <input name="file" type="file" -->
+<!-- 									id="selFoto" /> -->
+<!-- 							</div> -->
+<!-- 							<div class="file-path-wrapper"> -->
+<!-- 								<input class="file-path validate" type="text" /> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 					<div> -->
+<!-- 						<img class="responsive-img" src="/img/default-profile-picture.jpg" -->
+<!-- 							id="imgPerfil" alt="Imatge de perfil de l'usuari" /> -->
+<!-- 					</div> -->
+
+					<div class="input-field col s12 center-align">
+						<button type="submit"
+							class="btn-large waves-effect waves-light light-sea-green azure-text">Modifica
+							les dades</button>
+					</div>
+				</form>
+	    			
+	    			<!--
+	    			    <form method="put" th:object="${user}" th:action="@{/usuari}">
+            				<div class="input-field col s12 center-align">
+              					<i class="material-icons prefix">person_outline</i>
+              					<input disabled type="text" id="username" name="username" th:field="*{username}"/>
+              					<label for="username">Nom d'usuari</label>
+            				</div>
+            				<div class="input-field col s12 center-align">
+              					<i class="material-icons prefix">mail_outline</i>
+              					<input disabled type="email" id="email" name="email" th:field="*{email}"/>
+              					<label for="email">Correu electrònic</label>
+            				</div>
+            				<div class="input-field col s12 center-align">
+				              <i class="material-icons prefix">lock_outline</i>
+				              <input disabled type="password" id="password" name="password" th:field="*{password}"/>
+				              <label for="password">Contrasenya</label>
+            				</div>
+            				<div class="input-field col s12 center-align">
+				              <i class="material-icons prefix">lock_outline</i>
+				              <input disabled type="password" id="password2" name="password2"/>
+				              <label for="password2">Confirma la teva contrasenya</label>
+            				</div>
+            <div class="input-field col s12 center-align">
+            <button class="btn-large waves-effect waves-light light-sea-green azure-text" onclick="location.href='/modificar-dades';" type="button"
+							id="botoModDades">Modificar dades</button>
+
+            <button type="submit" class="btn-large waves-effect waves-light light-sea-green azure-text">Registre</button>
+            </div>
+          </form>
+            -->
+          <!--
+						<ul>
+							<li>Nom d'usuari: <span th:text="${userData.username}"></span></li>
+							<li>Email: <span th:text="${userData.email}"></span></li>
+							<li>Nom: <span th:text="${userData.name}"></span></li>
+							<li>Cognom: <span th:text="${userData.lastName}"></span></li>
+							<li>Ubicació (Codi Postal): <span th:text="${userData.location}"></span></li>
+							<li>Data registre: <span th:text="${userData.createdDate}"></span></li>
+						</ul>
+		
+						<button class="btn-large waves-effect waves-light light-sea-green azure-text" onclick="location.href='/modificar-dades';" type="button"
+							id="botoModDades">Modificar dades</button>
+		  -->		
+					</div>
+				</div>
+		</div>
+	</section>
+</body>
+
+</html>
