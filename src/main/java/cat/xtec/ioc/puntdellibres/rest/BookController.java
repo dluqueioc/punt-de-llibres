@@ -71,7 +71,7 @@ public class BookController {
          @RequestParam("languageId") String languageId, @RequestParam("preservation") String preservation,
          @RequestParam("edition") String edition, @RequestParam("file") MultipartFile[] files, Principal user)
          throws IOException {
-      // TODO : Move to service
+      // TODO : Move to service, pass one single Book object as param
 
       MultipartFile file = files[0];
       String fileName = files[0].getOriginalFilename();

@@ -14,7 +14,7 @@
         <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
         <input type="password" name="password" th:value="*{password}" placeholder="Contrasenya"/>
         <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
-        <input type="password" name="password2" th:value="*{passwordConfirmation}" placeholder="Confirma la teva contrasenya"/>
+        <input type="password" name="password2" placeholder="Confirma la teva contrasenya"/>
         <button type="submit">Registre</button>
     </form>
   </section>

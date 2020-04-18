@@ -65,9 +65,6 @@ public class User {
   @JsonIgnore
   private String password;
 
-  @JsonIgnore
-  private String passwordConfirmation;
-
   @Column(name = "name")
   @Size(min = 3, max = 50)
   private String name;
