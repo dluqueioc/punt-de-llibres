@@ -2,10 +2,15 @@
 <html layout:decorate="~{layout/base.html}">
     <head>
         <title>Afegir llibre</title>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/css/afegir-llibre.css"
+        />
     </head>
     <body>
         <section layout:fragment="content">
-            <article>
+            <article class="container">
                 <section>
                     <h3>Afegir llibre</h3>
                     <div class="valign-wrapper row login-box">
@@ -110,6 +115,7 @@
                                                 <div class="btn">
                                                     <span>Foto del llibre</span>
                                                     <input
+                                                        name="file"
                                                         type="file"
                                                         id="selArxiu"
                                                     />
@@ -126,7 +132,7 @@
                                     <div>
                                         <img
                                             class="responsive-img"
-                                            src="https://picsum.photos/100/160"
+                                            src="/img/covers/default-book.png"
                                             id="imgLlibre"
                                             alt="Imatge del llibre"
                                         />

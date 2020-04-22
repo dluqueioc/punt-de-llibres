@@ -5,15 +5,18 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.Principal;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.ws.rs.core.MediaType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,32 +29,36 @@ import cat.xtec.ioc.puntdellibres.service.UserService;
 
 @Controller
 public class UserController {
-   @Autowired
-   private UserService userService;
+	@Autowired
+	private UserService userService;
 
-   @GetMapping(value = "registre")
-   public String register(Model model) {
-      model.addAttribute("user", new User());
-      return "registre";
-   }
+	@GetMapping(value = "registre")
+	public String register(Model model) {
+		model.addAttribute("user", new User());
+		return "registre";
+	}
 
    @PostMapping(value = "registre")
-   public String create(HttpServletRequest request, @Valid @ModelAttribute("user") User user) {
-      // TODO: validation
-      String password = user.getPassword();
-
-      userService.save(user);
-
-      try {
-         request.login(user.getUsername(), password);
-      } catch (ServletException e) {
-         System.out.println(e);
+   public String create(HttpServletRequest request,
+         @Valid @ModelAttribute("user") User user,
+         BindingResult bindingResult) throws Exception {
+      if (bindingResult.hasErrors()) {
+         return "registre";
       }
 
-      return "redirect:/home";
-   }
-   
-   @PutMapping(value = "/modificar-dades", produces = MediaType.APPLICATION_JSON)
+      String password = user.getPassword();
+      userService.save(user);
+
+		try {
+			request.login(user.getUsername(), password);
+		} catch (ServletException e) {
+			System.out.println(e);
+		}
+
+		return "redirect:/home";
+	}
+
+	@PutMapping(value = "/modificar-dades", produces = MediaType.APPLICATION_JSON)
 	public ResponseEntity<Object> updateData(@RequestParam("username") String username, @RequestParam("email") String email,
 			@RequestParam("name") String name, @RequestParam("lastName") String lastName,
 			@RequestParam("location") String location, @RequestParam("password") String password,

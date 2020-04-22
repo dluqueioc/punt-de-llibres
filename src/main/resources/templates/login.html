@@ -7,35 +7,43 @@
 
 <body>
 	<section layout:fragment="content">
-		<h3>Iniciar sessió</h3>
-		<div class="valign-wrapper row login-box">
-			<div class="card hoverable col s12 teal lighten-5">
-				<form class="col s12" action="#" th:action="@{/login}"
-					th:object="${user}" method="post">
-					<div class="card-content center-align">
-						<img src="/img/sample-logo-170x150.png" alt="logo">
-					</div>
-					<div class="row">
-						<div class="input-field col s12 center-align">
-							<i class="material-icons prefix">person</i> <input type="text"
-								class="validate" name="username" th:field="*{username}">
-							<label for="username">Nom usuari</label>
+		<div class="container">
+			<h3>Iniciar sessió</h3>
+			<div class="valign-wrapper row login-box">
+				<div class="card hoverable col s12 teal lighten-5">
+					<form class="col s12" action="#" th:action="@{/login}"
+						th:object="${user}" method="post">
+						<div class="card-content center-align">
+							<img src="/img/sample-logo-170x150.png" alt="logo">
 						</div>
-						<div class="input-field col s12 center-align">
-							<i class="material-icons prefix">lock</i> <input type="password"
-								name="password" th:field="*{password}"> <label
-								for="password">Contrasenya</label>
+						<div class="row">
+							<div class="input-field col s12 center-align">
+								<i class="material-icons prefix">person</i> <input type="text"
+									class="validate" name="username" th:field="*{username}" autocomplete="off" readonly
+									onfocus="this.removeAttribute('readonly')" >
+								<label for="username">Nom usuari</label>
+							</div>
+							<div class="input-field col s12 center-align">
+								<i class="material-icons prefix">lock</i> <input type="password"
+									name="password" th:field="*{password}"> <label
+									for="password">Contrasenya</label>
+							</div>
+							<div id="remember-me-checkbox" class="col s12 center-align" style="margin: 2rem 0 1rem">
+									<label>
+											<input type="checkbox" class="filled-in" name="remember-me"/>
+											<span>Recorda'm</span>
+									</label>
+							</div>
+							<div class="input-field col s12 center-align">
+								<button id="botoSubmit"
+									class="btn waves-effect waves-light btn-large" type="submit"
+									name="action" value="enviar">Inicia sessió</button>
+							</div>
 						</div>
-						<div class="input-field col s12 center-align">
-							<button id="botoSubmit"
-								class="btn waves-effect waves-light btn-large" type="submit"
-								name="action" value="enviar">Inicia sessió</button>
-						</div>
-					</div>
-				</form>
+					</form>
+				</div>
 			</div>
 		</div>
-
 	</section>
 
 	<footer>

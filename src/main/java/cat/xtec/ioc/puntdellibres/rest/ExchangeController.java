@@ -42,8 +42,12 @@ public class ExchangeController {
       return exchangeRepository.findAll();
    }
 
-   @GetMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON)
-   public Iterable<Exchange> getMyExchanges(Principal user) {
+   @GetMapping(value = "/user", produces = MediaType.APPLICATION_JSON)
+   public Iterable<Exchange> getMyExchanges(Principal user) throws Exception {
+      if (user == null) {
+         throw new Exception("Not logged in");
+      }
+      
       return exchangeRepository.findMyExchanges(user);
    }
 
@@ -103,9 +107,15 @@ public class ExchangeController {
       Integer myUserId = userRepository.findByUsername(username).getId();
       Integer totalUsersWhoClosed = 0;
       Integer otherUserId = null;
+      List<UserWantsBook> books = exchange.getBooks();
 
       if (! close) {
          exchange.setStatusId(5);
+         for (UserWantsBook bookInExchange : books) {
+            Book book = bookRepository.findById(bookInExchange.getBookId()).get();
+            book.setBookStatusId(1);
+            bookRepository.save(book);
+         }
       } else {
          for (UserInExchange userInExchange : usersInExchange) {
             if (userInExchange.getUserId() != myUserId) {
@@ -123,7 +133,6 @@ public class ExchangeController {
       if (totalUsersWhoClosed == 2) {
          exchange.setStatusId(6);
 
-         List<UserWantsBook> books = exchange.getBooks();
          for (UserWantsBook bookInExchange : books) {
             Book book = bookRepository.findById(bookInExchange.getBookId()).get();
             Integer previousOwner = book.getUserId();

@@ -4,10 +4,6 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <!--
-  <meta name="_csrf" th:attr="content=${_csrf.token}" />
-  <meta name="_csrf_header" th:attr="content=${_csrf.headerName}" />
-    -->
   <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">
   	Punt de llibres
   </title>
@@ -23,7 +19,7 @@
   <!--NAVEGACIÓ-->
   <nav class="light-sea-green" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="#" class="brand-logo">PDL</a>
+      <a id="logo-container" href="/" class="brand-logo">PDL</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="/home#about-us">Què és Punt de Llibres?</a></li>
         <li><a href="/llibres-disponibles">Llibres disponibles</a></li>
@@ -33,7 +29,7 @@
         <li sec:authorize="isAnonymous()"><a href="/registre">Registra't</a></li>
         <li sec:authorize="isAuthenticated()"><a href="/usuari" th:text="${#authentication.getPrincipal().getUsername()}"></a></li>
         <li sec:authorize="isAuthenticated()"><a href="/logout">Tanca sessió</a></li>
-        
+
       </ul>
 
       <ul id="nav-mobile" class="light-sea-green sidenav">
@@ -49,11 +45,7 @@
       <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
   </nav>
-  <!--
-  <header>
-    <h1>Punt de llibres</h1>
-  </header>
-  -->
+
   <main>
   <section layout:fragment="content">
     <p>Page content goes here</p>
@@ -84,7 +76,7 @@
                 </a>
                 <a class="waves-effect waves-light btn-floating oyster-bay">
                     <i class="fa fa-instagram light-sea-green-text"></i>
-                </a>  
+                </a>
                   <a class="waves-effect waves-light btn-floating oyster-bay">
                       <i class="fa fa-linkedin light-sea-green-text"></i>
                   </a>
@@ -98,7 +90,7 @@
       </div>
       </div>
   </footer>
-  
+
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>

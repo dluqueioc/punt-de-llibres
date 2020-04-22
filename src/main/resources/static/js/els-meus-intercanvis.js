@@ -9,7 +9,7 @@ new Vue({
         this.myUserId = window.myUserId;
 
         try {
-            this.exchanges = await $.get(`/api/exchanges/${this.myUserId}`);
+            this.exchanges = await $.get(`/api/exchanges/user`);
         } catch (err) {
             console.log(err);
         }

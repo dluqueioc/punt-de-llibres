@@ -1,5 +1,6 @@
 package cat.xtec.ioc.puntdellibres.service;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +39,17 @@ public class UserService implements UserDetailsService {
   }
 
   public void save(User user) {
-      user.setPassword(encoder.encode(user.getPassword()));
-      userRepository.save(user);
+    user.setPassword(encoder.encode(user.getPassword()));
+    userRepository.save(user);
+  }
+
+  public User findMe(Principal user) {
+    String username = user.getName();
+    return userRepository.findByUsername(username);
+  }
+
+  public Integer findMyId(Principal user) {
+    return findMe(user).getId();
   }
 
 }
