@@ -112,15 +112,15 @@
                                     <div class="row score" v-if="book.hasOwnProperty('goodReadsInfo')">
                                         <a :href="`https://www.goodreads.com/book/show/${book.goodReadsInfo.id}`" target="_blank">
                                             <img src="/img/goodreads.png" alt="Goodreads Logo">
+                                            <span class="stars">
+                                                <span :style="{ width: `${book.goodReadsInfo.score / 5 * 100}%` }" class="star-rating"></span>
+                                            </span>
+                                            <span class="number-rating">{{ book.goodReadsInfo.score }}</span>
                                         </a>
-                                        <span class="stars">
-                                            <span :style="{ width: `${book.goodReadsInfo.score / 5 * 100}%` }" class="star-rating"></span>
-                                        </span>
-                                        <span class="number-rating">{{ book.goodReadsInfo.score }}</span>
                                     </div>
                                     <hr>
                                     <div class="row dades">
-                                        <div class="column col col-5">
+                                        <div class="column col s4 offset-s1">
                                             <p>
                                                 <span class="negreta"
                                                     >Editorial:
@@ -140,7 +140,7 @@
                                                 {{ book.theme.name }}
                                             </p>
                                         </div>
-                                        <div class="column col col-5">
+                                        <div class="column col s4 offset-s1">
                                             <p>
                                                 <span class="negreta"
                                                     >Idioma:
@@ -162,11 +162,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row card-action" v-if="loggedIn">
+                            </div>
+                            <hr class="hr-bottom col s12" v-if="loggedIn">
+                            <div class="col s12 card-action" v-if="loggedIn">
+                                <div class="row">
                                     <div class="col s4 center-align">
                                         <p>
-                                            Disponible de l'usuari: {{
-                                            book.user.username }}
+                                            Disponible de l'usuari: <a class="user-link" :href="`/llibres-disponibles?filter=user&q=${book.user.id}`">{{
+                                            book.user.username }}</a>
                                         </p>
                                     </div>
                                     <div class="col s4 center-align">
@@ -177,7 +180,7 @@
                                     </div>
 
                                     <div
-                                        class="card col s4 center-align hoverable light-sea-green azure-text"
+                                        class="card col s4 center-align hoverable light-sea-green azure-text exchange-button"
                                         @click="activaModal(book.id)"
                                     >
                                         <span class="bolder"
@@ -193,8 +196,6 @@
                     </div>
                 </div>
             </transition-group>
-
-            <!-- <a class="waves-effect waves-light btn modal-trigger hide" id="confirma-peticio-2-link" href="#confirma-peticio">Modal</a> -->
 
             <div class="modal">
                 <div class="modal-content">
@@ -218,7 +219,8 @@
                     >
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
 	<footer>
 		<p layout:fragment="footer"></p>
