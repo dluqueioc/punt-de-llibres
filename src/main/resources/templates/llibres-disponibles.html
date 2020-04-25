@@ -166,13 +166,13 @@
                             <hr class="hr-bottom col s12" v-if="loggedIn">
                             <div class="col s12 card-action" v-if="loggedIn">
                                 <div class="row">
-                                    <div class="col s4 center-align">
+                                    <div class="col s4 right-align">
                                         <p>
-                                            Disponible de l'usuari: <a class="user-link" :href="`/llibres-disponibles?filter=user&q=${book.user.id}`">{{
+                                            Disponible de: <a class="user-link" :href="`/llibres-disponibles?filter=user&q=${book.user.id}`">{{
                                             book.user.username }}</a>
                                         </p>
                                     </div>
-                                    <div class="col s4 center-align">
+                                    <div class="col s3">
                                         <img
                                             class="user-image rounded-circle circle responsive-img"
                                             src="/img/default-profile-picture.jpg"

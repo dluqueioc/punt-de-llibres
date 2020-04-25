@@ -207,6 +207,7 @@ hr {
 
 	.card-action .row > div {
 		width: 100% !important;
+		text-align: center;
 	}
 
 	.card-stacked h3 {
