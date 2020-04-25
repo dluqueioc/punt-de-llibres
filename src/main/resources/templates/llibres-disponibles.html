@@ -109,8 +109,18 @@
                                         <em>{{ book.author.name }}</em>
                                         <span>({{ book.isbn }})</span>
                                     </h5>
+                                    <div class="row score" v-if="book.hasOwnProperty('goodReadsInfo')">
+                                        <a :href="`https://www.goodreads.com/book/show/${book.goodReadsInfo.id}`" target="_blank">
+                                            <img src="/img/goodreads.png" alt="Goodreads Logo">
+                                        </a>
+                                        <span class="stars">
+                                            <span :style="{ width: `${book.goodReadsInfo.score / 5 * 100}%` }" class="star-rating"></span>
+                                        </span>
+                                        <span class="number-rating">{{ book.goodReadsInfo.score }}</span>
+                                    </div>
+                                    <hr>
                                     <div class="row dades">
-                                        <div class="column">
+                                        <div class="column col col-5">
                                             <p>
                                                 <span class="negreta"
                                                     >Editorial:
@@ -130,7 +140,7 @@
                                                 {{ book.theme.name }}
                                             </p>
                                         </div>
-                                        <div class="column">
+                                        <div class="column col col-5">
                                             <p>
                                                 <span class="negreta"
                                                     >Idioma:

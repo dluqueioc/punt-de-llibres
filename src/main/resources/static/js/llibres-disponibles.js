@@ -6,8 +6,10 @@ new Vue({
 
         if (window.loggedIn) {
             try {
-                const myExchanges = await $.get('/api/exchanges/user')
-                this.myRequestedBooks = myExchanges.flatMap(exch => exch.books.map(book => book.bookId));
+                const myExchanges = await $.get('/api/exchanges/user');
+                this.myRequestedBooks = myExchanges.flatMap((exch) =>
+                    exch.books.map((book) => book.bookId)
+                );
             } catch (err) {
                 console.log(err);
             }
@@ -16,9 +18,11 @@ new Vue({
         if (urlParams.get('filter') === 'user') {
             this.filteredByUser = true;
             try {
-                this.books = await $.get(
+                const books = await $.get(
                     '/api/books/user/' + urlParams.get('q')
                 );
+                await this.getScores(books);
+                this.books = books;
                 this.startMaterialize();
             } catch (err) {
                 console.log(err);
@@ -26,7 +30,9 @@ new Vue({
         } else {
             this.filter = urlParams.get('filter') || null;
             try {
-                this.books = await $.get('/api/books');
+                const books = await $.get('/api/books');
+                await this.getScores(books);
+                this.books = books;
                 this.startMaterialize();
             } catch (err) {
                 console.log(err);
@@ -47,7 +53,7 @@ new Vue({
         selectFilterValue: '',
         initialRender: true,
         filteredByUser: false,
-        myRequestedBooks: []
+        myRequestedBooks: [],
     },
 
     watch: {
@@ -71,34 +77,32 @@ new Vue({
         },
 
         booksShown() {
-            return this.books
-                .filter((b) => {
-                    if (
-                        !this.filter ||
-                        (this.filter &&
-                            this.showSelect &&
-                            !this.selectFilterValue) ||
-                        (this.filter &&
-                            !this.showSelect &&
-                            !this.inputFilterValue)
-                    )
-                        return true;
+            return this.books.filter((b) => {
+                if (
+                    !this.filter ||
+                    (this.filter &&
+                        this.showSelect &&
+                        !this.selectFilterValue) ||
+                    (this.filter && !this.showSelect && !this.inputFilterValue)
+                )
+                    return true;
 
-                    if (this.filter === 'title') {
-                        return new RegExp(this.inputFilterValue, 'i').test(
-                            b[this.filter]
-                        );
-                    } else if (this.filter === 'author') {
-                        return new RegExp(this.inputFilterValue, 'i').test(
-                            b.author.name
-                        );
-                    } else if (this.filter === 'owner') {
-                        return b.userId === this.inputFilterValue;
-                    } else {
-                        return b[this.filter].name === this.selectFilterValue;
-                    }
-                });
+                if (this.filter === 'title') {
+                    return new RegExp(this.inputFilterValue, 'i').test(
+                        b[this.filter]
+                    );
+                } else if (this.filter === 'author') {
+                    return new RegExp(this.inputFilterValue, 'i').test(
+                        b.author.name
+                    );
+                } else if (this.filter === 'owner') {
+                    return b.userId === this.inputFilterValue;
+                } else {
+                    return b[this.filter].name === this.selectFilterValue;
+                }
+            });
         },
+
         fromUserText() {
             return this.books.length
                 ? `de l'usuari ${this.books[0].user.username}`
@@ -169,11 +173,34 @@ new Vue({
 
         tancaModal() {
             this.modal.close();
-        }
+        },
+
+        formatIsbn(isbn) {
+            return isbn.replace(/[-\s]/g, '');
+        },
+
+        async getScores(books) {
+            const isbns = books.reduce((aggr, book) => {
+                return book.isbn
+                    ? `${aggr}${aggr ? ',' : ''}${this.formatIsbn(book.isbn)}`
+                    : aggr;
+            }, '');
+            const response = await $.get(`/api/books/scores?isbns=${isbns}`);
+            const scores = JSON.parse(response).books;
+            for (let score of scores) {
+                const book = books.find(book =>
+                    [score.isbn, score.isbn13].includes(this.formatIsbn(book.isbn))
+                );
+                Vue.set(book, 'goodReadsInfo', {
+                    id: score.id,
+                    score: score.average_rating
+                });
+            }
+        },
     },
 
     mounted() {
         var elems = document.querySelectorAll('.modal');
         this.modal = M.Modal.init(elems, {})[0];
-    }
+    },
 });

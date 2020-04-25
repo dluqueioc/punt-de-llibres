@@ -58,7 +58,7 @@ p {
 	display: -ms-flexbox;
 	display: flex;
 }
-	
+
 [v-cloak] {
 	display: none;
 }
@@ -67,15 +67,63 @@ p {
 	margin-top: 0;
 }
 
+.score {
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	margin-top: 20px;
+}
+
+hr {
+	border-color: rgba(160,160,160,0.2);
+	border-bottom: none;
+	margin-top: 25px;
+}
+
+.score a {
+	margin-right: 20px;
+	margin-bottom: -7px;
+}
+
+.score img {
+	height: 20px;
+}
+
+.stars {
+	background: url("../img/star-rating-sprite.png") repeat-x;
+	font-size: 0;
+	height: 21px;
+	line-height: 0;
+	overflow: hidden;
+	text-indent: -999em;
+	width: 110px;
+	margin: 0 25px 0 10px;
+}
+
+.stars .star-rating {
+	background: url("../img/star-rating-sprite.png") repeat-x;
+	background-position: 0 100%;
+	float: left;
+	height: 21px;
+	display:block;
+}
+
+.number-rating {
+	margin-bottom: -2px;
+}
+
+.card .card-content {
+	padding-bottom: 5px;
+}
+
 @media only screen and (max-width : 700px) {
   .column {
     display: block;
    	width:100%;
   }
-   
+
   .card.horizontal {
     display: inline-block;
-    margin: 10px 10px 10px 10px;   	
-  }  
- 
+    margin: 10px 10px 10px 10px;
+	}
 }

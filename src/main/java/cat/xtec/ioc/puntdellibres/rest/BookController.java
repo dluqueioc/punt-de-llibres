@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.security.Principal;
 import java.util.UUID;
 
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import cat.xtec.ioc.puntdellibres.model.Author;
@@ -159,5 +161,13 @@ public class BookController {
       bookRepository.delete(book);
 
       return new ResponseEntity<>(book, HttpStatus.OK);
+   }
+
+   @GetMapping(value = "/scores")
+   public String getScores(@QueryParam("isbns") String isbns) {
+      RestTemplate restTemplate = new RestTemplate();
+      String url = "https://www.goodreads.com/book/review_counts.json?key=YKQUWTiQu1snn12idRIFJg&isbns=" + isbns;
+      ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+      return response.getBody();
    }
 }
