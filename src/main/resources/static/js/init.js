@@ -10,5 +10,7 @@
         //duration: 100,
     );
     // $('.modal').modal();
+    $(".dropdown-trigger").dropdown({constrainWidth: false });
+	$('.collapsible').collapsible();
   }); // end of document ready
 })(jQuery); // end of jQuery name space
