@@ -2,102 +2,127 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="ca">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">
-  	Punt de llibres
-  </title>
-  <!-- CSS  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/materialize-social.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">
+	Punt de llibres</title>
+<!-- CSS  -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+<link href="css/materialize-social.css" type="text/css" rel="stylesheet" media="screen,projection" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-  <!--NAVEGACIÓ-->
-  <nav class="light-sea-green" role="navigation">
-    <div class="nav-wrapper container">
-      <a id="logo-container" href="/" class="brand-logo">PDL</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="/home#about-us">Què és Punt de Llibres?</a></li>
-        <li><a href="/llibres-disponibles">Llibres disponibles</a></li>
-        <li sec:authorize="isAuthenticated()"><a href="/els-meus-llibres">Els meus llibres</a></li>
-        <li sec:authorize="isAuthenticated()"><a href="/els-meus-intercanvis">Els meus intercanvis</a></li>
-        <li sec:authorize="isAnonymous()"><a href="/login">Inicia Sessió</a></li>
-        <li sec:authorize="isAnonymous()"><a href="/registre">Registra't</a></li>
-        <li sec:authorize="isAuthenticated()"><a href="/usuari" th:text="${#authentication.getPrincipal().getUsername()}"></a></li>
-        <li sec:authorize="isAuthenticated()"><a href="/logout">Tanca sessió</a></li>
+	<!--NAVEGACIÓ-->
+	<!-- Dropdown-->
+	<ul id="dropdown-usuari" class="dropdown-content light-sea-green azure-text">
+		<li class="light-sea-green" sec:authorize="isAuthenticated()"><a href="/usuari"	class="azure-text"><i class="material-icons azure-text">account_circle</i>El meu perfil</a></li>
+		<li class="light-sea-green" sec:authorize="isAuthenticated()"><a href="/els-meus-llibres" class="azure-text"><i class="fa fa-book fa-lg azure-text"></i>Els meus llibres</a></li>
+		<li class="light-sea-green" sec:authorize="isAuthenticated()"><a href="/els-meus-intercanvis" class="azure-text"><i class="material-icons azure-text">swap_horiz</i>Els meus intercanvis</a></li>
+		<li class="light-sea-green" sec:authorize="isAuthenticated()"><a href="/les-meves-converses" class="azure-text"><i class="material-icons azure-text">forum</i>Les meves converses</a></li>
+		<li class="divider atoll"></li>
+		<li class="light-sea-green"sec:authorize="isAuthenticated()"><a href="/logout" class="azure-text"><i class="material-icons azure-text">exit_to_app</i>Tanca sessió</a></li>
+	</ul>
+	<!--  Navbar -->
+	<nav class="light-sea-green" role="navigation">
+		<div class="nav-wrapper container">
+			<a id="logo-container" href="/" class="brand-logo">PDL</a>
+			<!-- Menú pantalles grans-->
+			<ul class="right hide-on-med-and-down">
+				<li><a href="/home#about-us">Què és Punt de Llibres?</a></li>
+				<li><a href="/llibres-disponibles">Llibres disponibles</a></li>
+				<li sec:authorize="isAnonymous()"><a href="/login">Inicia Sessió</a></li>
+				<li sec:authorize="isAnonymous()"><a href="/registre">Registra't</a></li>
+				<li sec:authorize="isAuthenticated()"><a class="dropdown-trigger" href="#!" data-target="dropdown-usuari">[[${#authentication.getPrincipal().getUsername()}]]<i class="material-icons right">arrow_drop_down</i></a></li>
+			</ul>
+			<!-- Menú mobile-->
+			<ul id="nav-mobile" class="light-sea-green sidenav">
+				<li><a href="/home#about-us">Què és Punt de Llibres?</a></li>
+				<li><a href="/llibres-disponibles">Llibres disponibles</a></li>
+				<li sec:authorize="isAnonymous()"><a href="/login">Inicia Sessió</a></li>
+				<li sec:authorize="isAnonymous()"><a href="/registre">Registra't</a></li>
+				<!-- Dropdown mobil-->
+				<li  sec:authorize="isAuthenticated()" class="no-padding">
+        			<ul class="collapsible collapsible-accordion">
+          				<li>
+            				<a class="collapsible-header">[[${#authentication.getPrincipal().getUsername()}]]<i class="material-icons right azure-text">arrow_drop_down</i></a>
+            				<div class="collapsible-body">
+              					<ul>
+									<li class="light-sea-green" sec:authorize="isAuthenticated()"><a href="/usuari"	class="azure-text"><i class="material-icons azure-text">account_circle</i>El meu perfil</a></li>
+									<li class="light-sea-green" sec:authorize="isAuthenticated()"><a href="/els-meus-llibres" class="azure-text"><i class="fa fa-book fa-lg azure-text"></i>Els meus llibres</a></li>
+									<li class="light-sea-green" sec:authorize="isAuthenticated()"><a href="/els-meus-intercanvis" class="azure-text"><i class="material-icons azure-text">swap_horiz</i>Els meus intercanvis</a></li>
+									<li class="light-sea-green" sec:authorize="isAuthenticated()"><a href="/els-meus-intercanvis" class="azure-text"><i class="material-icons azure-text">swap_horiz</i>Els meus intercanvis</a></li>
+									<li class="light-sea-green" sec:authorize="isAuthenticated()"><a href="/les-meves-converses" class="azure-text"><i class="material-icons azure-text">forum</i>Les meves converses</a></li>
+									<li class="divider atoll" style="margin-top: 0px;"></li>
+									<li class="light-sea-green"sec:authorize="isAuthenticated()"><a href="/logout" class="azure-text"><i class="material-icons azure-text">exit_to_app</i>Tanca sessió</a></li>
+              					</ul>
+            				</div>
+          				</li>
+        			</ul>
+      			</li>
+			</ul>
+			<a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+		</div>
+	</nav>
 
-      </ul>
+	<main>
+		<section layout:fragment="content">
+			<p>Page content goes here</p>
+		</section>
+	</main>
+	<footer class="page-footer light-sea-green">
+		<div class="container">
+			<div class="row">
+				<div class="col l6 s12">
+					<h5 class="azure-text">El nostre Equip</h5>
+					<p class="oyster-bay-text">Son un grup d'estudiants de l'IOC
+						del cicle de Desenvolupament d'aplicacions Web que ens hem dedicat
+						a la realització d'aquest projecte amb totes les nostres energies,
+						tal i com si es tractés d'un projecte real i no només d'un treball
+						per aprovar una assignatura.</p>
+				</div>
+				<div class="col l3 s12">
+					<h5 class="azure-text">Informació</h5>
+					<ul>
+						<li><a class="azure-text" href="/privacitat">Política de privacitat</a></li>
+						<li><a class="azure-text" href="/condicions-us">Condicions d'ús</a></li>
+						<li><a class="azure-text" href="cookies">Cookies</a></li>
+					</ul>
+				</div>
+				<div class="col l3 s12">
+					<h5 class="azure-text">Connecta amb nosaltres</h5>
+					<a class="waves-effect waves-light btn-floating oyster-bay">
+						<i class="fa fa-facebook light-sea-green-text"></i>
+					</a>
+					<a class="waves-effect waves-light btn-floating oyster-bay">
+						<i class="fa fa-twitter light-sea-green-text"></i>
+					</a>
+					<a class="waves-effect waves-light btn-floating oyster-bay">
+						<i class="fa fa-instagram light-sea-green-text"></i>
+					</a>
+					<a class="waves-effect waves-light btn-floating oyster-bay">
+						<i class="fa fa-linkedin light-sea-green-text"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+		<p layout:fragment="footer"></p>
+		<div class="footer-copyright atoll">
+			<div class="container">
+				© Copyright 2020 Grup 3 IOC DAW M12 Projecte de Desenvolupament	d'Aplicacions Web | <a href="mailto:info@puntdellibres.cat" class="azure-text light">info@puntdellibres.cat</a>
+			</div>
+		</div>
+	</footer>
 
-      <ul id="nav-mobile" class="light-sea-green sidenav">
-        <li><a href="/home#about-us">Què és Punt de Llibres?</a></li>
-        <li><a href="/llibres-disponibles">Llibres disponibles</a></li>
-        <li sec:authorize="isAuthenticated()"><a href="/els-meus-llibres">Els meus llibres</a></li>
-        <li sec:authorize="isAuthenticated()"><a href="/els-meus-intercanvis">Els meus intercanvis</a></li>
-        <li sec:authorize="isAnonymous()"><a href="/login">Inicia Sessió</a></li>
-        <li sec:authorize="isAnonymous()"><a href="/registre">Registra't</a></li>
-        <li sec:authorize="isAuthenticated()"><a href="/usuari" th:text="${#authentication.getPrincipal().getUsername()}"></a></li>
-        <li sec:authorize="isAuthenticated()"><a href="/logout">Tanca sessió</a></li>
-      </ul>
-      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-    </div>
-  </nav>
-
-  <main>
-  <section layout:fragment="content">
-    <p>Page content goes here</p>
-  </section>
-  </main>
-  <footer class="page-footer light-sea-green">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="azure-text">El nostre Equip</h5>
-          <p class="oyster-bay-text">Son un grup d'estudiants de l'IOC del cicle de Desenvolupament d'aplicacions Web que ens hem dedicat a la realització d'aquest projecte amb totes les nostres energies, tal i com si es tractés d'un projecte real i no només d'un treball per aprovar una assignatura.</p>
-        </div>
-        <div class="col l3 s12">
-          <h5 class="azure-text">Informació</h5>
-          <ul>
-            <li><a class="azure-text" href="/privacitat">Política de privacitat</a></li>
-            <li><a class="azure-text" href="/condicions-us">Condicions d'ús</a></li>
-            <li><a class="azure-text" href="cookies">Cookies</a></li>
-          </ul>
-        </div>
-        <div class="col l3 s12">
-          <h5 class="azure-text">Connecta amb nosaltres</h5>
-                <a class="waves-effect waves-light btn-floating oyster-bay">
-                    <i class="fa fa-facebook light-sea-green-text"></i>
-                </a>
-                <a class="waves-effect waves-light btn-floating oyster-bay">
-                    <i class="fa fa-twitter light-sea-green-text"></i>
-                </a>
-                <a class="waves-effect waves-light btn-floating oyster-bay">
-                    <i class="fa fa-instagram light-sea-green-text"></i>
-                </a>
-                  <a class="waves-effect waves-light btn-floating oyster-bay">
-                      <i class="fa fa-linkedin light-sea-green-text"></i>
-                  </a>
-        </div>
-      </div>
-    </div>
-    <p layout:fragment="footer"></p>
-        <div class="footer-copyright atoll">
-      <div class="container">
-      © Copyright 2020 Grup 3 IOC DAW M12 Projecte de Desenvolupament d'Aplicacions Web | <a href="mailto:info@puntdellibres.cat" class="azure-text light">info@puntdellibres.cat</a>
-      </div>
-      </div>
-  </footer>
-
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-  <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
-  <script src="https://code.iconify.design/1/1.0.5/iconify.min.js"></script>
-  <th:block layout:fragment="script"></th:block>
+	<!--  Scripts-->
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	<script src="js/materialize.js"></script>
+	<script src="js/init.js"></script>
+	<script src="https://code.iconify.design/1/1.0.5/iconify.min.js"></script>
+	<th:block layout:fragment="script"></th:block>
 </body>
 
 </html>
