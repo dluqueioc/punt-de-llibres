@@ -1,89 +1,180 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout/base.html}">
+    <head>
+        <title>Modificar dades</title>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/css/modificar-dades.css"
+        />
+    </head>
 
-<head>
-<title>Modificar dades</title>
-</head>
+    <body>
+        <section layout:fragment="content">
+            <h1 class="header center black-pearl-text">Modificar dades</h1>
+            <div class="container">
+                <div class="row">
+                    <div class="card col offset-l1 l10 m12 s12">
+                        <form
+                            th:method="put"
+                            th:object="${user}"
+                            th:action="@{/modificar-dades}"
+                            id="formModificarDades"
+                            enctype="multipart/form-data"
+                        >
+                            <div class="row">
+                                <div class="text-fields col l6 s12">
+                                    <div
+                                        class="input-field col s12 center-align"
+                                    >
+                                        <i class="material-icons prefix"
+                                            >person_outline</i
+                                        >
+                                        <input
+                                            type="text"
+                                            id="username"
+                                            name="username"
+                                            th:field="*{username}"
+                                        />
+                                        <label for="username"
+                                            >Nom d'usuari:
+                                        </label>
+                                    </div>
+                                    <div
+                                        class="input-field col s12 center-align"
+                                    >
+                                        <i class="material-icons prefix"
+                                            >mail_outline</i
+                                        >
+                                        <input
+                                            type="email"
+                                            id="email"
+                                            name="email"
+                                            th:field="*{email}"
+                                        />
+                                        <label for="email">Email: </label>
+                                    </div>
+                                    <div
+                                        class="input-field col s12 center-align"
+                                    >
+                                        <i class="material-icons prefix"
+                                            >mode_edit</i
+                                        >
+                                        <input
+                                            type="text"
+                                            id="name"
+                                            name="name"
+                                            th:field="*{name}"
+                                        />
+                                        <label for="name">Nom: </label>
+                                    </div>
+                                    <div
+                                        class="input-field col s12 center-align"
+                                    >
+                                        <i class="material-icons prefix"
+                                            >mode_edit</i
+                                        >
+                                        <input
+                                            type="text"
+                                            id="lastName"
+                                            name="lastName"
+                                            th:field="*{lastName}"
+                                        />
+                                        <label for="lastName">Cognom: </label>
+                                    </div>
+                                    <div
+                                        class="input-field col s12 center-align"
+                                    >
+                                        <i class="material-icons prefix"
+                                            >location_on</i
+                                        >
+                                        <input
+                                            type="text"
+                                            pattern="[0-9]{5}"
+                                            id="location"
+                                            name="location"
+                                            th:field="*{location}"
+                                        />
+                                        <label for="location">Ubicació: </label>
+                                    </div>
+                                    <div
+                                        class="input-field col s12 center-align"
+                                    >
+                                        <i class="material-icons prefix"
+                                            >lock_outline</i
+                                        >
+                                        <input
+                                            type="password"
+                                            id="password"
+                                            name="password"
+                                            th:field="*{password}"
+                                        />
+                                        <label for="password"
+                                            >Contrasenya:
+                                        </label>
+                                    </div>
+                                    <div
+                                        class="input-field col s12 center-align"
+                                    >
+                                        <i class="material-icons prefix"
+                                            >lock_outline</i
+                                        >
+                                        <input
+                                            type="password"
+                                            id="password2"
+                                            name="password2"
+                                        />
+                                        <label for="password2"
+                                            >Repeteix la contrasenya:
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="avatar col l4 offset-l1 s12">
+                                    <div>
+                                        <img
+                                            class="responsive-img"
+                                            src="/img/default-profile-picture.jpg"
+                                            id="imgPerfil"
+                                            alt="Imatge de perfil de l'usuari"
+                                        />
+                                    </div>
+                                    <div class="file-field input-field col s12">
+                                        <div class="btn">
+                                            <span>Foto de perfil</span>
+                                            <input
+                                                name="file"
+                                                type="file"
+                                                id="selFoto"
+                                            />
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input
+                                                class="file-path validate"
+                                                type="text"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-<body>
-	<section layout:fragment="content">
-		<h1 class="header center black-pearl-text">Modificar dades</h1>
-		<div class="container">
-			<div class="row">
-	    <div class="col l3"></div>
-	    <div class="card col l6 m12 s12">
-				<form th:method="put" th:object="${user}"
-					th:action="@{/modificar-dades}" id="formModificarDades"
-					enctype="multipart/form-data">
-					<div class="input-field col s12 center-align">
-						<i class="material-icons prefix">person_outline</i>
-						<input type="text" id="username" name="username"
-							th:field="*{username}" /> <label for="username">Nom
-							d'usuari: </label>
-					</div>
-					<div class="input-field col s12 center-align">
-						<i class="material-icons prefix">mail_outline</i>
-						<input type="email" id="email" name="email" th:field="*{email}" />
-						<label for="email">Email: </label>
-					</div>
-					<div class="input-field col s12 center-align">
-						<i class="material-icons prefix">mode_edit</i>
-						<input type="text" id="name" name="name" th:field="*{name}" /> <label
-							for="name">Nom: </label>
-					</div>
-					<div class="input-field col s12 center-align">
-						<i class="material-icons prefix">mode_edit</i>
-						<input type="text" id="lastName" name="lastName"
-							th:field="*{lastName}" /> <label for="lastName">Cognom:
-						</label>
-					</div>
-					<div class="input-field col s12 center-align">
-						<i class="material-icons prefix">location_on</i>
-						<input type="text" pattern="[0-9]{5}" id="location"
-							name="location" th:field="*{location}" /> <label for="location">Ubicació:
-						</label>
-					</div>
-					<div class="input-field col s12 center-align">
-						<i class="material-icons prefix">lock_outline</i>
-						<input type="password" id="password" name="password"
-							th:field="*{password}" /> <label for="password">Contrasenya:
-						</label>
-					</div>
-					<div class="input-field col s12 center-align">
-						<i class="material-icons prefix">lock_outline</i>
-						<input type="password" id="password2" name="password2" /> <label
-							for="password2">Repeteix la contrasenya: </label>
-					</div>
-					
-<!-- 					<div> -->
-<!-- 						<div class="file-field input-field"> -->
-<!-- 							<div class="btn"> -->
-<!-- 								<span>Foto de perfil</span> <input name="file" type="file" -->
-<!-- 									id="selFoto" /> -->
-<!-- 							</div> -->
-<!-- 							<div class="file-path-wrapper"> -->
-<!-- 								<input class="file-path validate" type="text" /> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 					<div> -->
-<!-- 						<img class="responsive-img" src="/img/default-profile-picture.jpg" -->
-<!-- 							id="imgPerfil" alt="Imatge de perfil de l'usuari" /> -->
-<!-- 					</div> -->
+                            <div class="row">
+                                <div class="input-field col s12 center-align">
+                                    <button
+                                        type="submit"
+                                        class="btn-large waves-effect waves-light light-sea-green azure-text"
+                                    >
+                                        Modifica les dades
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-					<div class="input-field col s12 center-align">
-						<button type="submit"
-							class="btn-large waves-effect waves-light light-sea-green azure-text">Modifica
-							les dades</button>
-					</div>
-				</form>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<th:block layout:fragment="script">
-		<script th:src="@{/js/modificar-dades.js}"></script>
-	</th:block>
-</body>
+        <th:block layout:fragment="script">
+            <script th:src="@{/js/modificar-dades.js}"></script>
+        </th:block>
+    </body>
 </html>
