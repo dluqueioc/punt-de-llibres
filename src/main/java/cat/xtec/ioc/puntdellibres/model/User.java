@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -61,6 +62,7 @@ public class User {
 
   @Column(name = "password")
   @NotNull
+  @NotBlank
   @Size(min = 3, max = 100, message = "La contrasenya ha de tenir entre 3 i 100 caràcters")
   @JsonIgnore
   private String password;

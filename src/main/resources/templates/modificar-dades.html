@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="card col offset-l1 l10 m12 s12">
                         <form
-                            th:method="put"
+                            th:method="post"
                             th:object="${user}"
                             th:action="@{/modificar-dades}"
                             id="formModificarDades"
@@ -24,22 +24,6 @@
                         >
                             <div class="row">
                                 <div class="text-fields col l6 s12">
-                                    <div
-                                        class="input-field col s12 center-align"
-                                    >
-                                        <i class="material-icons prefix"
-                                            >person_outline</i
-                                        >
-                                        <input
-                                            type="text"
-                                            id="username"
-                                            name="username"
-                                            th:field="*{username}"
-                                        />
-                                        <label for="username"
-                                            >Nom d'usuari:
-                                        </label>
-                                    </div>
                                     <div
                                         class="input-field col s12 center-align"
                                     >
@@ -52,7 +36,7 @@
                                             name="email"
                                             th:field="*{email}"
                                         />
-                                        <label for="email">Email: </label>
+                                        <label for="email">Email</label>
                                     </div>
                                     <div
                                         class="input-field col s12 center-align"
@@ -66,7 +50,7 @@
                                             name="name"
                                             th:field="*{name}"
                                         />
-                                        <label for="name">Nom: </label>
+                                        <label for="name">Nom</label>
                                     </div>
                                     <div
                                         class="input-field col s12 center-align"
@@ -80,7 +64,7 @@
                                             name="lastName"
                                             th:field="*{lastName}"
                                         />
-                                        <label for="lastName">Cognom: </label>
+                                        <label for="lastName">Cognom</label>
                                     </div>
                                     <div
                                         class="input-field col s12 center-align"
@@ -95,7 +79,7 @@
                                             name="location"
                                             th:field="*{location}"
                                         />
-                                        <label for="location">Ubicació: </label>
+                                        <label for="location">Ubicació</label>
                                     </div>
                                     <div
                                         class="input-field col s12 center-align"
@@ -110,33 +94,20 @@
                                             th:field="*{password}"
                                         />
                                         <label for="password"
-                                            >Contrasenya:
-                                        </label>
-                                    </div>
-                                    <div
-                                        class="input-field col s12 center-align"
-                                    >
-                                        <i class="material-icons prefix"
-                                            >lock_outline</i
-                                        >
-                                        <input
-                                            type="password"
-                                            id="password2"
-                                            name="password2"
-                                        />
-                                        <label for="password2"
-                                            >Repeteix la contrasenya:
+                                            >Contrasenya actual*
                                         </label>
                                     </div>
                                 </div>
                                 <div class="avatar col l4 offset-l1 s12">
-                                    <div>
-                                        <img
-                                            class="responsive-img"
-                                            src="/img/default-profile-picture.jpg"
-                                            id="imgPerfil"
-                                            alt="Imatge de perfil de l'usuari"
-                                        />
+                                    <div class="avatar-container">
+                                        <label for="selFoto">
+                                            <img
+                                                class="responsive-img"
+                                                th:src="@{${'/img/avatars/' + user.avatar}}"
+                                                id="imgPerfil"
+                                                alt="Imatge de perfil de l'usuari"
+                                            />
+                                        </label>
                                     </div>
                                     <div class="file-field input-field col s12">
                                         <div class="btn">
@@ -160,7 +131,8 @@
                             <div class="row">
                                 <div class="input-field col s12 center-align">
                                     <button
-                                        type="submit"
+                                        id="save-button"
+                                        type="button"
                                         class="btn-large waves-effect waves-light light-sea-green azure-text"
                                     >
                                         Modifica les dades

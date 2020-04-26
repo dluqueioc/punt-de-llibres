@@ -16,12 +16,6 @@
 					th:action="@{/modificar-dades}" id="formUsuari"
 					enctype="multipart/form-data">
 					<div class="input-field col s12 center-align">
-						<i class="material-icons prefix">person_outline</i>
-						<input disabled type="text" id="username" name="username"
-							th:field="${userData.username}" class="black-pearl-text"/> <label for="username" class="light-sea-green-text">Nom
-							d'usuari: </label>
-					</div>
-					<div class="input-field col s12 center-align">
 						<i class="material-icons prefix">mail_outline</i>
 						<input disabled type="email" id="email" name="email" th:field="${userData.email}" class="black-pearl-text"/>
 						<label for="email" class="light-sea-green-text">Email: </label>

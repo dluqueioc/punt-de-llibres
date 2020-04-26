@@ -230,6 +230,7 @@ hr {
 	.user-avatar-container {
 		display: flex;
 		justify-content: center;
+		margin-bottom: 20px;
 	}
 }
 
@@ -238,5 +239,5 @@ hr {
 	height: 100px;
 	border-radius: 50%;
 	background-size: cover;
-	border: 1px solid #ccc;
+	border: 1px solid #2B7A78;
 }
