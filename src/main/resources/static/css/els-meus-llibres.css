@@ -37,7 +37,7 @@ p {
 #imgLlibre {
 	max-width: 250px;
 	max-height: 310px;
-	padding-left: 10px;
+	padding-left: 30px;
 	margin: 40px;
 	margin-left: auto;
   	margin-right: auto;
@@ -57,15 +57,55 @@ p {
     padding-bottom: 8px;
 }
 
-@media only screen and (max-width : 700px) {
+@media only screen and (max-width : 1023px) {
   .column {
     display: block;
-   	width:100%;
-  }
-  
+		width:100%;
+	}
+
   .card.horizontal {
     display: inline-block;
-    margin: 10px 10px 10px 10px;   	
-  }  
- 
+		margin: 10px 10px 10px 10px;
+		max-width: calc(100% - 20px);
+	}
+
+	.card-image {
+		width: 100% !important;
+		max-width: 100% !important;
+		text-align: center;
+	}
+
+	.card-stacked {
+		width: 100% !important;
+	}
+
+	.card .card-content {
+		padding-top: 0 !important;
+	}
+
+	.row.dades > div {
+		width: 100% !important;
+	}
+
+	.card-action {
+		margin: 0 !important;
+		padding: 16px 50px !important;
+	}
+
+	.card-action .row > div {
+		width: 100% !important;
+		text-align: center;
+	}
+
+	.card-stacked h3 {
+		margin-top: 0;
+		font-size: 2rem;
+	}
+
+}
+
+@media only screen and (max-width: 1400px) {
+	#imgLlibre {
+		max-width: 200px;
+	}
 }
