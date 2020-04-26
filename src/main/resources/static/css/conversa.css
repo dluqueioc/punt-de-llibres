@@ -4,6 +4,7 @@
   position:relative;
   padding:5px;
   margin-left:10px;
+  border:2px solid #2B7A78;
   border-top-right-radius:10px;
 }
 
@@ -13,6 +14,7 @@
   position:relative;
   padding:5px;
   margin-right:10px;
+  border:2px solid #DEF2F1;
   border-top-left-radius: 10px;
 }
 
@@ -25,7 +27,7 @@
   height:0;
   border-width: 10px 0px 10px 10px;
   border-style:solid;
-  border-color:black transparent transparent transparent;
+  border-color:#2B7A78 transparent transparent transparent;
   position:absolute;
   top:-2px;
   left:0;
@@ -37,7 +39,7 @@
   height:0;
   border-width: 10px 10px 10px 0px;
   border-style:solid;
-  border-color:grey transparent transparent transparent;
+  border-color:#DEF2F1 transparent transparent transparent;
   position:absolute;
   top:-2px;
   right:-20px;
