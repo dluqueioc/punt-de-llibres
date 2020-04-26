@@ -43,18 +43,7 @@
 							name="location" th:field="${userData.location}" class="black-pearl-text"/> <label for="location" class="light-sea-green-text">Ubicació:
 						</label>
 					</div>
-					<div class="input-field col s12 center-align">
-						<i class="material-icons prefix">lock_outline</i>
-						<input disabled type="password" id="password" name="password"
-							th:field="${userData.password}" class="black-pearl-text"/> <label for="password" class="light-sea-green-text">Contrasenya:
-						</label>
-					</div>
-					<div class="input-field col s12 center-align">
-						<i class="material-icons prefix">lock_outline</i>
-						<input disabled type="password" id="password2" name="password2" class="black-pearl-text" /> <label
-							for="password2" class="light-sea-green-text">Repeteix la contrasenya: </label>
-					</div>
-					
+
 <!-- 					<div> -->
 <!-- 						<div class="file-field input-field"> -->
 <!-- 							<div class="btn"> -->
@@ -77,7 +66,7 @@
 							les dades</button>
 					</div>
 				</form>
-	    			
+
 	    			<!--
 	    			    <form method="put" th:object="${user}" th:action="@{/usuari}">
             				<div class="input-field col s12 center-align">
@@ -117,10 +106,10 @@
 							<li>Ubicació (Codi Postal): <span th:text="${userData.location}"></span></li>
 							<li>Data registre: <span th:text="${userData.createdDate}"></span></li>
 						</ul>
-		
+
 						<button class="btn-large waves-effect waves-light light-sea-green azure-text" onclick="location.href='/modificar-dades';" type="button"
 							id="botoModDades">Modificar dades</button>
-		  -->		
+		  -->
 					</div>
 				</div>
 		</div>
