@@ -172,13 +172,9 @@
                                             book.user.username }}</a>
                                         </p>
                                     </div>
-                                    <div class="col s3">
-                                        <img
-                                            class="user-image rounded-circle circle responsive-img"
-                                            src="/img/default-profile-picture.jpg"
-                                        />
+                                    <div class="col s12 l3 user-avatar-container">
+                                        <div class="user-avatar" :style="{ backgroundImage: `url('../img/avatars/${book.user.avatar}')`}"></div>
                                     </div>
-
                                     <div
                                         class="card col s4 center-align hoverable light-sea-green azure-text exchange-button"
                                         @click="activaModal(book.id)"

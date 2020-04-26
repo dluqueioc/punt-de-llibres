@@ -108,6 +108,9 @@ public class User {
   @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<UserInExchange> exchanges;
 
+  @Column(name = "avatar")
+  private String avatar = "default-avatar.png";
+
   @CreationTimestamp
   private LocalDateTime createdDate;
 }
