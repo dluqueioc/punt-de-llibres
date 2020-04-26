@@ -1,0 +1,94 @@
+.negreta {
+	font-weight: bold;
+}
+
+p {
+	font-size: 12;
+}
+
+.column {
+	padding-left: 20px;	
+	display: inline-block;
+  	width: 100%;
+  	vertical-align: top;
+}
+
+
+
+.fade-enter-active, .fade-leave-active {
+	transition: opacity .5s;
+}
+
+.fade-enter, .fade-leave-to {
+	opacity: 0;
+}
+
+#imgLlibre {
+	max-width: 200px;
+	max-height: 290px;
+	padding: 30px;
+	
+	margin-left: auto;
+  	margin-right: auto;
+}
+
+.card.horizontal {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+@media only screen and (max-width : 1023px) {
+  .column {
+    	display: block;
+		width:100%;
+	}
+
+  .cardConversa {
+  	width: 100% !important;
+  }	
+  
+  .card.horizontal {
+    display: inline-block;
+		width: 100%;
+	}
+
+	.card-image {
+		width: 100% !important;
+		max-width: 100% !important;
+		text-align: center;
+	}
+
+	.card-stacked {
+		width: 100% !important;
+	}
+
+	.card .card-content {
+		padding-top: 0 !important;
+	}
+
+	.row.dades > div {
+		width: 100% !important;
+	}
+	
+	.dades {
+		margin-bottom: 20px !important;
+	}
+
+	.card-action {
+		margin: 0 !important;
+		padding: 16px 50px !important;
+	}
+	
+	#imgLlibre {
+		padding: 30;
+	}
+
+}
+
+@media only screen and (max-width: 1400px) {
+	#imgLlibre {
+		max-width: 200px;
+		
+	}
+}
