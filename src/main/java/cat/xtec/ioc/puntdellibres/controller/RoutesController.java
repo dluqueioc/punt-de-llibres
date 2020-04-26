@@ -102,6 +102,19 @@ public class RoutesController {
       return "modificar-dades";
   }
   
+  @GetMapping("/les-meves-converses")
+  public String lesMevesConverses(final Model model, Principal user) {
+	  model.addAttribute("myUserId", userService.findMyId(user));
+	  return "les-meves-converses";
+  }
+  
+  @GetMapping("/conversa")
+  public String conversa(final Model model, Principal user) {
+	  model.addAttribute("myUserId", userService.findMyId(user));
+	  return "conversa";
+  }
+  
+  
   //mètodes per gestionar les peticions a les pàgines legals (estàtiques)
   
   @GetMapping("/privacitat")
