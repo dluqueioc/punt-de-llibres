@@ -132,6 +132,7 @@ public class RoutesController {
     ObjectMapper mapper = new ObjectMapper();
     mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
     String messages = mapper.writeValueAsString(chat.getMessages());
+    model.addAttribute("uuid", chat.getUuid().toString());
     model.addAttribute("myUserId", myUserId);
     model.addAttribute("messages", messages);
     return "conversa";

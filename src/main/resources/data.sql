@@ -1,4 +1,5 @@
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 TRUNCATE TABLE genres RESTART IDENTITY CASCADE;
 TRUNCATE TABLE languages RESTART IDENTITY CASCADE;
@@ -139,9 +140,9 @@ INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, lan
 INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-84-8346-651-3', 'El nacimiento del pistolero (La Torre Oscura cómic 1)', 17, 19, 9, 1, 2, '1ª Edició', '2020-04-14 22:35:00', 'Com nou', 1, 18, 'el_nacimiento_del_pistolero_comic.jpeg');
 
 
-INSERT INTO chats (user1_id, user2_id) VALUES (1, 2);
-INSERT INTO chats (user1_id, user2_id) VALUES (2, 3);
-INSERT INTO chats (user1_id, user2_id) VALUES (2, 4);
+INSERT INTO chats (user1_id, user2_id, uuid) VALUES (1, 2, uuid_generate_v4());
+INSERT INTO chats (user1_id, user2_id, uuid) VALUES (2, 3, uuid_generate_v4());
+INSERT INTO chats (user1_id, user2_id, uuid) VALUES (2, 4, uuid_generate_v4());
 INSERT INTO chat_messages (chat_id, sender_id, body, created_date) VALUES (1, 1, 'Hola Pep', '2020-02-16 10:00:00');
 INSERT INTO chat_messages (chat_id, sender_id, body, created_date) VALUES (1, 2, 'Hola Jaume', '2020-02-16 10:23:00');
 INSERT INTO chat_messages (chat_id, sender_id, body, created_date) VALUES (2, 3, 'Hola Pep', '2020-01-14 12:33:00');

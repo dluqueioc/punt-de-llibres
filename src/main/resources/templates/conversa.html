@@ -102,9 +102,12 @@
 
         <th:block layout:fragment="script"
             ><script th:inline="javascript">
-                window.myUserId = /*[[${myUserId}]]*/ [];
+                window.myUserId = /*[[${myUserId}]]*/ null;
+                window.uuid = /*[[${uuid}]]*/ null;
                 window.messages = /*[[${messages}]]*/ [];
             </script>
+            <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+            <script src="/webjars/stomp-websocket/stomp.min.js"></script>
             <script th:src="@{/js/conversa.js}"></script>
         </th:block>
     </body>

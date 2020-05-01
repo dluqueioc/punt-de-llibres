@@ -1,6 +1,7 @@
 package cat.xtec.ioc.puntdellibres.model;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,6 +25,9 @@ public class Chat {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
+
+  @Column(name = "uuid")
+  private UUID uuid = UUID.randomUUID();
 
   @JoinColumn(name = "user1_id", insertable = false, updatable = false)
   @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
