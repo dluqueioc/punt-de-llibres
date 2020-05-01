@@ -18,8 +18,10 @@ function connect() {
   stompClient.connect({}, function (frame) {
     setConnected(true);
     console.log('Connected: ' + frame);
-    stompClient.subscribe('/topic/greetings', function (greeting) {
-      showGreeting(JSON.parse(greeting.body).name);
+    stompClient.subscribe('/chat/messages/' + $('#hiddeninput').val(), function (
+        greeting
+    ) {
+        showGreeting(JSON.parse(greeting.body).name);
     });
   });
 }
@@ -33,7 +35,7 @@ function disconnect() {
 }
 
 function sendName() {
-  stompClient.send("/app/chat/prova", {}, JSON.stringify({ 'name': $("#name").val() }));
+  stompClient.send("/app/chat/test", {}, JSON.stringify({ 'name': $("#name").val() }));
 }
 
 function showGreeting(message) {
