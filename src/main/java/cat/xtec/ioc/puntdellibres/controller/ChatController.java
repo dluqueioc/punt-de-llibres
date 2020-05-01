@@ -10,12 +10,12 @@ import cat.xtec.ioc.puntdellibres.model.Greeting;
 import cat.xtec.ioc.puntdellibres.model.Message;
 
 @Controller
-public class GreetingController {
+public class ChatController {
 
-  @MessageMapping("/hello/{chatId}")
+  @MessageMapping("/chat/{chatId}")
   @SendTo("/topic/greetings")
-  public Greeting greeting(Message message, @DestinationVariable String chatId) throws Exception {
-    return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!");
+  public Message greeting(Message message, @DestinationVariable String chatId) throws Exception {
+    return new Message("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!");
   }
 
 }
