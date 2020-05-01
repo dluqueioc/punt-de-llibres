@@ -16,7 +16,6 @@ import cat.xtec.ioc.puntdellibres.model.Exchange;
 import cat.xtec.ioc.puntdellibres.model.ExchangeStatus;
 import cat.xtec.ioc.puntdellibres.model.Genre;
 import cat.xtec.ioc.puntdellibres.model.Language;
-import cat.xtec.ioc.puntdellibres.model.Message;
 import cat.xtec.ioc.puntdellibres.model.Publisher;
 import cat.xtec.ioc.puntdellibres.model.Theme;
 import cat.xtec.ioc.puntdellibres.model.User;
@@ -27,7 +26,6 @@ import cat.xtec.ioc.puntdellibres.repository.ExchangeRepository;
 import cat.xtec.ioc.puntdellibres.repository.ExchangeStatusRepository;
 import cat.xtec.ioc.puntdellibres.repository.GenreRepository;
 import cat.xtec.ioc.puntdellibres.repository.LanguageRepository;
-import cat.xtec.ioc.puntdellibres.repository.MessageRepository;
 import cat.xtec.ioc.puntdellibres.repository.PublisherRepository;
 import cat.xtec.ioc.puntdellibres.repository.ThemeRepository;
 import cat.xtec.ioc.puntdellibres.repository.UserRepository;
@@ -56,8 +54,6 @@ public class MainSeeder implements CommandLineRunner {
   private ExchangeStatusRepository exchangeStatusRepository;
   @Autowired
   private ExchangeRepository exchangeRepository;
-  @Autowired
-  private MessageRepository messageRepository;
   @Autowired
   private PublisherRepository publisherRepository;
 
@@ -207,11 +203,11 @@ public class MainSeeder implements CommandLineRunner {
 
   private void seedMessagesTable() {
     for (int userId = 1; userId <= 2; userId++) {
-      final Message message = new Message();
-      message.setExchange(exchangeRepository.findById(1).get());
-      message.setSender(userRepository.findById(userId).get());
-      message.setBody(faker.backToTheFuture().quote());
-      messageRepository.save(message);
+      // final Message message = new Message();
+      // message.setExchange(exchangeRepository.findById(1).get());
+      // message.setSender(userRepository.findById(userId).get());
+      // message.setBody(faker.backToTheFuture().quote());
+      // messageRepository.save(message);
     }
   }
 

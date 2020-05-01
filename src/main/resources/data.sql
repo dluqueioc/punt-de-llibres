@@ -7,6 +7,8 @@ TRUNCATE TABLE themes RESTART IDENTITY CASCADE;
 TRUNCATE TABLE books RESTART IDENTITY CASCADE;
 TRUNCATE TABLE users RESTART IDENTITY CASCADE;
 TRUNCATE TABLE authors RESTART IDENTITY CASCADE;
+TRUNCATE TABLE chats RESTART IDENTITY CASCADE;
+TRUNCATE TABLE chat_messages RESTART IDENTITY CASCADE;
 
 INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('Jaume_A', crypt('12345678', gen_salt('bf')), 'Jaume', 'Alepuz Bria', '08004', NULL, 'jaualbr@yahoo.es', '2020-01-01 10:00:00', NULL, 0);
 INSERT INTO users (username, password, name, last_name, location, geo_location, email, created_date, profile, rating) VALUES ('PepElLector', crypt('12345678', gen_salt('bf')), 'Josep', 'Garcia', '08024', NULL, 'test@test.com', '2020-02-02 12:05:00', NULL, 0);
@@ -135,3 +137,8 @@ INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, lan
 INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-84-7676-964-5', 'Gramática griega', 19, 18, 8, 14, 2, '37ª Edició', '2020-04-14 08:35:00', 'Com nou', 1, 20, 'gramatica_griega.jpeg');
 INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('84-376-0426-5', 'Cantar de Roldán', 18, 10, 3, 15, 2, '8ª Edició', '2020-04-14 18:35:00', 'Amb subratllats i anotacions a llapis però ben conservat', 1, 20, 'cantar_de_roldan.jpeg');
 INSERT INTO books (isbn, title, author_id, publisher_id, genre_id, theme_id, language_id, edition, created_date, preservation, book_status_id, user_id, cover) VALUES ('978-84-8346-651-3', 'El nacimiento del pistolero (La Torre Oscura cómic 1)', 17, 19, 9, 1, 2, '1ª Edició', '2020-04-14 22:35:00', 'Com nou', 1, 18, 'el_nacimiento_del_pistolero_comic.jpeg');
+
+
+INSERT INTO chats (id, user1_id, user2_id) VALUES (1, 1, 2);
+INSERT INTO chat_messages (chat_id, sender_id, body) VALUES (1, 1, 'Hola Pep');
+INSERT INTO chat_messages (chat_id, sender_id, body) VALUES (1, 2, 'Hola Jaume');

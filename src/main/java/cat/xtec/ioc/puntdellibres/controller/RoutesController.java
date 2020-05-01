@@ -1,13 +1,17 @@
 package cat.xtec.ioc.puntdellibres.controller;
 
 import java.security.Principal;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 import cat.xtec.ioc.puntdellibres.repository.*;
 import cat.xtec.ioc.puntdellibres.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import cat.xtec.ioc.puntdellibres.model.Book;
 import cat.xtec.ioc.puntdellibres.model.Exchange;
 import cat.xtec.ioc.puntdellibres.model.User;
@@ -32,6 +36,8 @@ public class RoutesController {
   private ExchangeRepository exchangeRepository;
   @Autowired
   private UserService userService;
+  @Autowired
+  private ChatRepository chatRepository;
 
   @GetMapping(value={"", "/", "home"})
   public String home(final Model model) {
@@ -87,36 +93,41 @@ public class RoutesController {
     model.addAttribute("myUserId", userService.findMyId(user));
     return "els-meus-llibres";
   }
-  
+
   @GetMapping("/usuari")
   public String perfil(final Model model, Principal user) {
 	  Integer id = userService.findMyId(user);
       model.addAttribute("userData", userRepository.findById(id).get());
       return "usuari";
   }
-  
+
   @GetMapping("/modificar-dades")
   public String modificarDades(final Model model, Principal user) {
 	  Integer id = userService.findMyId(user);
       model.addAttribute("user", userRepository.findById(id).get());
       return "modificar-dades";
   }
-  
+
   @GetMapping("/les-meves-converses")
-  public String lesMevesConverses(final Model model, Principal user) {
-	  model.addAttribute("myUserId", userService.findMyId(user));
-	  return "les-meves-converses";
+  public String lesMevesConverses(final Model model, Principal user) throws JsonProcessingException {
+    Integer myUserId = userService.findMyId(user);
+    model.addAttribute("myUserId", myUserId);
+    ObjectMapper mapper = new ObjectMapper();
+    mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+    String myChats = mapper.writeValueAsString(chatRepository.getByUserId(myUserId));
+    model.addAttribute("myChats", myChats);
+    return "les-meves-converses";
   }
-  
-  @GetMapping("/conversa")
+
+  @GetMapping("/conversa/{userId}")
   public String conversa(final Model model, Principal user) {
-	  model.addAttribute("myUserId", userService.findMyId(user));
-	  return "conversa";
+    model.addAttribute("myUserId", userService.findMyId(user));
+    return "conversa";
   }
-  
-  
+
+
   //mètodes per gestionar les peticions a les pàgines legals (estàtiques)
-  
+
   @GetMapping("/privacitat")
   public String privacitat(final Model model) {
       return "privacitat";
@@ -128,6 +139,6 @@ public class RoutesController {
   @GetMapping("/cookies")
   public String cookies(final Model model) {
       return "cookies";
-      
+
   }
 }

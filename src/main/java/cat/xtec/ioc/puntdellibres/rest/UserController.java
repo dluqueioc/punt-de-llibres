@@ -1,8 +1,5 @@
 package cat.xtec.ioc.puntdellibres.rest;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.Principal;
 
@@ -22,7 +19,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import cat.xtec.ioc.puntdellibres.model.User;
 import cat.xtec.ioc.puntdellibres.service.UserService;
@@ -62,9 +58,9 @@ public class UserController {
 	public ResponseEntity<Object> updateData(@RequestParam("username") String username, @RequestParam("email") String email,
 			@RequestParam("name") String name, @RequestParam("lastName") String lastName,
 			@RequestParam("location") String location, @RequestParam("password") String password,
-			//@RequestParam("file") MultipartFile[] files, 
+			//@RequestParam("file") MultipartFile[] files,
 			Principal user) throws IOException {
-		
+
 		//MultipartFile file = files[0];
 	    //String fileName = files[0].getOriginalFilename();
 		User userToUpdate = userService.findMe(user);
@@ -75,7 +71,7 @@ public class UserController {
 		userToUpdate.setLastName(lastName);
 		userToUpdate.setLocation(location);
 		userToUpdate.setPassword(password);
-		
+
 //		if (!fileName.isEmpty()) {
 //	         BufferedOutputStream outputStream = new BufferedOutputStream(
 //	               new FileOutputStream(new File("./src/main/resources/static/img/profilePics", fileName)));

@@ -35,7 +35,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http.authorizeRequests()
         // .antMatchers("/api/**").hasRole("USER")
         .antMatchers("/registre").access("isAnonymous()")
-        .antMatchers("/afegir-llibre", "/els-meus-llibres", "/els-meus-intercanvis").hasRole("USER").and().formLogin()
+        .antMatchers("/afegir-llibre", "/els-meus-llibres", "/els-meus-intercanvis", "/les-meves-converses",
+            "/conversa/{userId}")
+        .hasRole("USER").and()
+        .formLogin()
         .loginPage("/login").permitAll().and().authorizeRequests().anyRequest().permitAll().and().rememberMe()
         .key("remember-me-key").tokenValiditySeconds(3600 * 24 * 7).and().csrf().disable();
 

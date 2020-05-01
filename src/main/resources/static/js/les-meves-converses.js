@@ -1,26 +1,15 @@
-new Vue({
-    el: '#app',
+// new Vue({
+//   el: '#app',
 
-    data: {
-        messages: [],
-    },
+//   data: {
+//     messages: [],
+//   },
 
-    async created() {
-        this.myUserId = window.myUserId;
+//   created() {
+//     const chats = JSON.parse(window.myChats);
 
-        try {
-            this.messages = await $.get(`/api/messages/user`);
-        } catch (err) {
-            console.log(err);
-        }
-    },
+//     console.log(chats);
+//   }
+// });
 
-    computed: {
-        openConversation() {
-            return this.messages.filter((message) => {
-                return message.sender === window.myUserId || message.exchange.users[0].userId === window.myUserId || message.exchange.users[1].userId === window.myUserId;
-            });
-        }
-        
-        
-    },
+console.log(JSON.parse(window.myChats));

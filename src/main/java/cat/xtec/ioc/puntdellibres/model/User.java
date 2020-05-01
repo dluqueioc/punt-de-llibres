@@ -1,6 +1,7 @@
 package cat.xtec.ioc.puntdellibres.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -107,6 +108,14 @@ public class User {
   @JsonBackReference
   @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<UserInExchange> exchanges;
+
+  @JsonIgnore
+  @OneToMany(targetEntity = Chat.class, mappedBy = "user1", cascade=CascadeType.ALL)
+  private List<Chat> chats = new ArrayList<>();
+
+  @JsonIgnore
+  @OneToMany(targetEntity = Chat.class, mappedBy = "user2", cascade=CascadeType.ALL)
+  private List<Chat> moreChats = new ArrayList<>();
 
   @CreationTimestamp
   private LocalDateTime createdDate;

@@ -1,5 +1,7 @@
 package cat.xtec.ioc.puntdellibres.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,36 +14,40 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.type.DateType;
-import org.springframework.data.annotation.CreatedDate;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Data;
 
 @Entity
-@Table(name = "messages")
+@Table(name = "chat_messages")
 @Data
-public class Message {
+public class ChatMessage {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "sender_id", nullable = false)
-  @OnDelete(action = OnDeleteAction.CASCADE)
-  private Exchange exchange;
+  @JsonIgnore
+  @JoinColumn(name = "chat_id", insertable = false, updatable = false)
+  @ManyToOne(targetEntity = Chat.class, fetch = FetchType.LAZY)
+  private Chat chat;
 
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "receiver_id", nullable = false)
-  @OnDelete(action = OnDeleteAction.CASCADE)
+  @Column(name = "chat_id")
+  private Integer chatId;
+
+  @JoinColumn(name = "sender_id", insertable = false, updatable = false)
+  @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
   private User sender;
+
+  @Column(name = "sender_id")
+  private Integer senderId;
 
   @Column(name = "body")
   @NotNull
   @Size(min = 1, max = 500)
   private String body;
 
-  @CreatedDate
-  private DateType createdDate;
+  @CreationTimestamp
+  private LocalDateTime createdDate;
 }

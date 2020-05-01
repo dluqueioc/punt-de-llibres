@@ -1,71 +1,102 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout/base.html}">
-<head>
-<title>Les meves converses</title>
-<link rel="stylesheet" type="text/css" href="/css/les-meves-converses.css" />
-</head>
+    <head>
+        <title>Les meves converses</title>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/css/les-meves-converses.css"
+        />
+    </head>
 
-<body>
-	<section layout:fragment="content" id="app"
-		class="les-meves-converses-page" v-cloak>
-		<div class="container">
-			<div class="row">
-				<div class="col s12">
-					<h1 class="header center black-pearl-text">Les meves converses</h1>
-				</div>
-			</div>
-			
-			<div class="row">
-				<div class="col s12">
-					<p class="center-align" v-if="! openConversation.length">No tens
-						cap conversa iniciada</p>
-				</div>
-			</div>
-				
-			<transition-group name="fade" mode="out-in">
-				<div class="row cardConversa" :key="message.id" v-for="message in openConversation">
-				<div class="col s12">
-					<div class="card horizontal hoverable oyster-bay">
-						<div class="row">
-							<div class="col s3 card-image">
-								<img class="responsive-img" src="/img/covers/default-book.png"
-									id="imgLlibre" :alt="message.exchange.books[0].title">
-							</div>
-						</div>
-						<div class="col s9 card-stacked">
-							<div class="row">															
-								<div class="card-content">
-									<h3></h3>
-									<div class="row">
-										<div class= "row column dades">
-											<p>
-												<span class="negreta">Conversa amb: </span> {{
-												message.sender.name }}
-											</p>
-											<p>
-												<span class="negreta">Darrer missatge: </span> {{ message.body }}
-											</p>
-										</div>
-										<div class="row column center-align">
-											<a class="waves-effect waves-light btn" onclick="location.href='/conversa';">Anar a la conversa</a>
-										</div>
-									</div>																									
-								</div>		
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			</transition-group>				
-						
-		</div>
-	</section>
+    <body>
+        <section
+            layout:fragment="content"
+            id="app"
+            class="les-meves-converses-page"
+            v-cloak
+        >
+            <div class="container">
+                <div class="row">
+                    <div class="col s12">
+                        <h1 class="header center black-pearl-text">
+                            Les meves converses
+                        </h1>
+                    </div>
+                </div>
 
-	<th:block layout:fragment="script">
-		<script th:inline="javascript">
-			window.myUserId = /*[[${myUserId}]]*/[];
-		</script>
-		<script th:src="@{/js/les-meves-converses.js}"></script>
-	</th:block>
-</body>
+                <div class="row">
+                    <div class="col s12">
+                        <p
+                            class="center-align"
+                            v-if="! chats.length"
+                        >
+                            No tens cap conversa iniciada
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="row cardConversa"
+                    :key="message.id"
+                    v-for="message in openConversation"
+                >
+                    <div class="col s12">
+                        <div class="card horizontal hoverable oyster-bay">
+                            <div class="row">
+                                <div class="col s3 card-image">
+                                    <img
+                                        class="responsive-img"
+                                        src="/img/covers/default-book.png"
+                                        id="imgLlibre"
+                                        :alt="message.exchange.books[0].title"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col s9 card-stacked">
+                                <div class="row">
+                                    <div class="card-content">
+                                        <h3></h3>
+                                        <div class="row">
+                                            <div class="row column dades">
+                                                <p>
+                                                    <span class="negreta"
+                                                        >Conversa amb:
+                                                    </span>
+                                                    {{ message.sender.name }}
+                                                </p>
+                                                <p>
+                                                    <span class="negreta"
+                                                        >Darrer missatge:
+                                                    </span>
+                                                    {{ message.body }}
+                                                </p>
+                                            </div>
+                                            <div
+                                                class="row column center-align"
+                                            >
+                                                <a
+                                                    class="waves-effect waves-light btn"
+                                                    onclick="location.href='/conversa';"
+                                                    >Anar a la conversa</a
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <th:block layout:fragment="script"
+            ><script th:inline="javascript">
+                window.myUserId = /*[[${myUserId}]]*/ [];
+                window.myChats = /*[[${myChats}]]*/ [];
+            </script>
+            <script th:src="@{/js/les-meves-converses.js}"></script>
+        </th:block>
+    </body>
 </html>
