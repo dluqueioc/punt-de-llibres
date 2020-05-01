@@ -38,8 +38,8 @@
 
                 <div
                     class="row cardConversa"
-                    :key="message.id"
-                    v-for="message in openConversation"
+                    :key="chat.id"
+                    v-for="(chat, index) in chats"
                 >
                     <div class="col s12">
                         <div class="card horizontal hoverable oyster-bay">
@@ -49,7 +49,7 @@
                                         class="responsive-img"
                                         src="/img/covers/default-book.png"
                                         id="imgLlibre"
-                                        :alt="message.exchange.books[0].title"
+                                        alt="message.exchange.books[0].title"
                                     />
                                 </div>
                             </div>
@@ -63,13 +63,13 @@
                                                     <span class="negreta"
                                                         >Conversa amb:
                                                     </span>
-                                                    {{ message.sender.name }}
+                                                    {{ otherUserName(index) }}
                                                 </p>
                                                 <p>
                                                     <span class="negreta"
                                                         >Darrer missatge:
                                                     </span>
-                                                    {{ message.body }}
+                                                    {{ lastMessage(index) }}
                                                 </p>
                                             </div>
                                             <div
