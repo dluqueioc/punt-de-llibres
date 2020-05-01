@@ -105,7 +105,7 @@ new Vue({
 
         fromUserText() {
             return this.books.length
-                ? `de l'usuari ${this.books[0].user.username}`
+                ? `de ${this.books[0].user.username}`
                 : '';
         },
     },

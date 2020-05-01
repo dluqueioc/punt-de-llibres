@@ -1,7 +1,6 @@
 package cat.xtec.ioc.puntdellibres.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -18,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -62,6 +62,7 @@ public class User {
 
   @Column(name = "password")
   @NotNull
+  @NotBlank
   @Size(min = 3, max = 100, message = "La contrasenya ha de tenir entre 3 i 100 caràcters")
   @JsonIgnore
   private String password;
@@ -109,13 +110,8 @@ public class User {
   @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<UserInExchange> exchanges;
 
-  @JsonIgnore
-  @OneToMany(targetEntity = Chat.class, mappedBy = "user1", cascade=CascadeType.ALL)
-  private List<Chat> chats = new ArrayList<>();
-
-  @JsonIgnore
-  @OneToMany(targetEntity = Chat.class, mappedBy = "user2", cascade=CascadeType.ALL)
-  private List<Chat> moreChats = new ArrayList<>();
+  @Column(name = "avatar")
+  private String avatar = "default-avatar.png";
 
   @CreationTimestamp
   private LocalDateTime createdDate;
