@@ -44,10 +44,10 @@
                     <div class="col s12">
                         <div class="card horizontal hoverable oyster-bay">
                             <div class="row">
-                                <div class="col s3 card-image">
+                                <div class="col s3">
                                     <img
-                                        class="responsive-img"
-                                        src="/img/covers/default-book.png"
+                                        class="responsive-img circle"
+                                        :src="`/img/avatars/${otherUser(index).avatar}`"
                                         id="imgLlibre"
                                         alt="message.exchange.books[0].title"
                                     />
@@ -63,7 +63,7 @@
                                                     <span class="negreta"
                                                         >Conversa amb:
                                                     </span>
-                                                    {{ otherUserName(index) }}
+                                                    {{ otherUser(index).username }}
                                                 </p>
                                                 <p>
                                                     <span class="negreta"
@@ -77,7 +77,7 @@
                                             >
                                                 <a
                                                     class="waves-effect waves-light btn"
-                                                    onclick="location.href='/conversa';"
+                                                    @click="goToChat(chat.id)"
                                                     >Anar a la conversa</a
                                                 >
                                             </div>

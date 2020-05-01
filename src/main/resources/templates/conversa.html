@@ -1,81 +1,111 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout/base.html}">
-<head>
-<title>Conversa</title>
-<link rel="stylesheet" type="text/css" href="/css/conversa.css" />
-</head>
+    <head>
+        <title>Conversa</title>
+        <link rel="stylesheet" type="text/css" href="/css/conversa.css" />
+    </head>
 
-<body>
-	<section layout:fragment="content" id="app"
-		class="conversa-page" v-cloak>
-		<div class="container">
-	<div class="row">
-		<h1 class="header center black-pearl-text">Conversa</h1><hr class="grey" />
-		<div class="col s12">
+    <body>
+        <section layout:fragment="content" id="app" class="conversa-page">
+            <div class="container">
+                <div class="row">
+                    <h1 class="header center black-pearl-text">Conversa</h1>
+                    <hr class="grey" />
+                    <div class="col s12">
+                        <div
+                            class="row outer-message-container"
+                            v-for="message in messages"
+                            :class="[ isMine(message) ? 'right-align' : 'left-align' ]"
+                        >
+                            <div
+                                class="col s6 left inner-message-container"
+                                v-if="! isMine(message)"
+                            >
+                                <div class="row">
+                                    <div
+                                        class="col s2"
+                                        style="
+                                            margin-top: -22px;
+                                            margin-right: -10px;
+                                        "
+                                    >
+                                        <img
+                                            :src="`/img/avatars/${message.sender.avatar}`"
+                                            :alt="`${message.sender.username}`"
+                                            class="circle responsive-img"
+                                        />
+                                    </div>
+                                    <div class="chat-field atoll">
+                                        <span class="chat-message white-text">
+                                            {{ message.body }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
 
-			<div class="row left-align">
-				<div class="col s12 m8 l6 left">
-					
-						<div class="row valign-wrapper">
-							<div class="col s2" style="margin-top:-22px; margin-right:-10px;">
-								<img src="/img/default-profile-picture.jpg" height="100" width="" alt="100" class="circle responsive-img">
-							</div>
-							<div class="chat-field atoll">
-								<span class="chat-message white-text">
-									This is a square image. Add the "circle" class to it to make it appear circular.
-								</span>
-								<div class="example"></div>  
-							</div>
-						</div>
-					
-				</div>
-            
-			</div>
-			
-			<div class="row right-align">
-				<div class="col s12 m8 l6 right">
-						<div class="row valign-wrapper">
-							<div class="chat-field2 oyster-bay">
-								<span class="chat-message black-text">
-									This is a square image. Add the "circle" class to it to make it appear circular.
-								</span>
-								<div class="example2"></div>  
-							</div>
-							<div class="col s2" style="margin-top:-22px; margin-right:-10px;">
-								<img src="/img/default-profile-picture.jpg" height="100" width="" alt="100" class="circle responsive-img">
-							</div>
-						</div>
-					
-				</div>
-            
-			</div>
-          
-	    </div>
-	</div>
-	<div class="row">
-		<div class="col s12">
-			<div class="input-field col s8">
-				<input placeholder="escriu el teu missatge aquí" id="first_name" type="text" class="validate">
-			</div>
-			<div class="input-field col s4">
-				<button class="btn waves-effect waves-light btn-small light-sea-green btn-block" type="button"><i class="material-icons white-text">send</i></button>
-			</div>
-		</div>
-	</div>
-</div>
-		
-		
-		
-		
-		
-		
-	</section>
+                            <div
+                                class="col s6 right inner-message-container mine"
+                                v-else
+                            >
+                                <div class="row">
+                                    <div class="chat-field2 oyster-bay">
+                                        <span class="chat-message black-text">
+                                            {{ message.body }}
+                                        </span>
+                                    </div>
+                                    <div
+                                        class="col s6 m2"
+                                        style="
+                                            margin-top: -22px;
+                                            margin-right: -10px;
+                                        "
+                                    >
+                                        <img
+                                            :src="`/img/avatars/${message.sender.avatar}`"
+                                            :alt="`${message.sender.username}`"
+                                            class="circle responsive-img"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 l6 offset-l3">
+                        <div class="row">
+                            <div class="input-field col s10 l11">
+                                <input
+                                    placeholder="Escriu el teu missatge aquí"
+                                    id="first_name"
+                                    type="text"
+																		class="validate"
+																		v-model="newMessage"
+                                />
+                            </div>
+                            <div class="input-field col s1">
+                                <button
+                                    @click="sendMessage"
+                                    class="btn waves-effect waves-light btn-small light-sea-green btn-block"
+                                    type="button"
+                                >
+                                    <i class="material-icons white-text"
+                                        >send</i
+                                    >
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-	<th:block layout:fragment="script">
-		<script th:inline="javascript">
-			window.myUserId = /*[[${myUserId}]]*/[];
-		</script>
-		<script th:src="@{/js/conversa.js}"></script>
-	</th:block>
-</body>
+        <th:block layout:fragment="script"
+            ><script th:inline="javascript">
+                window.myUserId = /*[[${myUserId}]]*/ [];
+                window.messages = /*[[${messages}]]*/ [];
+            </script>
+            <script th:src="@{/js/conversa.js}"></script>
+        </th:block>
+    </body>
 </html>

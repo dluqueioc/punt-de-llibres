@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 import cat.xtec.ioc.puntdellibres.model.Book;
+import cat.xtec.ioc.puntdellibres.model.Chat;
 import cat.xtec.ioc.puntdellibres.model.Exchange;
 import cat.xtec.ioc.puntdellibres.model.User;
 //permet ordenar (sort) dades des del controller
@@ -119,9 +122,18 @@ public class RoutesController {
     return "les-meves-converses";
   }
 
-  @GetMapping("/conversa/{userId}")
-  public String conversa(final Model model, Principal user) {
-    model.addAttribute("myUserId", userService.findMyId(user));
+  @GetMapping("/conversa/{chatId}")
+  public String conversa(final Model model, @PathVariable("chatId") String chatId, Principal user) throws Exception {
+    Integer myUserId = userService.findMyId(user);
+    Chat chat = chatRepository.findById(Integer.parseInt(chatId)).get();
+    if (!(chat.getUser1Id().equals(myUserId) || chat.getUser2Id().equals(myUserId))) {
+      throw new Exception();
+    }
+    ObjectMapper mapper = new ObjectMapper();
+    mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+    String messages = mapper.writeValueAsString(chat.getMessages());
+    model.addAttribute("myUserId", myUserId);
+    model.addAttribute("messages", messages);
     return "conversa";
   }
 

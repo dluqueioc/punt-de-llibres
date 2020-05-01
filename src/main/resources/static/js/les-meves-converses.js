@@ -6,15 +6,19 @@ new Vue({
     },
 
     methods: {
-        otherUserName(chatIndex) {
+        otherUser(chatIndex) {
             const chat = this.chats[chatIndex];
             const prop = chat.user1Id === window.myUserId ? 2 : 1;
-            return chat[`user${prop}`].username;
+            return chat[`user${prop}`];
         },
 
         lastMessage(chatIndex) {
             const message = this.chats[chatIndex].messages.slice(-1)[0];
             return `"${message.body}" (${message.sender.username})`;
+        },
+
+        goToChat(chatId) {
+            location.href = `/conversa/${chatId}`;
         },
     },
 

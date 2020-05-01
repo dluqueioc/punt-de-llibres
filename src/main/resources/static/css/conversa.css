@@ -22,26 +22,19 @@
   margin:0;
 }
 
-.example{
-  width:0;
-  height:0;
-  border-width: 10px 0px 10px 10px;
-  border-style:solid;
-  border-color:#2B7A78 transparent transparent transparent;
-  position:absolute;
-  top:-2px;
-  left:0;
-  transform:translate(-100%,0);
+.outer-message-container {
+  margin-bottom: 0;
 }
 
-.example2{
-  width:0;
-  height:0;
-  border-width: 10px 10px 10px 0px;
-  border-style:solid;
-  border-color:#DEF2F1 transparent transparent transparent;
-  position:absolute;
-  top:-2px;
-  right:-20px;
-  transform:translate(-100%,0);
+.outer-message-container:first-child {
+  margin-top: 20px;
+}
+
+.inner-message-container > .row {
+  display: flex;
+  align-items: center;
+}
+
+.inner-message-container.mine > .row > .col {
+  margin-left: 0;
 }
