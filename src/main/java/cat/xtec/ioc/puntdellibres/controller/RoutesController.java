@@ -150,7 +150,11 @@ public class RoutesController {
   }
   @GetMapping("/cookies")
   public String cookies(final Model model) {
-      return "cookies";
+    return "cookies";
+  }
 
+  @GetMapping("/chat")
+  public String chat(final Model model) {
+      return "provachat";
   }
 }
