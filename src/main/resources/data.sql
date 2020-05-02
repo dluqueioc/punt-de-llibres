@@ -145,6 +145,7 @@ INSERT INTO chats (user1_id, user2_id, uuid) VALUES (2, 3, uuid_generate_v4());
 INSERT INTO chats (user1_id, user2_id, uuid) VALUES (2, 4, uuid_generate_v4());
 INSERT INTO chat_messages (chat_id, sender_id, body, created_date) VALUES (1, 1, 'Hola Pep', '2020-02-16 10:00:00');
 INSERT INTO chat_messages (chat_id, sender_id, body, created_date) VALUES (1, 2, 'Hola Jaume', '2020-02-16 10:23:00');
+INSERT INTO chat_messages (chat_id, sender_id, body, created_date) VALUES (1, 2, 'Com estàs?', '2020-02-16 10:24:00');
 INSERT INTO chat_messages (chat_id, sender_id, body, created_date) VALUES (2, 3, 'Hola Pep', '2020-01-14 12:33:00');
 INSERT INTO chat_messages (chat_id, sender_id, body, created_date) VALUES (2, 2, 'Hola Llibrefila83', '2020-01-14 12:34:00');
 INSERT INTO chat_messages (chat_id, sender_id, body, created_date) VALUES (3, 4, 'Hola Pep', '2020-01-15 22:33:00');

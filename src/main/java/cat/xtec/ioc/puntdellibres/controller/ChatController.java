@@ -31,9 +31,9 @@ public class ChatController {
   @MessageMapping("/chat/{chatUuid}")
   @SendTo("/chat/messages/{chatUuid}")
   public Message send(Message message, @DestinationVariable String chatUuid, Principal user) throws Exception {
-    String messageBody = HtmlUtils.htmlEscape(message.getBody());
+    String messageBody = message.getBody();
     ChatMessage chatMessage = new ChatMessage();
-    chatMessage.setBody(HtmlUtils.htmlEscape(message.getBody()));
+    chatMessage.setBody(messageBody);
     chatMessage.setChatId(chatRepository.findByUuid(UUID.fromString(chatUuid)).get(0).getId());
     Integer myUserId = userService.findMyId(user);
     chatMessage.setSenderId(myUserId);

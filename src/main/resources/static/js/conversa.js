@@ -4,11 +4,18 @@ new Vue({
     data: {
         messages: [],
         newMessage: '',
+        otherUserId: '',
+        otherUserUsername: '',
+        otherUserAvatar: '',
     },
 
     methods: {
         isMine(message) {
             return message.sender.id === window.myUserId;
+        },
+
+        isDifferentUser(index, print) {
+            return this.messages[index].sender.id !== this.messages[index - 1].sender.id;
         },
 
         sendMessage() {
@@ -22,10 +29,17 @@ new Vue({
 
             this.newMessage = '';
         },
+
+        scrollToLastMessage() {
+            $('.messages').scrollTop($('.messages')[0].scrollHeight);
+        }
     },
 
     created() {
         this.messages = JSON.parse(window.messages);
+        this.otherUserId = window.otherUserId;
+        this.otherUserUsername = window.otherUserUsername;
+        this.otherUserAvatar = window.otherUserAvatar;
 
         const socket = new SockJS('/gs-guide-websocket');
         this.stompClient = Stomp.over(socket);
@@ -33,7 +47,7 @@ new Vue({
         this.stompClient.connect({}, () => {
             this.stompClient.subscribe(
                 '/chat/messages/' + window.uuid,
-                res => {
+                (res) => {
                     const { body, senderId } = JSON.parse(res.body);
                     this.messages.push({
                         body,
@@ -45,4 +59,16 @@ new Vue({
             );
         });
     },
+
+    mounted() {
+        this.scrollToLastMessage();
+    },
+
+    watch: {
+        messages() {
+            Vue.nextTick(() => {
+                this.scrollToLastMessage();
+            });
+        }
+    }
 });
