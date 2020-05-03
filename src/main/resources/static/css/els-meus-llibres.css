@@ -8,9 +8,9 @@ p {
 
 .column {
 	padding-left: 20px;
-  	display: inline-block;
-  	width: 50%;
-  	vertical-align: top;
+		display: inline-block;
+		width: 50%;
+		vertical-align: top;
 }
 
 .dades {
@@ -18,7 +18,7 @@ p {
 }
 
 .fade-enter-active, .fade-leave-active {
-	transition: opacity .5s;
+	transition: opacity .2s;
 }
 
 .fade-enter, .fade-leave-to {
@@ -40,7 +40,7 @@ p {
 	padding-left: 30px;
 	margin: 40px;
 	margin-left: auto;
-  	margin-right: auto;
+  margin-right: auto;
 }
 
 .card.horizontal {
