@@ -43,22 +43,15 @@
                 >
                     <div class="col s12">
                         <div class="card horizontal hoverable oyster-bay">
-                            <div class="row">
-                                <div class="col s3">
-                                    <img
-                                        class="responsive-img circle"
-                                        :src="`/img/avatars/${otherUser(index).avatar}`"
-                                        id="imgLlibre"
-                                        alt="message.exchange.books[0].title"
-                                    />
+                            <div class="col s12 l4 center-align">
+                                <div class="img-usuari-container" :style="{ backgroundImage : `url(../img/avatars/${otherUser(index).avatar})` }">
                                 </div>
                             </div>
-                            <div class="col s9 card-stacked">
+                            <div class="col s12 l8 card-stacked">
                                 <div class="row">
-                                    <div class="card-content">
-                                        <h3></h3>
+                                    <div class="card-content col s12">
                                         <div class="row">
-                                            <div class="row column dades">
+                                            <div class="column dades">
                                                 <p>
                                                     <span class="negreta"
                                                         >Conversa amb:
@@ -79,7 +72,7 @@
                                                 </p>
                                             </div>
                                             <div
-                                                class="row column center-align"
+                                                class="column button"
                                             >
                                                 <a
                                                     class="waves-effect waves-light btn"

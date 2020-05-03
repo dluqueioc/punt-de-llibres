@@ -3,15 +3,11 @@ package cat.xtec.ioc.puntdellibres.controller;
 import java.security.Principal;
 import java.util.UUID;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.util.HtmlUtils;
 
 import cat.xtec.ioc.puntdellibres.model.ChatMessage;
 import cat.xtec.ioc.puntdellibres.model.Message;

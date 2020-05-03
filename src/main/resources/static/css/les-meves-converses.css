@@ -8,7 +8,6 @@ p {
 }
 
 .column {
-	padding-left: 20px;
 	display: inline-block;
   	width: 100%;
   	vertical-align: top;
@@ -24,7 +23,7 @@ p {
 	opacity: 0;
 }
 
-#imgLlibre {
+#imgUsuari {
 	max-width: 200px;
 	max-height: 290px;
 	padding: 30px;
@@ -90,6 +89,66 @@ p {
 @media only screen and (max-width: 1400px) {
 	#imgLlibre {
 		max-width: 200px;
+	}
+}
 
+@media screen and (max-width: 1023px) {
+	.card.horizontal > div {
+		text-align: center;
+	}
+}
+
+.card.horizontal > div:first-child {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.img-usuari-container {
+	width: 150px;
+	height: 150px;
+	background-size: cover;
+	border-radius: 50%;
+	overflow: hidden;
+	border: 1px solid #2B7A78;
+}
+
+.card.horizontal {
+	padding: 2rem 0;
+}
+
+.card.horizontal div {
+	margin-bottom: 0;
+}
+
+.card-content > .row {
+	display: flex;
+}
+
+@media screen and (max-width: 1023px) {
+	.card-content > .row {
+		flex-direction: column;
+	}
+}
+
+.button {
+	align-self: flex-end;
+}
+
+@media screen and (min-width: 1024px) {
+	.button {
+		padding-left: 30px;
+	}
+}
+
+@media screen and (max-width: 1023px) {
+	.card-horizontal {
+		margin: 1rem 0 0;
+	}
+	.card.horizontal > div {
+		padding: 1rem;
+	}
+	.button {
+		margin-top: 1rem;
 	}
 }
