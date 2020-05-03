@@ -1,5 +1,6 @@
 .negreta {
 	font-weight: bold;
+	margin-right: 10px;
 }
 
 p {
@@ -7,7 +8,7 @@ p {
 }
 
 .column {
-	padding-left: 20px;	
+	padding-left: 20px;
 	display: inline-block;
   	width: 100%;
   	vertical-align: top;
@@ -27,7 +28,7 @@ p {
 	max-width: 200px;
 	max-height: 290px;
 	padding: 30px;
-	
+
 	margin-left: auto;
   	margin-right: auto;
 }
@@ -46,8 +47,8 @@ p {
 
   .cardConversa {
   	width: 100% !important;
-  }	
-  
+  }
+
   .card.horizontal {
     display: inline-block;
 		width: 100%;
@@ -70,7 +71,7 @@ p {
 	.row.dades > div {
 		width: 100% !important;
 	}
-	
+
 	.dades {
 		margin-bottom: 20px !important;
 	}
@@ -79,7 +80,7 @@ p {
 		margin: 0 !important;
 		padding: 16px 50px !important;
 	}
-	
+
 	#imgLlibre {
 		padding: 30;
 	}
@@ -89,6 +90,6 @@ p {
 @media only screen and (max-width: 1400px) {
 	#imgLlibre {
 		max-width: 200px;
-		
+
 	}
 }

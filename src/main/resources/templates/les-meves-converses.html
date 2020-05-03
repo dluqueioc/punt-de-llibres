@@ -69,7 +69,13 @@
                                                     <span class="negreta"
                                                         >Darrer missatge:
                                                     </span>
-                                                    {{ lastMessage(index) }}
+                                                    <em>{{ lastMessageBody(index) }}</em>
+                                                </p>
+                                                <p>
+                                                    <span class="negreta">
+                                                        Enviat per:
+                                                    </span>
+                                                    {{ lastMessageInfo(index) }}
                                                 </p>
                                             </div>
                                             <div

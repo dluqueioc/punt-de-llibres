@@ -12,9 +12,15 @@ new Vue({
             return chat[`user${prop}`];
         },
 
-        lastMessage(chatIndex) {
+        lastMessageBody(chatIndex) {
             const message = this.chats[chatIndex].messages.slice(-1)[0];
-            return `"${message.body}" (${message.sender.username})`;
+            return `${message.body}`;
+        },
+
+        lastMessageInfo(chatIndex) {
+            const message = this.chats[chatIndex].messages.slice(-1)[0];
+            const date = message.date;
+            return `${message.sender.username}, ${moment(date).from(moment())}`;
         },
 
         goToChat(chatId) {
