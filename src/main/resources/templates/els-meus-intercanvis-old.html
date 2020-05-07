@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/base.html}">
+    <head>
+        <title>Els meus intercanvis</title>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/css/els-meus-intercanvis.css"
+        />
+    </head>
+
+    <body>
+        <section
+            layout:fragment="content"
+            id="app"
+            class="els-meus-intercanvis-page"
+            v-cloak
+        >
+        <h1 class="header center black-pearl-text">Els meus intercanvis</h1>
+
+      	<div class="container">
+    	<div class="section">
+          <div class="row">
+            <div class="col s12 black-pearl-text">
+            <h4>Els meus intercanvis oberts</h4>
+            <p v-if="! openExchanges.length">No tens intercanvis oberts</p>
+            <div v-for="exchange in openExchanges" class="card">
+                <div class="books-in-exchange">
+                    <h5>Peticions rebudes de {{ getOtherUser(exchange).user.username }}</h5>
+                    <a
+                        :href="`/llibres-disponibles?filter=user&q=${getOtherUser(exchange).user.id}`"
+                        >Veure tots els llibres de {{
+                        getOtherUser(exchange).user.username }}</a
+                    >
+                    
+                    <!-- 
+			          <div class="col s12 m3" th:each="book,iterStat : ${books}" th:unless="${iterStat.index > 3}">
+			                <div class="card">
+			                    <div class="card-content">
+			                    <img class="responsive-img" th:attr="src=@{'/img/covers/' + ${book.cover}}"/>
+			                    <div class="card-action atoll">
+			                    <a class="azure-text" href="#" th:text="${#strings.abbreviate(book.title, 30)}"></a>
+			                        </div>
+			                    </div>
+			                </div>
+			            </div>
+			                    
+                     -->
+                    
+                    <li
+                        class="mb-3"
+                        v-for="book in booksThatTheOtherUserWants(exchange.books)"
+                    >
+                        <p>Títol: {{ book.book.title }}</p>
+                        <img :src="`/img/covers/${book.book.cover}`">
+                    </li>
+
+                    <h5>Peticions enviades</h5>
+                    <div class="row">
+					<div class="col s12 m3"
+                        v-for="book in booksThatIWant(exchange.books)"
+                    >
+                    	<div class="card">
+                    	<div class="card-content">
+                    	<img class="responsive-img" :src="`/img/covers/${book.book.cover}`">
+                    	<div class="card-action atoll">
+                        <a class="azure-text" href="#">{{ book.book.title }}</a>
+						</div>
+                        </div>      
+                    	</div>
+                    </div>
+                    </div>
+                </div>
+
+                <div
+                    v-if="exchange.statusId == 2 && ! getApprovalStatus(exchange).iHaveDecided"
+                >
+                    <button
+                        @click="postApproval(exchange.id, true)"
+                        :href="`/api/exchanges/${exchange.id}?approve=true`"
+                    >
+                        Aprovar
+                    </button>
+                    <button
+                        @click="postApproval(exchange.id, false)"
+                        :href="`/api/exchanges/${exchange.id}?approve=false`"
+                    >
+                        Rebutjar
+                    </button>
+                </div>
+            </div>
+
+            <h4>Els meus intercanvis pendents d'aprovació</h4>
+            <p v-if="! pendingExchanges.length">No tens intercanvis pendents d'aprovació</p>
+            <div v-for="exchange in pendingExchanges" class="exchange mb-3">
+                <ul class="books-in-exchange">
+                    <h5>
+                        Llibres que {{ getOtherUser(exchange).user.username }}
+                        vol obtenir
+                    </h5>
+                    <li
+                        class="mb-3"
+                        v-for="book in booksThatTheOtherUserWants(exchange.books)"
+                    >
+                        <p>Títol: {{ book.book.title }}</p>
+                        <img :src="`/img/covers/${book.book.cover}`">
+                    </li>
+
+                    <h5>Llibres que jo vull obtenir</h5>
+                    <li
+                        class="mb-3"
+                        v-for="book in booksThatIWant(exchange.books)"
+                    >
+                        <p>Títol: {{ book.book.title }}</p>
+                        <img :src="`/img/covers/${book.book.cover}`">
+                    </li>
+                </ul>
+
+                <div
+                    v-if="[2,3].includes(exchange.statusId) && ! getApprovalStatus(exchange).iHaveDecided"
+                >
+                    <button
+                        @click="postApproval(exchange.id, true)"
+                        :href="`/api/exchanges/${exchange.id}?approve=true`"
+                    >
+                        Aprovar
+                    </button>
+                    <button
+                        @click="postApproval(exchange.id, false)"
+                        :href="`/api/exchanges/${exchange.id}?approve=false`"
+                    >
+                        Rebutjar
+                    </button>
+                </div>
+                <div v-else>
+                    Intercanvi {{ getApprovalStatus(exchange).iApprove ?
+                    'aprovat' : 'rebutjat' }} per mi
+                </div>
+            </div>
+
+            <h4>Els meus intercanvis aprovats</h4>
+            <p v-if="! approvedExchanges.length">No tens intercanvis aprovats</p>
+            <div v-for="exchange in approvedExchanges" class="exchange mb-3">
+                <ul class="books-in-exchange">
+                    <h5>
+                        Llibres que {{ getOtherUser(exchange).user.username }}
+                        obtindrà
+                    </h5>
+                    <li
+                        class="mb-3"
+                        v-for="book in booksThatTheOtherUserWants(exchange.books)"
+                    >
+                        <p>Títol: {{ book.book.title }}</p>
+                    </li>
+
+                    <h5>Llibres que jo obtindré</h5>
+                    <li
+                        class="mb-3"
+                        v-for="book in booksThatIWant(exchange.books)"
+                    >
+                        <p>Títol: {{ book.book.title }}</p>
+                    </li>
+                </ul>
+
+                <button
+                    @click="postConclusion(exchange.id, true)"
+                    :href="`/api/exchanges/${exchange.id}?approve=true`"
+                >
+                    Formalitzar intercanvi
+                </button>
+                <button
+                    @click="postConclusion(exchange.id, false)"
+                    :href="`/api/exchanges/${exchange.id}?approve=true`"
+                >
+                    Descartar intercanvi
+                </button>
+            </div>
+
+            <h4>Els meus intercanvis formalitzats</h4>
+            <p v-if="! closedExchanges.length">No tens intercanvis formalitzats</p>
+            <div v-for="exchange in closedExchanges" class="exchange mb-3">
+                <ul class="books-in-exchange">
+                    <h5>
+                        Llibres que {{ getOtherUser(exchange).user.username }}
+                        va obtenir
+                    </h5>
+                    <li
+                        class="mb-3"
+                        v-for="book in booksThatTheOtherUserWants(exchange.books)"
+                    >
+                        <p>Títol: {{ book.book.title }}</p>
+                    </li>
+
+                    <h5>Llibres que jo vaig obtenir</h5>
+                    <li
+                        class="mb-3"
+                        v-for="book in booksThatIWant(exchange.books)"
+                    >
+                        <p>Títol: {{ book.book.title }}</p>
+                    </li>
+                </ul>
+            </div>
+        </div>    
+        </div>
+        </div>
+        </div>
+        </section>
+
+        <footer>
+            <p layout:fragment="footer"></p>
+        </footer>
+
+        <th:block layout:fragment="script">
+            <script th:inline="javascript">
+                /*<![CDATA[*/ window.myUserId = /*[[${myUserId}]]*/ null;
+                /*]]>*/
+            </script>
+            <script th:src="@{/js/els-meus-intercanvis.js}"></script>
+        </th:block>
+    </body>
+</html>

@@ -1,221 +1,493 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout/base.html}">
-    <head>
-        <title>Els meus intercanvis</title>
-        <link
-            rel="stylesheet"
-            type="text/css"
-            href="/css/els-meus-intercanvis.css"
-        />
-    </head>
+<head>
+<title>Els meus intercanvis</title>
+<link rel="stylesheet" type="text/css"
+	href="/css/els-meus-intercanvis.css" />
+</head>
 
-    <body>
-        <section
-            layout:fragment="content"
-            id="app"
-            class="els-meus-intercanvis-page"
-            v-cloak
-        >
-        <h1 class="header center black-pearl-text">Els meus intercanvis</h1>
+<body>
+	<section layout:fragment="content" id="app"
+		class="els-meus-intercanvis-page" v-cloak>
+		<h1 class="header center black-pearl-text">Els meus intercanvis</h1>
+		<div class="row right">
+			<span>Mostrar intercanvis completats</span>
+			  <div class="switch" style="display:inline;">
+    			<label>
+      			<input type="checkbox">
+      			<span class="lever"></span>
+				</label>
+  		</div>
+  		</div>
+		<div class="row">
+			<div class="col s12 black-pearl-text">
+				<!-- EXEMPLE 1 -->
+				<div class = "col l6 s12">
+					<div class="card horizontal">
+							<div class="col l5 valign-wrapper">
+								<img class="responsive-img" src="http://localhost:8080/img/esperant-llibre.jpg" />
+							</div>
+							<div class="col valign-wrapper">
+								<i class="material-icons medium atoll-text">swap_horiz</i>
+							</div>
+							<div class="col l5 valign-wrapper">
+								<img class="responsive-img" src="http://localhost:8080/img/covers/el_nacimiento_del_pistolero_comic.jpeg" />
+							</div>
+							<div class="timeline col l2">
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge atoll azure-text">
+										<i class="material-icons">hourglass_empty</i>
+									</div>
+								</div>
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge oyster-bay azure-text">
+										<i class="material-icons">thumb_up</i>
+									</div>
+								</div>
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge oyster-bay azure-text">
+										<i class="material-icons">done</i>
+									</div>
+								</div>
+							</div>
+							<div class="card-content valign-wrapper">
+									<span class="card-title activator center-align">Intercanvi<br>proposat<br><br>
+									<a class="btn-floating waves-effect waves-light large azure">
+									<i class="material-icons medium atoll-text">more_horiz</i>
+									</a>
+									</span>
+									
+							</div>
+							<div class="card-reveal">
+								<span class="card-title black-pearl-text text-darken-4">
+								<i class="material-icons right">close</i>
+								Intercanvi proposat<br>
+								<b>PepElLector</b> ha rebut la teva petició d'intercanvi. Ara toca esperar a que trii un llibre teu.
+								
+								</span>
+							</div>
+					</div>
+				</div>
+				<!-- EXEMPLE 2 -->
+				<div class = "col l6 s12">
+					<div class="card horizontal">
+							<div class="col l5 valign-wrapper">
+								<img class="responsive-img" src="http://localhost:8080/img/covers/el_nacimiento_del_pistolero_comic.jpeg" />
+							</div>
+							<div class="col valign-wrapper">
+								<i class="material-icons medium atoll-text">swap_horiz</i>
+							</div>
+							<div class="col l5 valign-wrapper">
+								<img class="responsive-img" src="http://localhost:8080/img/covers/el_nacimiento_del_pistolero_comic.jpeg" />
+							</div>
+							<div class="timeline col l2">
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge atoll azure-text">
+										<i class="material-icons">hourglass_empty</i>
+									</div>
+								</div>
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge oyster-bay azure-text">
+										<i class="material-icons">thumb_up</i>
+									</div>
+								</div>
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge oyster-bay azure-text">
+										<i class="material-icons">done</i>
+									</div>
+								</div>
+							</div>
+							<div class="card-content valign-wrapper">
+									<span class="card-title activator center-align">Proposta<br>rebuda<br><br>
+									<a class="btn-floating waves-effect waves-light large azure">
+									<i class="material-icons medium atoll-text">more_horiz</i>
+									</a>
+									</span>
+							</div>
+							<div class="card-reveal">
+								<span class="card-title black-pearl-text text-darken-4">
+								<i class="material-icons right">close</i>
+								Proposta de llibre rebuda<br>
+								<b>PepElLector</b> ha triat un llibre teu per a intercanviar. Estàs d'acord?<br><br>
+								<div class="center-align">
+								<button class="btn-large waves-effect waves-light light-sea-green azure-text">Acceptar</button>
+								<button class="btn-large waves-effect waves-light light-sea-green azure-text">Cancelar</button>
+								</div>
+								</span>
+							</div>
+					</div>
+				</div>
+				<!-- EXEMPLE 3 -->
+				<div class = "col l6 s12">
+					<div class="card horizontal">
+							<div class="col l5 valign-wrapper">
+								<img class="responsive-img" src="http://localhost:8080/img/covers/el_nacimiento_del_pistolero_comic.jpeg" />
+							</div>
+							<div class="col valign-wrapper">
+								<i class="material-icons medium atoll-text">swap_horiz</i>
+							</div>
+							<div class="col l5 valign-wrapper">
+								<img class="responsive-img" src="http://localhost:8080/img/covers/el_nacimiento_del_pistolero_comic.jpeg" />
+							</div>
+							<div class="timeline col l2">
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge atoll azure-text">
+										<i class="material-icons">hourglass_empty</i>
+									</div>
+								</div>
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge oyster-bay azure-text">
+										<i class="material-icons">thumb_up</i>
+									</div>
+								</div>
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge oyster-bay azure-text">
+										<i class="material-icons">done</i>
+									</div>
+								</div>
+							</div>
+							<div class="card-content valign-wrapper">
+									<span class="card-title activator center-align">Pendent<br>d'acceptació<br><br>
+									<a class="btn-floating waves-effect waves-light large azure">
+									<i class="material-icons medium atoll-text">more_horiz</i>
+									</a>
+									</span>
+							</div>
+							<div class="card-reveal">
+								<span class="card-title black-pearl-text text-darken-4">
+								<i class="material-icons right">close</i>
+								Pendent d'acceptació<br>
+								Estem esperant que <b>PepElLector</b> accepti l'intercanvi. Ja queda poc!
+								</span>
+							</div>
+					</div>
+				</div>
+				<!-- EXEMPLE 4 -->
+				<div class = "col l6 s12">
+					<div class="card horizontal">
+							<div class="col l5 valign-wrapper">
+								<img class="responsive-img" src="http://localhost:8080/img/covers/el_nacimiento_del_pistolero_comic.jpeg" />
+							</div>
+							<div class="col valign-wrapper">
+								<i class="material-icons medium atoll-text">swap_horiz</i>
+							</div>
+							<div class="col l5 valign-wrapper">
+								<img class="responsive-img" src="http://localhost:8080/img/covers/el_nacimiento_del_pistolero_comic.jpeg" />
+							</div>
+							<div class="timeline col l2">
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge atoll azure-text">
+										<i class="material-icons">hourglass_empty</i>
+									</div>
+								</div>
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge atoll azure-text">
+										<i class="material-icons">thumb_up</i>
+									</div>
+								</div>
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge oyster-bay azure-text">
+										<i class="material-icons">done</i>
+									</div>
+								</div>
+							</div>
+							<div class="card-content valign-wrapper">
+									<span class="card-title activator center-align">Intercanvi<br>acceptat!<br><br>
+									<a class="btn-floating waves-effect waves-light large azure">
+									<i class="material-icons medium atoll-text">more_horiz</i>
+									</a>
+									</span>
+							</div>
+							<div class="card-reveal">
+								<span class="card-title black-pearl-text text-darken-4">
+								<i class="material-icons right">close</i>
+								Intercanvi acceptat!<br>
+								Els dos usuaris esteu d'acord en realitzar l'intercanvi. Què espereu per a quedar?<br><br>
+								<div class="center-align">
+								<button class="btn-large waves-effect waves-light light-sea-green azure-text">Iniciar conversa</button>
+								</div>
+								</span>
+							</div>
+					</div>
+				</div>
+				<!-- EXEMPLE 5 -->
+				<div class = "col l6 s12">
+					<div class="card horizontal">
+							<div class="col l5 valign-wrapper">
+								<img class="responsive-img" src="http://localhost:8080/img/covers/el_nacimiento_del_pistolero_comic.jpeg" />
+							</div>
+							<div class="col valign-wrapper">
+								<i class="material-icons medium atoll-text">swap_horiz</i>
+							</div>
+							<div class="col l5 valign-wrapper">
+								<img class="responsive-img" src="http://localhost:8080/img/covers/el_nacimiento_del_pistolero_comic.jpeg" />
+							</div>
+							<div class="timeline col l2">
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge atoll azure-text">
+										<i class="material-icons">hourglass_empty</i>
+									</div>
+								</div>
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge atoll azure-text">
+										<i class="material-icons">thumb_up</i>
+									</div>
+								</div>
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge atoll azure-text">
+										<i class="material-icons">done</i>
+									</div>
+								</div>
+							</div>
+							<div class="card-content valign-wrapper">
+									<span class="card-title activator center-align">Intercanvi<br>completat!<br><br>
+									<a class="btn-floating waves-effect waves-light large azure">
+									<i class="material-icons medium atoll-text">more_horiz</i>
+									</a>
+									</span>
+							</div>
+							<div class="card-reveal">
+								<span class="card-title black-pearl-text text-darken-4">
+								Intercanvi completat!<br>
+								Esperem que gaudeixques del teu nou llibre :-)
+								<i class="material-icons right">close</i>
+								</span>
+							</div>
+					</div>
+				</div>
+				<!-- EXEMPLE 6 -->
+				<div class = "col l6 s12">
+					<div class="card horizontal">
+							<div class="col l5 valign-wrapper">
+								<img class="responsive-img" src="http://localhost:8080/img/covers/el_nacimiento_del_pistolero_comic.jpeg" />
+							</div>
+							<div class="col valign-wrapper">
+								<i class="material-icons medium atoll-text">swap_horiz</i>
+							</div>
+							<div class="col l5 valign-wrapper">
+								<img class="responsive-img" src="http://localhost:8080/img/esperant-llibre.jpg" />
+							</div>
+							<div class="timeline col l2">
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge atoll azure-text">
+										<i class="material-icons">hourglass_empty</i>
+									</div>
+								</div>
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge oyster-bay azure-text">
+										<i class="material-icons">thumb_up</i>
+									</div>
+								</div>
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge oyster-bay azure-text">
+										<i class="material-icons">done</i>
+									</div>
+								</div>
+							</div>
+							<div class="card-content valign-wrapper">
+									<span class="card-title activator center-align">Proposta<br>rebuda<br><br>
+									<a class="btn-floating waves-effect waves-light large azure">
+									<i class="material-icons medium atoll-text">more_horiz</i>
+									</a>
+									</span>
+							</div>
+							<div class="card-reveal">
+								<span class="card-title black-pearl-text text-darken-4">
+								Has rebut una proposta d'intercanvi<br>
+								Si estàs interessat, tria un llibre de l'usuari <b>PepElLector</b><br><br>
+								<div class="center-align">
+								<button class="btn-large waves-effect waves-light light-sea-green azure-text">Triar Llibre</button>
+								<button class="btn-large waves-effect waves-light light-sea-green azure-text">Rebutjar intercanvi</button>
+								</div>
+								<i class="material-icons right">close</i>
+								</span>
+							</div>
+					</div>
+				</div>
+				<!-- EXEMPLE 7 -->
+				<div class = "col l6 s12">
+					<div class="card horizontal">
+							<div class="col l5 valign-wrapper">
+								<img class="responsive-img" src="http://localhost:8080/img/covers/el_nacimiento_del_pistolero_comic.jpeg" />
+							</div>
+							<div class="col valign-wrapper">
+								<i class="material-icons medium atoll-text">swap_horiz</i>
+							</div>
+							<div class="col l5 valign-wrapper">
+								<img class="responsive-img" src="http://localhost:8080/img/covers/el_nacimiento_del_pistolero_comic.jpeg" />
+							</div>
+							<div class="timeline col l2">
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge atoll azure-text">
+										<i class="material-icons">hourglass_empty</i>
+									</div>
+								</div>
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge oyster-bay azure-text">
+										<i class="material-icons">thumb_up</i>
+									</div>
+								</div>
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge oyster-bay azure-text">
+										<i class="material-icons">done</i>
+									</div>
+								</div>
+							</div>
+							<div class="card-content valign-wrapper">
+									<span class="card-title activator center-align">Pendent<br>d'acceptació<br><br>
+									<a class="btn-floating waves-effect waves-light large azure">
+									<i class="material-icons medium atoll-text">more_horiz</i>
+									</a>
+									</span>
+							</div>
+							<div class="card-reveal">
+								<span class="card-title black-pearl-text text-darken-4">
+								Proposta de llibre rebuda<br>
+								<b>PepEllector</b> ha proposat el seu llibre per al intercanvi. Estàs d'acord?
+								<div class="center-align">
+								<button class="btn-large waves-effect waves-light light-sea-green azure-text">Acceptar</button>
+								<button class="btn-large waves-effect waves-light light-sea-green azure-text">Cancelar</button>
+								</div>
+								<i class="material-icons right">close</i>
+								</span>
+							</div>
+					</div>
+				</div>
+				<!-- EXEMPLE 8 -->
+				<div class = "col l6 s12">
+					<div class="card horizontal">
+							<div class="col l5 valign-wrapper">
+								<img class="responsive-img" src="http://localhost:8080/img/covers/el_nacimiento_del_pistolero_comic.jpeg" />
+							</div>
+							<div class="col valign-wrapper">
+								<i class="material-icons medium atoll-text">swap_horiz</i>
+							</div>
+							<div class="col l5 valign-wrapper">
+								<img class="responsive-img" src="http://localhost:8080/img/covers/el_nacimiento_del_pistolero_comic.jpeg" />
+							</div>
+							<div class="timeline col l2">
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge atoll azure-text">
+										<i class="material-icons">hourglass_empty</i>
+									</div>
+								</div>
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge atoll azure-text">
+										<i class="material-icons">thumb_up</i>
+									</div>
+								</div>
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge oyster-bay azure-text">
+										<i class="material-icons">done</i>
+									</div>
+								</div>
+							</div>
+							<div class="card-content valign-wrapper">
+									<span class="card-title activator center-align">Intercanvi<br>acceptat!<br><br>
+									<a class="btn-floating waves-effect waves-light large azure">
+									<i class="material-icons medium atoll-text">more_horiz</i>
+									</a>
+									</span>
+							</div>
+							<div class="card-reveal">
+								<span class="card-title black-pearl-text text-darken-4">
+								<i class="material-icons right">close</i>
+								Intercanvi acceptat!<br>
+								Els dos usuaris esteu d'acord en realitzar l'intercanvi. Què espereu per a quedar?<br><br>
+								<div class="center-align">
+								<button class="btn-large waves-effect waves-light light-sea-green azure-text">Iniciar conversa</button>
+								</div>
+								</span>
+							</div>
+					</div>
+				</div>
+				<!-- EXEMPLE 9 -->
+				<div class = "col l6 s12">
+					<div class="card horizontal">
+							<div class="col l5 valign-wrapper">
+								<img class="responsive-img" src="http://localhost:8080/img/covers/el_nacimiento_del_pistolero_comic.jpeg" />
+							</div>
+							<div class="col valign-wrapper">
+								<i class="material-icons medium atoll-text">swap_horiz</i>
+							</div>
+							<div class="col l5 valign-wrapper">
+								<img class="responsive-img" src="http://localhost:8080/img/covers/el_nacimiento_del_pistolero_comic.jpeg" />
+							</div>
+							<div class="timeline col l2">
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge atoll azure-text">
+										<i class="material-icons">hourglass_empty</i>
+									</div>
+								</div>
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge atoll azure-text">
+										<i class="material-icons">thumb_up</i>
+									</div>
+								</div>
+								<div class="timeline-event">
+									<div style="height: 100px;"></div>
+									<div class="timeline-badge atoll azure-text">
+										<i class="material-icons">done</i>
+									</div>
+								</div>
+							</div>
+							<div class="card-content valign-wrapper">
+									<span class="card-title activator center-align">Intercanvi<br>completat!<br><br>
+									<a class="btn-floating waves-effect waves-light large azure">
+									<i class="material-icons medium atoll-text">more_horiz</i>
+									</a>
+									</span>
+							</div>
+							<div class="card-reveal">
+								<span class="card-title black-pearl-text text-darken-4">
+								Intercanvi completat!<br>
+								Esperem que gaudeixques del teu nou llibre :-)
+								<i class="material-icons right">close</i>
+								</span>
+							</div>
+					</div>
+				</div>
 
-      	<div class="container">
-    	<div class="section">
-          <div class="row">
-            <div class="col s12 black-pearl-text">
-            <h4>Els meus intercanvis oberts</h4>
-            <p v-if="! openExchanges.length">No tens intercanvis oberts</p>
-            <div v-for="exchange in openExchanges" class="card">
-                <div class="books-in-exchange">
-                    <h5>Peticions rebudes de {{ getOtherUser(exchange).user.username }}</h5>
-                    <a
-                        :href="`/llibres-disponibles?filter=user&q=${getOtherUser(exchange).user.id}`"
-                        >Veure tots els llibres de {{
-                        getOtherUser(exchange).user.username }}</a
-                    >
-                    
-                    <!-- 
-			          <div class="col s12 m3" th:each="book,iterStat : ${books}" th:unless="${iterStat.index > 3}">
-			                <div class="card">
-			                    <div class="card-content">
-			                    <img class="responsive-img" th:attr="src=@{'/img/covers/' + ${book.cover}}"/>
-			                    <div class="card-action atoll">
-			                    <a class="azure-text" href="#" th:text="${#strings.abbreviate(book.title, 30)}"></a>
-			                        </div>
-			                    </div>
-			                </div>
-			            </div>
-			                    
-                     -->
-                    
-                    <li
-                        class="mb-3"
-                        v-for="book in booksThatTheOtherUserWants(exchange.books)"
-                    >
-                        <p>Títol: {{ book.book.title }}</p>
-                        <img :src="`/img/covers/${book.book.cover}`">
-                    </li>
+			</div>
+		</div>
+	</section>
 
-                    <h5>Peticions enviades</h5>
-                    <div class="row">
-					<div class="col s12 m3"
-                        v-for="book in booksThatIWant(exchange.books)"
-                    >
-                    	<div class="card">
-                    	<div class="card-content">
-                    	<img class="responsive-img" :src="`/img/covers/${book.book.cover}`">
-                    	<div class="card-action atoll">
-                        <a class="azure-text" href="#">{{ book.book.title }}</a>
-						</div>
-                        </div>      
-                    	</div>
-                    </div>
-                    </div>
-                </div>
+	<footer>
+		<p layout:fragment="footer"></p>
+	</footer>
 
-                <div
-                    v-if="exchange.statusId == 2 && ! getApprovalStatus(exchange).iHaveDecided"
-                >
-                    <button
-                        @click="postApproval(exchange.id, true)"
-                        :href="`/api/exchanges/${exchange.id}?approve=true`"
-                    >
-                        Aprovar
-                    </button>
-                    <button
-                        @click="postApproval(exchange.id, false)"
-                        :href="`/api/exchanges/${exchange.id}?approve=false`"
-                    >
-                        Rebutjar
-                    </button>
-                </div>
-            </div>
-
-            <h4>Els meus intercanvis pendents d'aprovació</h4>
-            <p v-if="! pendingExchanges.length">No tens intercanvis pendents d'aprovació</p>
-            <div v-for="exchange in pendingExchanges" class="exchange mb-3">
-                <ul class="books-in-exchange">
-                    <h5>
-                        Llibres que {{ getOtherUser(exchange).user.username }}
-                        vol obtenir
-                    </h5>
-                    <li
-                        class="mb-3"
-                        v-for="book in booksThatTheOtherUserWants(exchange.books)"
-                    >
-                        <p>Títol: {{ book.book.title }}</p>
-                        <img :src="`/img/covers/${book.book.cover}`">
-                    </li>
-
-                    <h5>Llibres que jo vull obtenir</h5>
-                    <li
-                        class="mb-3"
-                        v-for="book in booksThatIWant(exchange.books)"
-                    >
-                        <p>Títol: {{ book.book.title }}</p>
-                        <img :src="`/img/covers/${book.book.cover}`">
-                    </li>
-                </ul>
-
-                <div
-                    v-if="[2,3].includes(exchange.statusId) && ! getApprovalStatus(exchange).iHaveDecided"
-                >
-                    <button
-                        @click="postApproval(exchange.id, true)"
-                        :href="`/api/exchanges/${exchange.id}?approve=true`"
-                    >
-                        Aprovar
-                    </button>
-                    <button
-                        @click="postApproval(exchange.id, false)"
-                        :href="`/api/exchanges/${exchange.id}?approve=false`"
-                    >
-                        Rebutjar
-                    </button>
-                </div>
-                <div v-else>
-                    Intercanvi {{ getApprovalStatus(exchange).iApprove ?
-                    'aprovat' : 'rebutjat' }} per mi
-                </div>
-            </div>
-
-            <h4>Els meus intercanvis aprovats</h4>
-            <p v-if="! approvedExchanges.length">No tens intercanvis aprovats</p>
-            <div v-for="exchange in approvedExchanges" class="exchange mb-3">
-                <ul class="books-in-exchange">
-                    <h5>
-                        Llibres que {{ getOtherUser(exchange).user.username }}
-                        obtindrà
-                    </h5>
-                    <li
-                        class="mb-3"
-                        v-for="book in booksThatTheOtherUserWants(exchange.books)"
-                    >
-                        <p>Títol: {{ book.book.title }}</p>
-                    </li>
-
-                    <h5>Llibres que jo obtindré</h5>
-                    <li
-                        class="mb-3"
-                        v-for="book in booksThatIWant(exchange.books)"
-                    >
-                        <p>Títol: {{ book.book.title }}</p>
-                    </li>
-                </ul>
-
-                <button
-                    @click="postConclusion(exchange.id, true)"
-                    :href="`/api/exchanges/${exchange.id}?approve=true`"
-                >
-                    Formalitzar intercanvi
-                </button>
-                <button
-                    @click="postConclusion(exchange.id, false)"
-                    :href="`/api/exchanges/${exchange.id}?approve=true`"
-                >
-                    Descartar intercanvi
-                </button>
-            </div>
-
-            <h4>Els meus intercanvis formalitzats</h4>
-            <p v-if="! closedExchanges.length">No tens intercanvis formalitzats</p>
-            <div v-for="exchange in closedExchanges" class="exchange mb-3">
-                <ul class="books-in-exchange">
-                    <h5>
-                        Llibres que {{ getOtherUser(exchange).user.username }}
-                        va obtenir
-                    </h5>
-                    <li
-                        class="mb-3"
-                        v-for="book in booksThatTheOtherUserWants(exchange.books)"
-                    >
-                        <p>Títol: {{ book.book.title }}</p>
-                    </li>
-
-                    <h5>Llibres que jo vaig obtenir</h5>
-                    <li
-                        class="mb-3"
-                        v-for="book in booksThatIWant(exchange.books)"
-                    >
-                        <p>Títol: {{ book.book.title }}</p>
-                    </li>
-                </ul>
-            </div>
-        </div>    
-        </div>
-        </div>
-        </div>
-        </section>
-
-        <footer>
-            <p layout:fragment="footer"></p>
-        </footer>
-
-        <th:block layout:fragment="script">
-            <script th:inline="javascript">
-                /*<![CDATA[*/ window.myUserId = /*[[${myUserId}]]*/ null;
-                /*]]>*/
-            </script>
-            <script th:src="@{/js/els-meus-intercanvis.js}"></script>
-        </th:block>
-    </body>
+	<th:block layout:fragment="script">
+		<script th:inline="javascript">
+			/*<![CDATA[*/window.myUserId = /*[[${myUserId}]]*/null;
+			/*]]>*/
+		</script>
+		<script th:src="@{/js/els-meus-intercanvis.js}"></script>
+	</th:block>
+</body>
 </html>
