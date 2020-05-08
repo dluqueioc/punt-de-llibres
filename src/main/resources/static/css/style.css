@@ -94,7 +94,7 @@ pre{
 /**
  * Pesonalitzaci� per baixar el footer en p�gines amb poc de contingut
  */
- 
+
   body {
     display: flex;
     min-height: 100vh;
@@ -104,14 +104,14 @@ pre{
   main {
     flex: 1 0 auto;
   }
-  
+
   /**
  * Pesonalització per centrar contingut
  */
- 
+
   .flexbox {
   display: flex;
-  flew-wrap: wrap;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
@@ -120,4 +120,8 @@ pre{
   float: none !important;
   margin-left: auto;
   margin-right: auto;
+}
+
+#dropdown-usuari {
+  top: 100% !important;
 }
