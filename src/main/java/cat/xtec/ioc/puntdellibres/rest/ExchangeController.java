@@ -47,14 +47,14 @@ public class ExchangeController {
       if (user == null) {
          throw new Exception("Not logged in");
       }
-      
+
       return exchangeRepository.findMyExchanges(user);
    }
 
    @PostMapping(value = "/{bookId}", produces = MediaType.APPLICATION_JSON)
    public String create(@PathVariable("bookId") String bookId, Principal user) {
-      exchangeRepository.create(Integer.parseInt(bookId), user);
-      return bookId;
+      Integer exchangeId = exchangeRepository.create(Integer.parseInt(bookId), user);
+      return String.valueOf(exchangeId);
    }
 
    @PostMapping(value = "/{exchangeId}/approve", produces = MediaType.APPLICATION_JSON)

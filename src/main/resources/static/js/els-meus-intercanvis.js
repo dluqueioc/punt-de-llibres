@@ -5,7 +5,7 @@ new Vue({
         exchanges: [],
         showCompleted: true,
         modal: null,
-        selectedExchangeId: false
+        selectedExchangeId: false,
     },
 
     async created() {
@@ -142,5 +142,18 @@ new Vue({
     mounted() {
         var elems = document.querySelectorAll('.modal');
         this.modal = M.Modal.init(elems, {})[0];
+
+        let interval = setInterval(goToHash, 200);
+
+        function goToHash() {
+            const hash = window.location.hash;
+            if (hash) {
+                const elem = document.getElementById(hash.substring(1));
+                if (elem) {
+                    elem.scrollIntoView();
+                    clearInterval(interval);
+                }
+            }
+        }
     },
 });

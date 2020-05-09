@@ -161,9 +161,13 @@ new Vue({
             return options[prop];
         },
 
-        async requestBook(bookId) {
-            const res = await $.post(`/api/exchanges/${this.requestedBookId}`);
-            this.modal.close();
+        async requestBook(goToExchanges) {
+            const exchangeId = await $.post(`/api/exchanges/${this.requestedBookId}`);
+            if (goToExchanges) {
+                window.location = `/els-meus-intercanvis#exchange-${exchangeId}`;
+            } else {
+                this.modal.close();
+            }
         },
 
         activaModal(bookId) {

@@ -206,13 +206,15 @@
                     <a
                         @click="tancaModal"
                         class="modal-close waves-effect waves-green btn-flat atoll-text bolder"
-                        >Cancel·lar</a
-                    >
+                        >Cancel·lar</a>
                     <a
                         class="modal-close waves-effect waves-green btn-flat atoll-text bolder"
-                        @click="requestBook"
-                        >Acceptar</a
-                    >
+                        @click="requestBook(false, $event)"
+                        >Acceptar</a>
+                    <a
+                        class="modal-close waves-effect waves-green btn-flat atoll-text bolder"
+                        @click="requestBook(true, $event)"
+                        >Acceptar i veure intercanvi</a>
                 </div>
             </div>
         </div>

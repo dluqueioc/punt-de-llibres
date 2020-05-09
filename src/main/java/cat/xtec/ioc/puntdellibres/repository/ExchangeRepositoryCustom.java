@@ -5,6 +5,6 @@ import java.security.Principal;
 import cat.xtec.ioc.puntdellibres.model.Exchange;
 
 public interface ExchangeRepositoryCustom {
-  public void create(Integer bookId, Principal user);
+  public Integer create(Integer bookId, Principal user);
   public Iterable<Exchange> findMyExchanges(Principal user);
 }

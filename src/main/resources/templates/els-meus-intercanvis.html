@@ -58,7 +58,7 @@
             </div>
             <div class="row">
                 <div class="col s12 black-pearl-text">
-                    <div class="col l6 s12" v-for="exchange in exchangesShown">
+                    <div class="col l6 s12" v-for="exchange in exchangesShown" :id="`exchange-${exchange.id}`">
                         <div
                             class="card horizontal"
                             v-if="exchange.statusId === 1"
@@ -674,7 +674,7 @@
                         <a
                             class="modal-close waves-effect waves-green btn-flat atoll-text bolder"
                             @click="approve(selectedExchangeId, false)"
-                            >Cancel·lar</a
+                            >Cancel·lar intercanvi</a
                         >
                     </div>
                 </div>

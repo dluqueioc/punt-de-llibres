@@ -245,3 +245,7 @@ hr {
 .llibres-disponibles-page {
 	margin-bottom: 50px;
 }
+
+.modal-footer {
+	height: auto !important;
+}

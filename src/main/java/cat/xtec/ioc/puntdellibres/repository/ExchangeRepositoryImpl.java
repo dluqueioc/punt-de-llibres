@@ -27,10 +27,11 @@ public class ExchangeRepositoryImpl implements ExchangeRepositoryCustom {
     private UserRepository userRepository;
 
     @Override
-    public void create(Integer bookId, Principal user) {
+    public Integer create(Integer bookId, Principal user) {
         String username = user.getName();
         User me = userRepository.findByUsername(username);
         Integer myUserId = me.getId();
+        Integer exchangeId = null;
 
         Book book = (Book) em.createQuery("SELECT book from Book book where id = ?1").setParameter(1, bookId)
                 .getSingleResult();
@@ -53,6 +54,7 @@ public class ExchangeRepositoryImpl implements ExchangeRepositoryCustom {
 
             if (exchangesWithBothUsers.size() != 0) {
                 exchange = exchangesWithBothUsers.get(0).getExchange();
+                exchangeId = exchange.getId();
             } else {
                 createExchange = true;
             }
@@ -64,6 +66,7 @@ public class ExchangeRepositoryImpl implements ExchangeRepositoryCustom {
             exchange = new Exchange();
             exchange.setStarterUserId(myUserId);
             em.persist(exchange);
+            exchangeId = exchange.getId();
 
             UserInExchange user1 = new UserInExchange();
             user1.setExchangeId(exchange.getId());
@@ -96,6 +99,8 @@ public class ExchangeRepositoryImpl implements ExchangeRepositoryCustom {
         userWantsBook.setUserId(myUserId);
         userWantsBook.setExchangeId(exchange.getId());
         em.persist(userWantsBook);
+
+        return exchangeId;
     }
 
     @Override
