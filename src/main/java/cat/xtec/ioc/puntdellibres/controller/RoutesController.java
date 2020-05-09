@@ -2,20 +2,14 @@ package cat.xtec.ioc.puntdellibres.controller;
 
 import java.security.Principal;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-
 import cat.xtec.ioc.puntdellibres.repository.*;
 import cat.xtec.ioc.puntdellibres.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import cat.xtec.ioc.puntdellibres.model.Book;
-import cat.xtec.ioc.puntdellibres.model.Chat;
 import cat.xtec.ioc.puntdellibres.model.Exchange;
 import cat.xtec.ioc.puntdellibres.model.User;
 //permet ordenar (sort) dades des del controller
@@ -39,8 +33,6 @@ public class RoutesController {
   private ExchangeRepository exchangeRepository;
   @Autowired
   private UserService userService;
-  @Autowired
-  private ChatRepository chatRepository;
 
   @GetMapping(value={"", "/", "home"})
   public String home(final Model model) {
