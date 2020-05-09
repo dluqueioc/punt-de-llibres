@@ -142,9 +142,7 @@ public class RoutesController {
     return "conversa";
   }
 
-
   //mètodes per gestionar les peticions a les pàgines legals (estàtiques)
-
   @GetMapping("/privacitat")
   public String privacitat(final Model model) {
       return "privacitat";

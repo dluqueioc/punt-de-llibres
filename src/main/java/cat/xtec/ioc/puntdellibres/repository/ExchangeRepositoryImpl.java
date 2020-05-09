@@ -62,6 +62,7 @@ public class ExchangeRepositoryImpl implements ExchangeRepositoryCustom {
 
         if (createExchange) {
             exchange = new Exchange();
+            exchange.setStarterUserId(myUserId);
             em.persist(exchange);
 
             UserInExchange user1 = new UserInExchange();
@@ -106,7 +107,10 @@ public class ExchangeRepositoryImpl implements ExchangeRepositoryCustom {
         List<Exchange> myExchanges = new ArrayList<>();
 
         for (UserInExchange exc : meInExchanges) {
-            myExchanges.add(exc.getExchange());
+            String status = exc.getExchange().getStatus().getName();
+            if (! (status.equals("rebutjat") || status.equals("eliminat"))) {
+                myExchanges.add(exc.getExchange());
+            }
         }
 
         return myExchanges;

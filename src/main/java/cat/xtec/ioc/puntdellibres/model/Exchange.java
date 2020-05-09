@@ -37,6 +37,14 @@ public class Exchange {
   @Column(name = "status_id")
   private Integer statusId = 1;
 
+  @JoinColumn(name = "starter_user_id", insertable = false, updatable = false)
+  @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+  @JsonIgnore
+  private User starterUser;
+
+  @Column(name = "starter_user_id")
+  private Integer starterUserId;
+
   @OneToMany(
     mappedBy = "exchange",
     cascade = CascadeType.ALL,

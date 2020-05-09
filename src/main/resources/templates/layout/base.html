@@ -17,7 +17,7 @@
 <body>
 	<!--NAVEGACIÓ-->
 	<!-- Dropdown-->
-	<ul id="dropdown-usuari" class="dropdown-content light-sea-green azure-text">
+	<ul id="dropdown-usuari" class="dropdown-content light-sea-green azure-text no-autoinit">
 		<li class="light-sea-green" sec:authorize="isAuthenticated()"><a href="/usuari"	class="azure-text"><i class="material-icons azure-text">account_circle</i>El meu perfil</a></li>
 		<li class="light-sea-green" sec:authorize="isAuthenticated()"><a href="/els-meus-llibres" class="azure-text"><i class="fa fa-book fa-lg azure-text"></i>Els meus llibres</a></li>
 		<li class="light-sea-green" sec:authorize="isAuthenticated()"><a href="/els-meus-intercanvis" class="azure-text"><i class="material-icons azure-text">swap_horiz</i>Els meus intercanvis</a></li>

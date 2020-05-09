@@ -121,3 +121,8 @@ pre{
   margin-left: auto;
   margin-right: auto;
 }
+
+#dropdown-usuari {
+  top: 100% !important;
+  min-width: 230px;
+}

@@ -16,194 +16,653 @@
             class="els-meus-intercanvis-page"
             v-cloak
         >
-        <h1 class="header center black-pearl-text">Els meus intercanvis</h1>
+            <h1 class="header center black-pearl-text">Els meus intercanvis</h1>
+            <p
+                v-if="! exchangesShown.length"
+                v-cloak
+                class="center-align no-exchanges"
+            >
+                No has iniciat cap intercanvi. Consulta els
+                <a href="/llibres-disponibles">llibres&nbsp;disponibles</a> i
+                mira si te n'interessa algun!
+            </p>
+            <div v-else class="row right">
+                <span>Mostrar intercanvis completats</span>
+                <div class="switch" style="display: inline;">
+                    <label>
+                        <input
+                            v-if="! closedExchanges.length"
+                            disabled
+                            type="checkbox"
+                        />
+                        <input v-else type="checkbox" v-model="showCompleted" />
+                        <span class="lever"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 black-pearl-text">
+                    <div class="col l6 s12" v-for="exchange in exchangesShown">
+                        <div
+                            class="card horizontal"
+                            v-if="exchange.statusId === 1"
+                            :key="exchange.id"
+                        >
+                            <div class="col l5 valign-wrapper">
+                                <img
+                                    v-if="startedByMe(exchange)"
+                                    class="responsive-img"
+                                    src="http://localhost:8080/img/esperant-llibre.jpg"
+                                />
+                                <img
+                                    v-else
+                                    class="responsive-img"
+                                    :src="`/img/covers/${exchange.books[0].book.cover}`"
+                                />
+                            </div>
+                            <div class="col valign-wrapper">
+                                <i class="material-icons medium atoll-text"
+                                    >swap_horiz</i
+                                >
+                            </div>
+                            <div class="col l5 valign-wrapper">
+                                <img
+                                    v-if="! startedByMe(exchange)"
+                                    class="responsive-img"
+                                    src="http://localhost:8080/img/esperant-llibre.jpg"
+                                />
+                                <img
+                                    v-else
+                                    class="responsive-img"
+                                    :src="`/img/covers/${exchange.books[0].book.cover}`"
+                                />
+                            </div>
+                            <div class="timeline col l2">
+                                <div class="timeline-event">
+                                    <div style="height: 100px;"></div>
+                                    <div
+                                        class="timeline-badge atoll azure-text"
+                                    >
+                                        <i class="material-icons"
+                                            >hourglass_empty</i
+                                        >
+                                    </div>
+                                </div>
+                                <div class="timeline-event">
+                                    <div style="height: 100px;"></div>
+                                    <div
+                                        class="timeline-badge oyster-bay azure-text"
+                                    >
+                                        <i class="material-icons">thumb_up</i>
+                                    </div>
+                                </div>
+                                <div class="timeline-event">
+                                    <div style="height: 100px;"></div>
+                                    <div
+                                        class="timeline-badge oyster-bay azure-text"
+                                    >
+                                        <i class="material-icons">done</i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-content valign-wrapper">
+                                <span
+                                    v-if="startedByMe(exchange)"
+                                    class="card-title activator center-align"
+                                    >Intercanvi<br />proposat<br /><br />
+                                    <a
+                                        class="btn-floating waves-effect waves-light large azure"
+                                    >
+                                        <i
+                                            class="material-icons medium atoll-text"
+                                            >more_horiz</i
+                                        >
+                                    </a>
+                                </span>
+                                <span
+                                    v-else
+                                    class="card-title activator center-align"
+                                    >Proposta<br />rebuda<br /><br />
+                                    <a
+                                        class="btn-floating waves-effect waves-light large azure"
+                                    >
+                                        <i
+                                            class="material-icons medium atoll-text"
+                                            >more_horiz</i
+                                        >
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="card-reveal">
+                                <span
+                                    v-if="startedByMe(exchange)"
+                                    class="card-title black-pearl-text text-darken-4"
+                                >
+                                    <i class="material-icons right">close</i>
+                                    <strong>Intercanvi proposat</strong
+                                    ><br /><br />
+                                    <a
+                                        :href="getOtherUserLink(exchange)"
+                                        class="user-link"
+                                        >{{ getOtherUser(exchange).user.username
+                                        }}</a
+                                    >
+                                    ha rebut la teva petició d'intercanvi. Ara
+                                    toca esperar a que trii un llibre teu.<br /><br />
+                                    <div class="center-align">
+                                        <button
+                                            class="btn-large waves-effect waves-light light-sea-green azure-text"
+                                            @click="postApproval(exchange.id, false)"
+                                        >
+                                            Anul·lar intercanvi
+                                        </button>
+                                    </div>
+                                </span>
+                                <span
+                                    v-else
+                                    class="card-title black-pearl-text text-darken-4"
+                                >
+                                    <i class="material-icons right">close</i>
+                                    <strong>Proposta rebuda</strong><br /><br />
+                                    Si estàs interessat, tria un llibre de
+                                    <a
+                                        :href="getOtherUserLink(exchange)"
+                                        class="user-link"
+                                        >{{ getOtherUser(exchange).user.username
+                                        }}</a
+                                    >.<br /><br />
+                                    <div class="center-align">
+                                        <button
+                                            class="btn-large waves-effect waves-light light-sea-green azure-text"
+                                            @click="showUserBooks(exchange)"
+                                        >
+                                            Triar Llibre
+                                        </button>
+                                        <button
+                                            class="btn-large waves-effect waves-light light-sea-green azure-text"
+                                            @click="postApproval(exchange.id, false)"
+                                        >
+                                            Rebutjar intercanvi
+                                        </button>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
 
-      	<div class="container">
-    	<div class="section">
-          <div class="row">
-            <div class="col s12 black-pearl-text">
-            <h4>Els meus intercanvis oberts</h4>
-            <p v-if="! openExchanges.length">No tens intercanvis oberts</p>
-            <div v-for="exchange in openExchanges" class="card">
-                <div class="books-in-exchange">
-                    <h5>Peticions rebudes de {{ getOtherUser(exchange).user.username }}</h5>
-                    <a
-                        :href="`/llibres-disponibles?filter=user&q=${getOtherUser(exchange).user.id}`"
-                        >Veure tots els llibres de {{
-                        getOtherUser(exchange).user.username }}</a
-                    >
-                    
-                    <!-- 
-			          <div class="col s12 m3" th:each="book,iterStat : ${books}" th:unless="${iterStat.index > 3}">
-			                <div class="card">
-			                    <div class="card-content">
-			                    <img class="responsive-img" th:attr="src=@{'/img/covers/' + ${book.cover}}"/>
-			                    <div class="card-action atoll">
-			                    <a class="azure-text" href="#" th:text="${#strings.abbreviate(book.title, 30)}"></a>
-			                        </div>
-			                    </div>
-			                </div>
-			            </div>
-			                    
-                     -->
-                    
-                    <li
-                        class="mb-3"
-                        v-for="book in booksThatTheOtherUserWants(exchange.books)"
-                    >
-                        <p>Títol: {{ book.book.title }}</p>
-                        <img :src="`/img/covers/${book.book.cover}`">
-                    </li>
+                        <div
+                            class="card horizontal"
+                            v-if="exchange.statusId === 2"
+                            :key="exchange.id"
+                        >
+                            <div class="col l5 valign-wrapper">
+                                <img
+                                    class="responsive-img"
+                                    :src="`/img/covers/${booksThatTheOtherUserWants(exchange.books)[0].book.cover}`"
+                                />
+                            </div>
+                            <div class="col valign-wrapper">
+                                <i class="material-icons medium atoll-text"
+                                    >swap_horiz</i
+                                >
+                            </div>
+                            <div class="col l5 valign-wrapper">
+                                <img
+                                    class="responsive-img"
+                                    :src="`/img/covers/${booksThatIWant(exchange.books)[0].book.cover}`"
+                                />
+                            </div>
+                            <div class="timeline col l2">
+                                <div class="timeline-event">
+                                    <div style="height: 100px;"></div>
+                                    <div
+                                        class="timeline-badge atoll azure-text"
+                                    >
+                                        <i class="material-icons"
+                                            >hourglass_empty</i
+                                        >
+                                    </div>
+                                </div>
+                                <div class="timeline-event">
+                                    <div style="height: 100px;"></div>
+                                    <div
+                                        class="timeline-badge oyster-bay azure-text"
+                                    >
+                                        <i class="material-icons">thumb_up</i>
+                                    </div>
+                                </div>
+                                <div class="timeline-event">
+                                    <div style="height: 100px;"></div>
+                                    <div
+                                        class="timeline-badge oyster-bay azure-text"
+                                    >
+                                        <i class="material-icons">done</i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-content valign-wrapper">
+                                <span class="card-title activator center-align"
+                                    >Intercanvi<br />complet<br /><br />
+                                    <a
+                                        class="btn-floating waves-effect waves-light large azure"
+                                    >
+                                        <i
+                                            class="material-icons medium atoll-text"
+                                            >more_horiz</i
+                                        >
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="card-reveal">
+                                <span
+                                    class="card-title black-pearl-text text-darken-4"
+                                >
+                                    <i class="material-icons right">close</i>
+                                    <strong>Intercanvi complet</strong
+                                    ><br /><br />
+                                    Tots dos heu triat un llibre. Estàs d'acord
+                                    amb l'intercanvi?<br /><br />
+                                    <div class="center-align">
+                                        <button
+                                            class="btn-large waves-effect waves-light light-sea-green azure-text"
+                                            @click="postApproval(exchange.id, true)"
+                                        >
+                                            Acceptar
+                                        </button>
+                                        <button
+                                            class="btn-large waves-effect waves-light light-sea-green azure-text"
+                                            @click="postApproval(exchange.id, false)"
+                                        >
+                                            Cancel·lar
+                                        </button>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
 
-                    <h5>Peticions enviades</h5>
-                    <div class="row">
-					<div class="col s12 m3"
-                        v-for="book in booksThatIWant(exchange.books)"
-                    >
-                    	<div class="card">
-                    	<div class="card-content">
-                    	<img class="responsive-img" :src="`/img/covers/${book.book.cover}`">
-                    	<div class="card-action atoll">
-                        <a class="azure-text" href="#">{{ book.book.title }}</a>
-						</div>
-                        </div>      
-                    	</div>
+                        <div
+                            class="card horizontal"
+                            v-if="exchange.statusId === 3"
+                            :key="exchange.id"
+                        >
+                            <div class="col l5 valign-wrapper">
+                                <img
+                                    class="responsive-img"
+                                    :src="`/img/covers/${booksThatTheOtherUserWants(exchange.books)[0].book.cover}`"
+                                />
+                            </div>
+                            <div class="col valign-wrapper">
+                                <i class="material-icons medium atoll-text"
+                                    >swap_horiz</i
+                                >
+                            </div>
+                            <div class="col l5 valign-wrapper">
+                                <img
+                                    class="responsive-img"
+                                    :src="`/img/covers/${booksThatIWant(exchange.books)[0].book.cover}`"
+                                />
+                            </div>
+                            <div class="timeline col l2">
+                                <div class="timeline-event">
+                                    <div style="height: 100px;"></div>
+                                    <div
+                                        class="timeline-badge atoll azure-text"
+                                    >
+                                        <i class="material-icons"
+                                            >hourglass_empty</i
+                                        >
+                                    </div>
+                                </div>
+                                <div class="timeline-event">
+                                    <div style="height: 100px;"></div>
+                                    <div
+                                        class="timeline-badge oyster-bay azure-text"
+                                    >
+                                        <i class="material-icons">thumb_up</i>
+                                    </div>
+                                </div>
+                                <div class="timeline-event">
+                                    <div style="height: 100px;"></div>
+                                    <div
+                                        class="timeline-badge oyster-bay azure-text"
+                                    >
+                                        <i class="material-icons">done</i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-content valign-wrapper">
+                                <span class="card-title activator center-align"
+                                    >Pendent<br />d'acceptació<br /><br />
+                                    <a
+                                        class="btn-floating waves-effect waves-light large azure"
+                                    >
+                                        <i
+                                            class="material-icons medium atoll-text"
+                                            >more_horiz</i
+                                        >
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="card-reveal">
+                                <span
+                                    v-if="getApprovalStatus(exchange).iHaveDecided"
+                                    class="card-title black-pearl-text text-darken-4"
+                                >
+                                    <i class="material-icons right">close</i>
+                                    <strong>Pendent d'acceptació</strong
+                                    ><br /><br />
+                                    Estem esperant que
+                                    <a
+                                        class="user-link"
+                                        :href="getOtherUserLink(exchange)"
+                                        >{{ getOtherUser(exchange).user.username
+                                        }}</a
+                                    >
+                                    accepti l'intercanvi. Ja queda poc!<br /><br />
+                                    <div class="center-align">
+                                        <button
+                                            class="btn-large waves-effect waves-light light-sea-green azure-text"
+                                            @click="postApproval(exchange.id, false)"
+                                        >
+                                            Anul·lar intercanvi
+                                        </button>
+                                    </div>
+                                </span>
+                                <span
+                                    v-else
+                                    class="card-title black-pearl-text text-darken-4"
+                                >
+                                    <i class="material-icons right">close</i>
+                                    <strong>Pendent d'acceptació</strong
+                                    ><br /><br />
+                                    <a
+                                        class="user-link"
+                                        :href="getOtherUserLink(exchange)"
+                                        >{{ getOtherUser(exchange).user.username
+                                        }}</a
+                                    >
+                                    ha acceptat l'intercanvi. Hi estàs d'acord
+                                    tu també?<br /><br />
+                                    <div class="center-align">
+                                        <button
+                                            class="btn-large waves-effect waves-light light-sea-green azure-text"
+                                            @click="postApproval(exchange.id, true)"
+                                        >
+                                            Acceptar
+                                        </button>
+                                        <button
+                                            class="btn-large waves-effect waves-light light-sea-green azure-text"
+                                            @click="postApproval(exchange.id, false)"
+                                        >
+                                            Anul·lar
+                                        </button>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div
+                            class="card horizontal"
+                            v-if="exchange.statusId === 4"
+                            :key="exchange.id"
+                        >
+                            <div class="col l5 valign-wrapper">
+                                <img
+                                    class="responsive-img"
+                                    :src="`/img/covers/${booksThatTheOtherUserWants(exchange.books)[0].book.cover}`"
+                                />
+                            </div>
+                            <div class="col valign-wrapper">
+                                <i class="material-icons medium atoll-text"
+                                    >swap_horiz</i
+                                >
+                            </div>
+                            <div class="col l5 valign-wrapper">
+                                <img
+                                    class="responsive-img"
+                                    :src="`/img/covers/${booksThatIWant(exchange.books)[0].book.cover}`"
+                                />
+                            </div>
+                            <div class="timeline col l2">
+                                <div class="timeline-event">
+                                    <div style="height: 100px;"></div>
+                                    <div
+                                        class="timeline-badge atoll azure-text"
+                                    >
+                                        <i class="material-icons"
+                                            >hourglass_empty</i
+                                        >
+                                    </div>
+                                </div>
+                                <div class="timeline-event">
+                                    <div style="height: 100px;"></div>
+                                    <div
+                                        class="timeline-badge atoll azure-text"
+                                    >
+                                        <i class="material-icons">thumb_up</i>
+                                    </div>
+                                </div>
+                                <div class="timeline-event">
+                                    <div style="height: 100px;"></div>
+                                    <div
+                                        class="timeline-badge oyster-bay azure-text"
+                                    >
+                                        <i class="material-icons">done</i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-content valign-wrapper">
+                                <span class="card-title activator center-align"
+                                    >Intercanvi<br />acceptat!<br /><br />
+                                    <a
+                                        class="btn-floating waves-effect waves-light large azure"
+                                    >
+                                        <i
+                                            class="material-icons medium atoll-text"
+                                            >more_horiz</i
+                                        >
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="card-reveal">
+                                <span
+                                    v-if="noOneHasClosed(exchange)"
+                                    class="card-title black-pearl-text text-darken-4"
+                                >
+                                    <i class="material-icons right">close</i>
+                                    <strong>Intercanvi acceptat!</strong
+                                    ><br /><br />
+                                    Els dos usuaris esteu d'acord en realitzar
+                                    l'intercanvi. Què espereu per a quedar?<br /><br />
+                                    <div class="center-align">
+                                        <button
+                                            class="btn-large waves-effect waves-light light-sea-green azure-text"
+                                            @click="openChat"
+                                        >
+                                            Iniciar conversa
+                                        </button>
+                                        <button
+                                            class="btn-large waves-effect waves-light light-sea-green azure-text"
+                                            @click="postConclusion(exchange.id, true)"
+                                        >
+                                            Completar
+                                        </button>
+                                        <button
+                                            class="btn-large waves-effect waves-light light-sea-green azure-text"
+                                            @click="postConclusion(exchange.id, false)"
+                                        >
+                                            Anul·lar
+                                        </button>
+                                    </div>
+                                </span>
+                                <span
+                                    v-else-if="iHaveClosed(exchange)"
+                                    class="card-title black-pearl-text text-darken-4"
+                                >
+                                    <i class="material-icons right">close</i>
+                                    <strong>Pendent de compleció</strong
+                                    ><br /><br />
+                                    Quan
+                                    <a
+                                        class="user-link"
+                                        :href="getOtherUserLink(exchange)"
+                                        >{{ getOtherUser(exchange).user.username
+                                        }}</a
+                                    >
+                                    completi l'intercanvi, les vostres
+                                    col·leccions de llibres s'actualitzaran
+                                    automàticament.<br /><br />
+                                    <div class="center-align">
+                                        <button
+                                            class="btn-large waves-effect waves-light light-sea-green azure-text"
+                                            @click="openChat"
+                                        >
+                                            Obrir conversa
+                                        </button>
+                                        <button
+                                            class="btn-large waves-effect waves-light light-sea-green azure-text"
+                                            @click="postConclusion(exchange.id, false)"
+                                        >
+                                            Anul·lar intercanvi
+                                        </button>
+                                    </div>
+                                </span>
+                                <span
+                                    v-else
+                                    class="card-title black-pearl-text text-darken-4"
+                                >
+                                    <i class="material-icons right">close</i>
+                                    <strong
+                                        >Ja heu intercanviat els
+                                        llibres?</strong
+                                    ><br /><br />
+                                    Completa l'intercanvi perquè les vostres
+                                    col·leccions de llibres s'actualitzin
+                                    automàticament.<br /><br />
+                                    <div class="center-align">
+                                        <button
+                                            class="btn-large waves-effect waves-light light-sea-green azure-text"
+                                            @click="openChat"
+                                        >
+                                            Obrir conversa
+                                        </button>
+                                        <button
+                                            class="btn-large waves-effect waves-light light-sea-green azure-text"
+                                            @click="postConclusion(exchange.id, true)"
+                                        >
+                                            Completar
+                                        </button>
+                                        <button
+                                            class="btn-large waves-effect waves-light light-sea-green azure-text"
+                                            @click="postConclusion(exchange.id, false)"
+                                        >
+                                            Anul·lar
+                                        </button>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div
+                            class="card horizontal"
+                            v-if="exchange.statusId === 6"
+                            :key="exchange.id"
+                        >
+                            <div class="col l5 valign-wrapper">
+                                <img
+                                    class="responsive-img"
+                                    :src="`/img/covers/${booksThatTheOtherUserWants(exchange.books)[0].book.cover}`"
+                                />
+                            </div>
+                            <div class="col valign-wrapper">
+                                <i class="material-icons medium atoll-text"
+                                    >swap_horiz</i
+                                >
+                            </div>
+                            <div class="col l5 valign-wrapper">
+                                <img
+                                    class="responsive-img"
+                                    :src="`/img/covers/${booksThatIWant(exchange.books)[0].book.cover}`"
+                                />
+                            </div>
+                            <div class="timeline col l2">
+                                <div class="timeline-event">
+                                    <div style="height: 100px;"></div>
+                                    <div
+                                        class="timeline-badge atoll azure-text"
+                                    >
+                                        <i class="material-icons"
+                                            >hourglass_empty</i
+                                        >
+                                    </div>
+                                </div>
+                                <div class="timeline-event">
+                                    <div style="height: 100px;"></div>
+                                    <div
+                                        class="timeline-badge atoll azure-text"
+                                    >
+                                        <i class="material-icons">thumb_up</i>
+                                    </div>
+                                </div>
+                                <div class="timeline-event">
+                                    <div style="height: 100px;"></div>
+                                    <div
+                                        class="timeline-badge atoll azure-text"
+                                    >
+                                        <i class="material-icons">done</i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-content valign-wrapper">
+                                <span class="card-title activator center-align"
+                                    >Intercanvi<br />completat!<br /><br />
+                                    <a
+                                        class="btn-floating waves-effect waves-light large azure"
+                                    >
+                                        <i
+                                            class="material-icons medium atoll-text"
+                                            >more_horiz</i
+                                        >
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="card-reveal">
+                                <span
+                                    class="card-title black-pearl-text text-darken-4"
+                                >
+                                    <i class="material-icons right">close</i>
+                                    <strong>Intercanvi completat!</strong
+                                    ><br /><br />
+                                    Esperem que gaudeixques del teu nou llibre
+                                    :-)
+                                </span>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <div class="modal">
+                    <div class="modal-content">
+                        <h4 class="black-pearl-text center-align">
+                            Segur que vols anul·lar l'intercanvi?
+                        </h4>
+                        <p class="black-pearl-text center-align">
+                            Si us plau, confirma que vols anul·lar l'intercanvi.
+                        </p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a
+                            @click="modal.close()"
+                            class="modal-close waves-effect waves-green btn-flat atoll-text bolder"
+                            >Tornar enrere</a
+                        >
+                        <a
+                            class="modal-close waves-effect waves-green btn-flat atoll-text bolder"
+                            @click="approve(selectedExchangeId, false)"
+                            >Anul·lar</a
+                        >
                     </div>
                 </div>
-
-                <div
-                    v-if="exchange.statusId == 2 && ! getApprovalStatus(exchange).iHaveDecided"
-                >
-                    <button
-                        @click="postApproval(exchange.id, true)"
-                        :href="`/api/exchanges/${exchange.id}?approve=true`"
-                    >
-                        Aprovar
-                    </button>
-                    <button
-                        @click="postApproval(exchange.id, false)"
-                        :href="`/api/exchanges/${exchange.id}?approve=false`"
-                    >
-                        Rebutjar
-                    </button>
-                </div>
             </div>
-
-            <h4>Els meus intercanvis pendents d'aprovació</h4>
-            <p v-if="! pendingExchanges.length">No tens intercanvis pendents d'aprovació</p>
-            <div v-for="exchange in pendingExchanges" class="exchange mb-3">
-                <ul class="books-in-exchange">
-                    <h5>
-                        Llibres que {{ getOtherUser(exchange).user.username }}
-                        vol obtenir
-                    </h5>
-                    <li
-                        class="mb-3"
-                        v-for="book in booksThatTheOtherUserWants(exchange.books)"
-                    >
-                        <p>Títol: {{ book.book.title }}</p>
-                        <img :src="`/img/covers/${book.book.cover}`">
-                    </li>
-
-                    <h5>Llibres que jo vull obtenir</h5>
-                    <li
-                        class="mb-3"
-                        v-for="book in booksThatIWant(exchange.books)"
-                    >
-                        <p>Títol: {{ book.book.title }}</p>
-                        <img :src="`/img/covers/${book.book.cover}`">
-                    </li>
-                </ul>
-
-                <div
-                    v-if="[2,3].includes(exchange.statusId) && ! getApprovalStatus(exchange).iHaveDecided"
-                >
-                    <button
-                        @click="postApproval(exchange.id, true)"
-                        :href="`/api/exchanges/${exchange.id}?approve=true`"
-                    >
-                        Aprovar
-                    </button>
-                    <button
-                        @click="postApproval(exchange.id, false)"
-                        :href="`/api/exchanges/${exchange.id}?approve=false`"
-                    >
-                        Rebutjar
-                    </button>
-                </div>
-                <div v-else>
-                    Intercanvi {{ getApprovalStatus(exchange).iApprove ?
-                    'aprovat' : 'rebutjat' }} per mi
-                </div>
-            </div>
-
-            <h4>Els meus intercanvis aprovats</h4>
-            <p v-if="! approvedExchanges.length">No tens intercanvis aprovats</p>
-            <div v-for="exchange in approvedExchanges" class="exchange mb-3">
-                <ul class="books-in-exchange">
-                    <h5>
-                        Llibres que {{ getOtherUser(exchange).user.username }}
-                        obtindrà
-                    </h5>
-                    <li
-                        class="mb-3"
-                        v-for="book in booksThatTheOtherUserWants(exchange.books)"
-                    >
-                        <p>Títol: {{ book.book.title }}</p>
-                    </li>
-
-                    <h5>Llibres que jo obtindré</h5>
-                    <li
-                        class="mb-3"
-                        v-for="book in booksThatIWant(exchange.books)"
-                    >
-                        <p>Títol: {{ book.book.title }}</p>
-                    </li>
-                </ul>
-
-                <button
-                    @click="postConclusion(exchange.id, true)"
-                    :href="`/api/exchanges/${exchange.id}?approve=true`"
-                >
-                    Formalitzar intercanvi
-                </button>
-                <button
-                    @click="postConclusion(exchange.id, false)"
-                    :href="`/api/exchanges/${exchange.id}?approve=true`"
-                >
-                    Descartar intercanvi
-                </button>
-            </div>
-
-            <h4>Els meus intercanvis formalitzats</h4>
-            <p v-if="! closedExchanges.length">No tens intercanvis formalitzats</p>
-            <div v-for="exchange in closedExchanges" class="exchange mb-3">
-                <ul class="books-in-exchange">
-                    <h5>
-                        Llibres que {{ getOtherUser(exchange).user.username }}
-                        va obtenir
-                    </h5>
-                    <li
-                        class="mb-3"
-                        v-for="book in booksThatTheOtherUserWants(exchange.books)"
-                    >
-                        <p>Títol: {{ book.book.title }}</p>
-                    </li>
-
-                    <h5>Llibres que jo vaig obtenir</h5>
-                    <li
-                        class="mb-3"
-                        v-for="book in booksThatIWant(exchange.books)"
-                    >
-                        <p>Títol: {{ book.book.title }}</p>
-                    </li>
-                </ul>
-            </div>
-        </div>    
-        </div>
-        </div>
-        </div>
         </section>
 
         <footer>

@@ -3,6 +3,9 @@ new Vue({
 
     data: {
         exchanges: [],
+        showCompleted: true,
+        modal: null,
+        selectedExchangeId: false
     },
 
     async created() {
@@ -10,12 +13,19 @@ new Vue({
 
         try {
             this.exchanges = await $.get(`/api/exchanges/user`);
+            this.exchanges.reverse();
         } catch (err) {
             console.log(err);
         }
     },
 
     computed: {
+        exchangesShown() {
+            return this.showCompleted
+                ? this.exchanges
+                : this.exchanges.filter((exchange) => exchange.statusId !== 6);
+        },
+
         openExchanges() {
             return this.exchanges.filter((exchange) => {
                 return [1, 2].includes(exchange.statusId);
@@ -43,7 +53,16 @@ new Vue({
 
     methods: {
         me(exchange) {
-            return exchange.users.find(user => user.userId === this.myUserId);
+            return exchange.users.find((user) => user.userId === this.myUserId);
+        },
+
+        startedByMe({ starterUserId }) {
+            return starterUserId === this.myUserId;
+        },
+
+        showUserBooks(exchange) {
+            const { userId } = this.getOtherUser(exchange);
+            window.location = `/llibres-disponibles?filter=user&q=${userId}`;
         },
 
         iWantTheBook(book) {
@@ -52,6 +71,11 @@ new Vue({
 
         getOtherUser(exchange) {
             return exchange.users.find((u) => u.userId != this.myUserId);
+        },
+
+        getOtherUserLink(exchange) {
+            const userId = this.getOtherUser(exchange).user.id;
+            return `/llibres-disponibles?filter=user&q=${userId}`;
         },
 
         booksThatIWant(books) {
@@ -64,8 +88,7 @@ new Vue({
 
         showApproveButtons(exchange) {
             return (
-                exchange.statusId === 2 &&
-                this.me(exchange).approved !== null
+                exchange.statusId === 2 && this.me(exchange).approved !== null
             );
         },
 
@@ -73,25 +96,58 @@ new Vue({
             let iHaveDecided = false;
             let iApprove = false;
 
-            const me = this.me(exchange);;
+            const me = this.me(exchange);
 
             return {
                 iHaveDecided: me.approved !== null,
-                iApprove: me.approved
+                iApprove: me.approved,
             };
         },
 
-        async postApproval(exchangeId, approve) {
+        iHaveClosed(exchange) {
+            const me = this.me(exchange);
+
+            return me.completed;
+        },
+
+        noOneHasClosed(exchange) {
+            return !exchange.users.find((user) => user.completed);
+        },
+
+        async openChat(exchangeId) {
+            const res = await $.post(`/chats/${exchangeId}`);
+            console.log(res);
+        },
+
+        postApproval(exchangeId, approve) {
+            if (!approve) {
+                this.selectedExchangeId = exchangeId;
+                this.modal.open();
+            } else {
+                this.approve(exchangeId, true);
+            }
+        },
+
+        async approve(exchangeId, approve) {
             const exchange = await $.post(
                 `/api/exchanges/${exchangeId}/approve?approve=${approve.toString()}`
             );
             this.updateExchange(exchange);
         },
 
-        async postConclusion(exchangeId, close) {
+        postConclusion(exchangeId, close) {
+            if (!close) {
+                this.selectedExchangeId = exchangeId;
+                this.modal.open();
+            } else {
+                this.close(exchangeId, true);
+            }
+        },
+
+        async close(exchangeId, close) {
             const exchange = await $.post(
                 `/api/exchanges/${exchangeId}/close?close=${close.toString()}`
-                );
+            );
             this.updateExchange(exchange);
         },
 
@@ -99,8 +155,16 @@ new Vue({
             const index = this.exchanges.findIndex(
                 (exch) => exch.id === exchange.id
             );
-            this.exchanges.splice(index, 1);
-            this.exchanges.push(exchange);
-        }
+            if (exchange.statusId === 5) {
+                this.exchanges.splice(index, 1);
+            } else {
+                this.exchanges.splice(index, 1, exchange);
+            }
+        },
+    },
+
+    mounted() {
+        var elems = document.querySelectorAll('.modal');
+        this.modal = M.Modal.init(elems, {})[0];
     },
 });
