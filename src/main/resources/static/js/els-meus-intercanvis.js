@@ -3,6 +3,7 @@ new Vue({
 
     data: {
         exchanges: [],
+        showCompleted: true
     },
 
     async created() {
@@ -16,6 +17,10 @@ new Vue({
     },
 
     computed: {
+        exchangesShown() {
+            return this.showCompleted ? this.exchanges : this.exchanges.filter(exchange => exchange.statusId !== 6);
+        },
+
         openExchanges() {
             return this.exchanges.filter((exchange) => {
                 return [1, 2].includes(exchange.statusId);
