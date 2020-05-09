@@ -17,7 +17,11 @@
             v-cloak
         >
             <h1 class="header center black-pearl-text">Els meus intercanvis</h1>
-            <p v-if="! exchanges.length" v-cloak class="center-align">
+            <p
+                v-if="! exchangesShown.length"
+                v-cloak
+                class="center-align no-exchanges"
+            >
                 No has iniciat cap intercanvi. Consulta els
                 <a href="/llibres-disponibles">llibres&nbsp;disponibles</a> i
                 mira si te n'interessa algun!
@@ -26,19 +30,19 @@
                 <span>Mostrar intercanvis completats</span>
                 <div class="switch" style="display: inline;">
                     <label>
-                        <input type="checkbox" v-model="showCompleted" />
+                        <input
+                            v-if="! closedExchanges.length"
+                            disabled
+                            type="checkbox"
+                        />
+                        <input v-else type="checkbox" v-model="showCompleted" />
                         <span class="lever"></span>
                     </label>
                 </div>
             </div>
             <div class="row">
                 <div class="col s12 black-pearl-text">
-                    <transition-group
-                        name="fade"
-                        tag="div"
-                        class="col l6 s12"
-                        v-for="exchange in exchangesShown"
-                    >
+                    <div class="col l6 s12" v-for="exchange in exchangesShown">
                         <div
                             class="card horizontal"
                             v-if="exchange.statusId === 1"
@@ -135,18 +139,38 @@
                                     class="card-title black-pearl-text text-darken-4"
                                 >
                                     <i class="material-icons right">close</i>
-                                    Intercanvi proposat<br />
-                                    <b>PepElLector</b> ha rebut la teva petició
-                                    d'intercanvi. Ara toca esperar a que trii un
-                                    llibre teu.
+                                    <strong>Intercanvi proposat</strong
+                                    ><br /><br />
+                                    <a
+                                        :href="getOtherUserLink(exchange)"
+                                        class="user-link"
+                                        >{{ getOtherUser(exchange).user.username
+                                        }}</a
+                                    >
+                                    ha rebut la teva petició d'intercanvi. Ara
+                                    toca esperar a que trii un llibre teu.<br /><br />
+                                    <div class="center-align">
+                                        <button
+                                            class="btn-large waves-effect waves-light light-sea-green azure-text"
+                                            @click="postApproval(exchange.id, false)"
+                                        >
+                                            Anul·lar intercanvi
+                                        </button>
+                                    </div>
                                 </span>
                                 <span
                                     v-else
                                     class="card-title black-pearl-text text-darken-4"
                                 >
-                                    Has rebut una proposta d'intercanvi<br />
+                                    <i class="material-icons right">close</i>
+                                    <strong>Proposta rebuda</strong><br /><br />
                                     Si estàs interessat, tria un llibre de
-                                    l'usuari <b>PepElLector</b><br /><br />
+                                    <a
+                                        :href="getOtherUserLink(exchange)"
+                                        class="user-link"
+                                        >{{ getOtherUser(exchange).user.username
+                                        }}</a
+                                    >.<br /><br />
                                     <div class="center-align">
                                         <button
                                             class="btn-large waves-effect waves-light light-sea-green azure-text"
@@ -161,7 +185,6 @@
                                             Rebutjar intercanvi
                                         </button>
                                     </div>
-                                    <i class="material-icons right">close</i>
                                 </span>
                             </div>
                         </div>
@@ -234,7 +257,8 @@
                                     class="card-title black-pearl-text text-darken-4"
                                 >
                                     <i class="material-icons right">close</i>
-                                    Intercanvi complet<br />
+                                    <strong>Intercanvi complet</strong
+                                    ><br /><br />
                                     Tots dos heu triat un llibre. Estàs d'acord
                                     amb l'intercanvi?<br /><br />
                                     <div class="center-align">
@@ -324,21 +348,38 @@
                                     class="card-title black-pearl-text text-darken-4"
                                 >
                                     <i class="material-icons right">close</i>
-                                    Pendent d'acceptació<br />
+                                    <strong>Pendent d'acceptació</strong
+                                    ><br /><br />
                                     Estem esperant que
-                                    <b
+                                    <a
+                                        class="user-link"
+                                        :href="getOtherUserLink(exchange)"
                                         >{{ getOtherUser(exchange).user.username
-                                        }}</b
+                                        }}</a
                                     >
-                                    accepti l'intercanvi. Ja queda poc!
+                                    accepti l'intercanvi. Ja queda poc!<br /><br />
+                                    <div class="center-align">
+                                        <button
+                                            class="btn-large waves-effect waves-light light-sea-green azure-text"
+                                            @click="postApproval(exchange.id, false)"
+                                        >
+                                            Anul·lar intercanvi
+                                        </button>
+                                    </div>
                                 </span>
                                 <span
                                     v-else
                                     class="card-title black-pearl-text text-darken-4"
                                 >
                                     <i class="material-icons right">close</i>
-                                    Pendent d'acceptació<br />
-                                    {{ getOtherUser(exchange).user.username }}
+                                    <strong>Pendent d'acceptació</strong
+                                    ><br /><br />
+                                    <a
+                                        class="user-link"
+                                        :href="getOtherUserLink(exchange)"
+                                        >{{ getOtherUser(exchange).user.username
+                                        }}</a
+                                    >
                                     ha acceptat l'intercanvi. Hi estàs d'acord
                                     tu també?<br /><br />
                                     <div class="center-align">
@@ -352,7 +393,7 @@
                                             class="btn-large waves-effect waves-light light-sea-green azure-text"
                                             @click="postApproval(exchange.id, false)"
                                         >
-                                            Cancel·lar
+                                            Anul·lar
                                         </button>
                                     </div>
                                 </span>
@@ -428,7 +469,8 @@
                                     class="card-title black-pearl-text text-darken-4"
                                 >
                                     <i class="material-icons right">close</i>
-                                    Intercanvi acceptat!<br />
+                                    <strong>Intercanvi acceptat!</strong
+                                    ><br /><br />
                                     Els dos usuaris esteu d'acord en realitzar
                                     l'intercanvi. Què espereu per a quedar?<br /><br />
                                     <div class="center-align">
@@ -442,13 +484,13 @@
                                             class="btn-large waves-effect waves-light light-sea-green azure-text"
                                             @click="postConclusion(exchange.id, true)"
                                         >
-                                            Completar intercanvi
+                                            Completar
                                         </button>
                                         <button
                                             class="btn-large waves-effect waves-light light-sea-green azure-text"
                                             @click="postConclusion(exchange.id, false)"
                                         >
-                                            Anul·lar intercanvi
+                                            Anul·lar
                                         </button>
                                     </div>
                                 </span>
@@ -457,11 +499,18 @@
                                     class="card-title black-pearl-text text-darken-4"
                                 >
                                     <i class="material-icons right">close</i>
-                                    Intercanvi acceptat!<br />
-                                    Quan {{ getOtherUser(exchange).user.username
-                                    }} completi l'intercanvi, les vostres
+                                    <strong>Pendent de compleció</strong
+                                    ><br /><br />
+                                    Quan
+                                    <a
+                                        class="user-link"
+                                        :href="getOtherUserLink(exchange)"
+                                        >{{ getOtherUser(exchange).user.username
+                                        }}</a
+                                    >
+                                    completi l'intercanvi, les vostres
                                     col·leccions de llibres s'actualitzaran
-                                    automàticament<br /><br />
+                                    automàticament.<br /><br />
                                     <div class="center-align">
                                         <button
                                             class="btn-large waves-effect waves-light light-sea-green azure-text"
@@ -482,10 +531,13 @@
                                     class="card-title black-pearl-text text-darken-4"
                                 >
                                     <i class="material-icons right">close</i>
-                                    Ja heu intercanviat els llibres?<br />
+                                    <strong
+                                        >Ja heu intercanviat els
+                                        llibres?</strong
+                                    ><br /><br />
                                     Completa l'intercanvi perquè les vostres
                                     col·leccions de llibres s'actualitzin
-                                    automàticament<br /><br />
+                                    automàticament.<br /><br />
                                     <div class="center-align">
                                         <button
                                             class="btn-large waves-effect waves-light light-sea-green azure-text"
@@ -497,13 +549,13 @@
                                             class="btn-large waves-effect waves-light light-sea-green azure-text"
                                             @click="postConclusion(exchange.id, true)"
                                         >
-                                            Completar intercanvi
+                                            Completar
                                         </button>
                                         <button
                                             class="btn-large waves-effect waves-light light-sea-green azure-text"
                                             @click="postConclusion(exchange.id, false)"
                                         >
-                                            Anul·lar intercanvi
+                                            Anul·lar
                                         </button>
                                     </div>
                                 </span>
@@ -577,14 +629,38 @@
                                 <span
                                     class="card-title black-pearl-text text-darken-4"
                                 >
-                                    Intercanvi completat!<br />
+                                    <i class="material-icons right">close</i>
+                                    <strong>Intercanvi completat!</strong
+                                    ><br /><br />
                                     Esperem que gaudeixques del teu nou llibre
                                     :-)
-                                    <i class="material-icons right">close</i>
                                 </span>
                             </div>
                         </div>
-                    </transition-group>
+                    </div>
+                </div>
+                <div class="modal">
+                    <div class="modal-content">
+                        <h4 class="black-pearl-text center-align">
+                            Segur que vols anul·lar l'intercanvi?
+                        </h4>
+                        <p class="black-pearl-text center-align">
+                            Si us plau, confirma que vols anul·lar l'intercanvi.
+                        </p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a
+                            @click="modal.close()"
+                            class="modal-close waves-effect waves-green btn-flat atoll-text bolder"
+                            >Tornar enrere</a
+                        >
+                        <a
+                            class="modal-close waves-effect waves-green btn-flat atoll-text bolder"
+                            @click="approve(selectedExchangeId, false)"
+                            >Anul·lar</a
+                        >
+                    </div>
                 </div>
             </div>
         </section>
