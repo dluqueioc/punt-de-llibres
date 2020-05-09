@@ -85,6 +85,8 @@ public class ChatController {
         chat.setUser2Id(otherUserId);
         chatRepository.save(chat);
         chatId = chat.getId();
+      } else {
+        throw new Exception();
       }
     }
 
