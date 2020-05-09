@@ -87,23 +87,23 @@ public class RoutesController {
     model.addAttribute("myUserId", userService.findMyId(user));
     return "els-meus-llibres";
   }
-  
+
   @GetMapping("/usuari")
   public String perfil(final Model model, Principal user) {
 	  Integer id = userService.findMyId(user);
       model.addAttribute("userData", userRepository.findById(id).get());
       return "usuari";
   }
-  
+
   @GetMapping("/modificar-dades")
   public String modificarDades(final Model model, Principal user) {
 	  Integer id = userService.findMyId(user);
       model.addAttribute("user", userRepository.findById(id).get());
       return "modificar-dades";
   }
-  
+
   //mètodes per gestionar les peticions a les pàgines legals (estàtiques)
-  
+
   @GetMapping("/privacitat")
   public String privacitat(final Model model) {
       return "privacitat";
@@ -115,6 +115,6 @@ public class RoutesController {
   @GetMapping("/cookies")
   public String cookies(final Model model) {
       return "cookies";
-      
+
   }
 }

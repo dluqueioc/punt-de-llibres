@@ -100,3 +100,27 @@ img {
     left: 0;
   }
 }
+
+.card .card-content .card-title i {
+  line-height: 40px;
+}
+
+.user-link {
+  color: #3AAFA9;
+  font-weight: bold;
+}
+
+.activator {
+  font-weight: 400 !important;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+[v-cloak] {
+	display: none;
+}

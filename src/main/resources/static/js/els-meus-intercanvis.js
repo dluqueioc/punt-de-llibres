@@ -46,6 +46,15 @@ new Vue({
             return exchange.users.find(user => user.userId === this.myUserId);
         },
 
+        startedByMe({ starterUserId }) {
+            return starterUserId === this.myUserId;
+        },
+
+        showUserBooks(exchange) {
+            const { userId } = this.getOtherUser(exchange);
+            window.location = `/llibres-disponibles?filter=user&q=${userId}`;
+        },
+
         iWantTheBook(book) {
             return book.userId == this.myUserId;
         },
@@ -73,12 +82,27 @@ new Vue({
             let iHaveDecided = false;
             let iApprove = false;
 
-            const me = this.me(exchange);;
+            const me = this.me(exchange);
 
             return {
                 iHaveDecided: me.approved !== null,
                 iApprove: me.approved
             };
+        },
+
+        iHaveClosed(exchange) {
+            const me = this.me(exchange);
+
+            return me.completed;
+        },
+
+        noOneHasClosed(exchange) {
+            return ! exchange.users.find(user => user.completed);
+        },
+
+        async openChat(exchangeId) {
+            const res = await $.post(`/chats/${exchangeId}`);
+            console.log(res);
         },
 
         async postApproval(exchangeId, approve) {
@@ -89,6 +113,10 @@ new Vue({
         },
 
         async postConclusion(exchangeId, close) {
+            if (!close) {
+                const confirmation = window.confirm("Confirmes que vols anul·lar l'intercanvi?");
+                if (! confirmation) return;
+            }
             const exchange = await $.post(
                 `/api/exchanges/${exchangeId}/close?close=${close.toString()}`
                 );
