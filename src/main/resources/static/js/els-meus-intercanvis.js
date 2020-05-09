@@ -26,24 +26,6 @@ new Vue({
                 : this.exchanges.filter((exchange) => exchange.statusId !== 6);
         },
 
-        openExchanges() {
-            return this.exchanges.filter((exchange) => {
-                return [1, 2].includes(exchange.statusId);
-            });
-        },
-
-        pendingExchanges() {
-            return this.exchanges.filter((exchange) => {
-                return exchange.statusId === 3;
-            });
-        },
-
-        approvedExchanges() {
-            return this.exchanges.filter((exchange) => {
-                return exchange.statusId === 4;
-            });
-        },
-
         closedExchanges() {
             return this.exchanges.filter((exchange) => {
                 return exchange.statusId === 6;
@@ -86,12 +68,6 @@ new Vue({
             return books.filter((book) => !this.iWantTheBook(book));
         },
 
-        showApproveButtons(exchange) {
-            return (
-                exchange.statusId === 2 && this.me(exchange).approved !== null
-            );
-        },
-
         getApprovalStatus(exchange) {
             let iHaveDecided = false;
             let iApprove = false;
@@ -115,8 +91,8 @@ new Vue({
         },
 
         async openChat(exchangeId) {
-            const res = await $.post(`/chats/${exchangeId}`);
-            console.log(res);
+            const chatId = await $.post(`/chats?exchangeId=${exchangeId}`);
+            window.location = `/conversa/${chatId}`;
         },
 
         postApproval(exchangeId, approve) {

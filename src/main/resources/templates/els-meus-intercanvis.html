@@ -18,7 +18,7 @@
         >
             <h1 class="header center black-pearl-text">Els meus intercanvis</h1>
             <p
-                v-if="! exchangesShown.length"
+                v-if="! exchanges.length"
                 v-cloak
                 class="center-align no-exchanges"
             >
@@ -26,7 +26,23 @@
                 <a href="/llibres-disponibles">llibres&nbsp;disponibles</a> i
                 mira si te n'interessa algun!
             </p>
-            <div v-else class="row right">
+            <p
+                v-else-if="! exchangesShown.length"
+                v-cloak
+                class="center-align no-exchanges"
+            >
+                Ja has completat tots els teus intercanvis. Consulta els
+                <a href="/llibres-disponibles">llibres&nbsp;disponibles</a> per
+                veure si t'interessen més llibres!
+            </p>
+            <p
+                v-else
+                v-cloak
+                class="center-align no-exchanges"
+            >
+                Aquí podràs veure tots els teus intercanvis no cancel·lats, ordenats de més recent a més antic.
+            </p>
+            <div class="row right">
                 <span>Mostrar intercanvis completats</span>
                 <div class="switch" style="display: inline;">
                     <label>
@@ -154,7 +170,7 @@
                                             class="btn-large waves-effect waves-light light-sea-green azure-text"
                                             @click="postApproval(exchange.id, false)"
                                         >
-                                            Anul·lar intercanvi
+                                            Cancel·lar intercanvi
                                         </button>
                                     </div>
                                 </span>
@@ -363,7 +379,7 @@
                                             class="btn-large waves-effect waves-light light-sea-green azure-text"
                                             @click="postApproval(exchange.id, false)"
                                         >
-                                            Anul·lar intercanvi
+                                            Cancel·lar intercanvi
                                         </button>
                                     </div>
                                 </span>
@@ -393,7 +409,7 @@
                                             class="btn-large waves-effect waves-light light-sea-green azure-text"
                                             @click="postApproval(exchange.id, false)"
                                         >
-                                            Anul·lar
+                                            Cancel·lar
                                         </button>
                                     </div>
                                 </span>
@@ -476,9 +492,9 @@
                                     <div class="center-align">
                                         <button
                                             class="btn-large waves-effect waves-light light-sea-green azure-text"
-                                            @click="openChat"
+                                            @click="openChat(exchange.id)"
                                         >
-                                            Iniciar conversa
+                                            Obrir conversa
                                         </button>
                                         <button
                                             class="btn-large waves-effect waves-light light-sea-green azure-text"
@@ -490,7 +506,7 @@
                                             class="btn-large waves-effect waves-light light-sea-green azure-text"
                                             @click="postConclusion(exchange.id, false)"
                                         >
-                                            Anul·lar
+                                            Cancel·lar
                                         </button>
                                     </div>
                                 </span>
@@ -522,7 +538,7 @@
                                             class="btn-large waves-effect waves-light light-sea-green azure-text"
                                             @click="postConclusion(exchange.id, false)"
                                         >
-                                            Anul·lar intercanvi
+                                            Cancel·lar intercanvi
                                         </button>
                                     </div>
                                 </span>
@@ -555,7 +571,7 @@
                                             class="btn-large waves-effect waves-light light-sea-green azure-text"
                                             @click="postConclusion(exchange.id, false)"
                                         >
-                                            Anul·lar
+                                            Cancel·lar
                                         </button>
                                     </div>
                                 </span>
@@ -642,10 +658,10 @@
                 <div class="modal">
                     <div class="modal-content">
                         <h4 class="black-pearl-text center-align">
-                            Segur que vols anul·lar l'intercanvi?
+                            Segur que vols cancel·lar l'intercanvi?
                         </h4>
                         <p class="black-pearl-text center-align">
-                            Si us plau, confirma que vols anul·lar l'intercanvi.
+                            Si us plau, confirma que vols cancel·lar l'intercanvi.
                         </p>
                     </div>
 
@@ -658,7 +674,7 @@
                         <a
                             class="modal-close waves-effect waves-green btn-flat atoll-text bolder"
                             @click="approve(selectedExchangeId, false)"
-                            >Anul·lar</a
+                            >Cancel·lar</a
                         >
                     </div>
                 </div>
