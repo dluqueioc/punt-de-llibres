@@ -108,8 +108,7 @@ public class ExchangeRepositoryImpl implements ExchangeRepositoryCustom {
 
         for (UserInExchange exc : meInExchanges) {
             String status = exc.getExchange().getStatus().getName();
-            System.out.println(status);
-            if (status != "rebutjat" && status != "eliminat") {
+            if (! (status.equals("rebutjat") || status.equals("eliminat"))) {
                 myExchanges.add(exc.getExchange());
             }
         }
