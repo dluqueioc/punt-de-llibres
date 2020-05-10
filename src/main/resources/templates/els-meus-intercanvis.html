@@ -58,13 +58,14 @@
             </div>
             <div class="row">
                 <div class="col s12 black-pearl-text">
-                    <div class="col l6 s12" v-for="exchange in exchangesShown" :id="`exchange-${exchange.id}`">
+                    <div class="col l6 s12 exchange" v-for="exchange in exchangesShown" :id="`exchange-${exchange.id}`">
                         <div
                             class="card horizontal"
                             v-if="exchange.statusId === 1"
                             :key="exchange.id"
                         >
                             <div class="col l5 valign-wrapper">
+                                <img class="avatar" :src="`/img/avatars/${getOtherUser(exchange).user.avatar}`" :alt="getOtherUser(exchange).user.username" :title="getOtherUser(exchange).user.username">
                                 <img
                                     v-if="startedByMe(exchange)"
                                     class="responsive-img"
@@ -82,6 +83,7 @@
                                 >
                             </div>
                             <div class="col l5 valign-wrapper">
+                                <img class="avatar" :src="`/img/avatars/${me(exchange).user.avatar}`" :alt="me(exchange).user.username">
                                 <img
                                     v-if="! startedByMe(exchange)"
                                     class="responsive-img"
@@ -211,6 +213,7 @@
                             :key="exchange.id"
                         >
                             <div class="col l5 valign-wrapper">
+                                <img class="avatar" :src="`/img/avatars/${getOtherUser(exchange).user.avatar}`" :alt="getOtherUser(exchange).user.username" :title="getOtherUser(exchange).user.username">
                                 <img
                                     class="responsive-img"
                                     :src="`/img/covers/${booksThatTheOtherUserWants(exchange.books)[0].book.cover}`"
@@ -222,6 +225,7 @@
                                 >
                             </div>
                             <div class="col l5 valign-wrapper">
+                                <img class="avatar" :src="`/img/avatars/${me(exchange).user.avatar}`" :alt="me(exchange).user.username">
                                 <img
                                     class="responsive-img"
                                     :src="`/img/covers/${booksThatIWant(exchange.books)[0].book.cover}`"
@@ -257,7 +261,7 @@
                             </div>
                             <div class="card-content valign-wrapper">
                                 <span class="card-title activator center-align"
-                                    >Intercanvi<br />complet<br /><br />
+                                    >Pendent<br />d'acceptació<br /><br />
                                     <a
                                         class="btn-floating waves-effect waves-light large azure"
                                     >
@@ -273,7 +277,7 @@
                                     class="card-title black-pearl-text text-darken-4"
                                 >
                                     <i class="material-icons right">close</i>
-                                    <strong>Intercanvi complet</strong
+                                    <strong>Pendent d'acceptació</strong
                                     ><br /><br />
                                     Tots dos heu triat un llibre. Estàs d'acord
                                     amb l'intercanvi?<br /><br />
@@ -301,6 +305,7 @@
                             :key="exchange.id"
                         >
                             <div class="col l5 valign-wrapper">
+                                <img class="avatar" :src="`/img/avatars/${getOtherUser(exchange).user.avatar}`" :alt="getOtherUser(exchange).user.username" :title="getOtherUser(exchange).user.username">
                                 <img
                                     class="responsive-img"
                                     :src="`/img/covers/${booksThatTheOtherUserWants(exchange.books)[0].book.cover}`"
@@ -312,6 +317,7 @@
                                 >
                             </div>
                             <div class="col l5 valign-wrapper">
+                                <img class="avatar" :src="`/img/avatars/${me(exchange).user.avatar}`" :alt="me(exchange).user.username">
                                 <img
                                     class="responsive-img"
                                     :src="`/img/covers/${booksThatIWant(exchange.books)[0].book.cover}`"
@@ -422,6 +428,7 @@
                             :key="exchange.id"
                         >
                             <div class="col l5 valign-wrapper">
+                                <img class="avatar" :src="`/img/avatars/${getOtherUser(exchange).user.avatar}`" :alt="getOtherUser(exchange).user.username" :title="getOtherUser(exchange).user.username">
                                 <img
                                     class="responsive-img"
                                     :src="`/img/covers/${booksThatTheOtherUserWants(exchange.books)[0].book.cover}`"
@@ -433,6 +440,7 @@
                                 >
                             </div>
                             <div class="col l5 valign-wrapper">
+                                <img class="avatar" :src="`/img/avatars/${me(exchange).user.avatar}`" :alt="me(exchange).user.username">
                                 <img
                                     class="responsive-img"
                                     :src="`/img/covers/${booksThatIWant(exchange.books)[0].book.cover}`"
@@ -584,6 +592,7 @@
                             :key="exchange.id"
                         >
                             <div class="col l5 valign-wrapper">
+                                <img class="avatar" :src="`/img/avatars/${getOtherUser(exchange).user.avatar}`" :alt="getOtherUser(exchange).user.username" :title="getOtherUser(exchange).user.username">
                                 <img
                                     class="responsive-img"
                                     :src="`/img/covers/${booksThatTheOtherUserWants(exchange.books)[0].book.cover}`"
@@ -595,6 +604,7 @@
                                 >
                             </div>
                             <div class="col l5 valign-wrapper">
+                                <img class="avatar" :src="`/img/avatars/${me(exchange).user.avatar}`" :alt="me(exchange).user.username">
                                 <img
                                     class="responsive-img"
                                     :src="`/img/covers/${booksThatIWant(exchange.books)[0].book.cover}`"

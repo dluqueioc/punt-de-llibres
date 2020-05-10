@@ -125,6 +125,12 @@ new Vue({
                 `/api/exchanges/${exchangeId}/close?close=${close.toString()}`
             );
             this.updateExchange(exchange);
+            Vue.nextTick(() => {
+                for (let el of this.$el.querySelectorAll(`#exchange-${exchangeId} .col.l5.valign-wrapper`)) {
+                    el.style.display = 'flex';
+                    el.style.transform = 'none';
+                }
+            });
         },
 
         updateExchange(exchange) {
