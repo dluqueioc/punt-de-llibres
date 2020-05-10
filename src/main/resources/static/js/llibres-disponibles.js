@@ -162,7 +162,15 @@ new Vue({
         },
 
         async requestBook(goToExchanges) {
-            const exchangeId = await $.post(`/api/exchanges/${this.requestedBookId}`);
+            let exchangeId;
+
+            try {
+                exchangeId = await $.post(`/api/exchanges/${this.requestedBookId}`);
+            } catch (e) {
+                console.log(e);
+                return;
+            }
+
             if (goToExchanges) {
                 window.location = `/els-meus-intercanvis#exchange-${exchangeId}`;
             } else {
