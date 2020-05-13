@@ -14,15 +14,15 @@
     </div>
   </form>
 -->
-  <div class="carousel carousel-slider">
+  <div style="max-height:400px;"class="carousel carousel-slider">
       <div class="carousel-fixed-item">
           <div class="container">
               <h1 class="header center azure-text text-lighten-2">Punt de Llibres</h1>
           </div>
       </div>
-      <a class="carousel-item" href="#"><img src="img/llibres-slide-1.jpg"></a>
-      <a class="carousel-item" href="#"><img src="img/llibres-slide-2.jpg"></a>
-      <a class="carousel-item" href="#"><img src="img/llibres-slide-3.jpg"></a>
+      <a class="carousel-item" href="#"><img src="img/llibres-slide-1.jpg" alt="imatge de fons en la qual es veuen taules amb piles de llibres de segona mà"></a>
+      <a class="carousel-item" href="#"><img src="img/llibres-slide-2.jpg" alt="imatge de fons en la qual es veu el braç d'una persona triant un llibre d'entre un grup de llibres"></a>
+      <a class="carousel-item" href="#"><img src="img/llibres-slide-3.jpg" alt="imatge de fons en la qual es veuen piles de llibres de segona mà"></a>
   </div>
 
   <div class="container">
@@ -34,7 +34,7 @@
             <div class="col s12 m3" th:each="book,iterStat : ${books}" th:unless="${iterStat.index > 3}">
                 <div class="card">
                     <div class="card-content">
-                    <img class="responsive-img" th:attr="src=@{'/img/covers/' + ${book.cover}}"/>
+                    <img class="responsive-img" th:attr="src=@{'/img/covers/' + ${book.cover}}" alt="fotografia del llibre que ofereix un usuari per intercanviar"/>
                     <div class="card-action atoll">
                     <a class="azure-text" href="#" th:text="${#strings.abbreviate(book.title, 30)}"></a>
                         </div>
@@ -93,17 +93,52 @@
     </div>
   </div>
 
-  <div class="parallax-container valign-wrapper">
-    <div class="section no-pad-bot">
-      <div class="container">
-        <div class="row center">
-          <h5 class="header col s12 light">GIF o video explicant el procés</h5>
+	<div class=" col s12 slider">
+    <ul class="slides center-align">
+      <li>
+        <img src="img/llibres-banner.jpg" alt="imatge de fons en la que es pot veure una prestatgeria plena de llibres">
+        <div class="caption center-align">
+          <h3>1. Enregistra't com a usuari a Punt de Llibres</h3>
         </div>
-      </div>
-    </div>
-
-    <div class="parallax"><img src="img/llibres-banner.jpg"></div>
+      </li>
+      <li>
+        <img src="img/llibres-banner.jpg" alt="imatge de fons en la que es pot veure una prestatgeria plena de llibres">
+        <div class="caption center-align">
+          <h3>2. Puja els llibres que ja has llegit per oferir-los als altres usuaris</h3>
+        </div>
+      </li>
+      <li>
+        <img src="img/llibres-banner.jpg" alt="imatge de fons en la que es pot veure una prestatgeria plena de llibres">
+        <div class="caption center-align">
+          <h3>3. Busca un llibre que t'interessi llegir i sol·licita l'intercanvi</h3>
+        </div>
+      </li>
+      <li>
+        <img src="img/llibres-banner.jpg" alt="imatge de fons en la que es pot veure una prestatgeria plena de llibres">
+        <div class="caption center-align">
+          <h3>4. L'altre usuari triarà un dels teus llibres per intercanviar</h3>
+        </div>
+      </li>
+      <li>
+        <img src="img/llibres-banner.jpg" alt="imatge de fons en la que es pot veure una prestatgeria plena de llibres">
+        <div class="caption center-align">
+          <h3>5. Intercanvia, llegeix, i segueix compartint!</h3>
+        </div>
+      </li>
+    </ul>
   </div>
+
+<!--   <div class="parallax-container valign-wrapper"> -->
+<!--     <div class="section no-pad-bot"> -->
+<!--       <div class="container"> -->
+<!--         <div class="row center"> -->
+<!--           <h5 class="header col s12 light">GIF o video explicant el procés</h5> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--     </div> -->
+
+<!--     <div class="parallax"><img src="img/com-funciona-punt-de-llibres.gif"></div> -->
+<!--   </div> -->
  </section>
   </body>
 </html>
