@@ -250,6 +250,19 @@ hr {
 	height: auto !important;
 }
 
+@keyframes spin {
+	from {
+		transform: rotate(0);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.medium.animate {
+	animation: spin .7s ease-out;
+}
+
 /* Spinner */
 .loader,
 .loader:before,

@@ -54,6 +54,7 @@ new Vue({
         initialRender: true,
         filteredByUser: false,
         myRequestedBooks: [],
+        requestingBook: false
     },
 
     watch: {
@@ -159,14 +160,17 @@ new Vue({
             return options[prop];
         },
 
-        async requestBook(goToExchanges) {
+        requestBook(goToExchanges) {
             let exchangeId;
 
             try {
-                exchangeId = await $.post(
-                    `/api/exchanges/${this.requestedBookId}`
-                );
-                this.myRequestedBooks.push(this.requestedBookId);
+                this.requestingBook = true;
+                setTimeout(() => {
+                    $.post(`/api/exchanges/${this.requestedBookId}`).then(() => {
+                        this.requestingBook = false;
+                        this.myRequestedBooks.push(this.requestedBookId);
+                    });
+                }, 700);
             } catch (e) {
                 console.log(e);
                 return;

@@ -188,6 +188,7 @@
                                             >Sol·licitar intercanvi</span
                                         ><br />
                                         <i class="medium material-icons"
+                                            :class="{ animate : requestingBook && requestedBookId === book.id }"
                                             >autorenew</i
                                         >
                                     </div>
