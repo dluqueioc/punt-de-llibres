@@ -84,7 +84,11 @@
 						</div>
 					</div>
 				</div>
-			</div>
+            </div>
+
+            <!-- Spinner -->
+            <div class="loader" v-show="! books.length">Loading...</div>
+
             <!-- Book cards -->
             <transition-group name="fade" mode="out-in">
                 <div class="row" :key="book.id" v-for="book in booksShown">
