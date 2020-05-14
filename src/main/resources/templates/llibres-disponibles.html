@@ -178,12 +178,24 @@
                                     <div
                                         class="card col s4 center-align hoverable light-sea-green azure-text exchange-button"
                                         @click="activaModal(book.id)"
+                                        v-if="! myRequestedBooks.includes(book.id)"
                                     >
                                         <span class="bolder"
                                             >Sol·licitar intercanvi</span
                                         ><br />
                                         <i class="medium material-icons"
                                             >autorenew</i
+                                        >
+                                    </div>
+                                    <div
+                                        class="card col s4 center-align light-sea-green-text azure"
+                                        v-else
+                                    >
+                                        <span class="bolder"
+                                            >Intercanvi sol·licitat</span
+                                        ><br />
+                                        <i class="medium material-icons"
+                                            >check</i
                                         >
                                     </div>
                                 </div>

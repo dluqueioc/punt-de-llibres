@@ -104,9 +104,7 @@ new Vue({
         },
 
         fromUserText() {
-            return this.books.length
-                ? `de ${this.books[0].user.username}`
-                : '';
+            return this.books.length ? `de ${this.books[0].user.username}` : '';
         },
     },
 
@@ -165,7 +163,10 @@ new Vue({
             let exchangeId;
 
             try {
-                exchangeId = await $.post(`/api/exchanges/${this.requestedBookId}`);
+                exchangeId = await $.post(
+                    `/api/exchanges/${this.requestedBookId}`
+                );
+                this.myRequestedBooks.push(this.requestedBookId);
             } catch (e) {
                 console.log(e);
                 return;
@@ -200,12 +201,14 @@ new Vue({
             const response = await $.get(`/api/books/scores?isbns=${isbns}`);
             const scores = JSON.parse(response).books;
             for (let score of scores) {
-                const book = books.find(book =>
-                    [score.isbn, score.isbn13].includes(this.formatIsbn(book.isbn))
+                const book = books.find((book) =>
+                    [score.isbn, score.isbn13].includes(
+                        this.formatIsbn(book.isbn)
+                    )
                 );
                 Vue.set(book, 'goodReadsInfo', {
                     id: score.id,
-                    score: score.average_rating
+                    score: score.average_rating,
                 });
             }
         },
