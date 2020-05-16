@@ -110,10 +110,6 @@
   opacity: 0;
 }
 
-[v-cloak] {
-	display: none;
-}
-
 .no-exchanges, .no-exchanges a {
   font-size: 20px;
 }

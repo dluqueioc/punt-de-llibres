@@ -61,10 +61,6 @@ p {
 	padding-bottom: 15px;
 }
 
-[v-cloak] {
-	display: none;
-}
-
 #input-value-container {
 	margin-top: 0;
 }

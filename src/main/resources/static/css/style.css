@@ -126,3 +126,7 @@ pre{
   top: 100% !important;
   min-width: 230px;
 }
+
+[v-cloak] {
+	display: none;
+}

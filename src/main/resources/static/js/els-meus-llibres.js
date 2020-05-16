@@ -3,10 +3,12 @@ new Vue({
 
   async created() {
     this.books = await $.get(`/api/books/user/${window.myUserId}`);
+    this.loading = false;
   },
 
   data: {
-    books: []
+    books: [],
+    loading: true
   },
 
   methods: {

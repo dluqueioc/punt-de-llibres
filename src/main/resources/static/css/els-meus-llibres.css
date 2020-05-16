@@ -109,3 +109,52 @@ p {
 		max-width: 200px;
 	}
 }
+
+.section {
+	padding-bottom: 0;
+}
+
+@media (min-width: 1024px) {
+	.section {
+		margin-top: 3rem;
+	}
+	.section:last-child {
+		margin-bottom: 8rem;
+	}
+}
+
+.relative {
+	position: relative;
+}
+
+.section-title a {
+	position: absolute;
+	right: 0;
+	bottom: 1rem;
+}
+
+.section-title hr {
+	border: 1px solid #3AAFA9;
+}
+
+.plus-icon {
+	margin-right: 0 !important;
+}
+
+br {
+  display: none;
+}
+
+@media (max-width: 600px) {
+	br {
+		display: inline;
+	}
+	.btn-move, .btn-remove {
+		width: 100%;
+		margin-top: 1rem;
+	}
+}
+
+#app {
+	margin-bottom: 6rem;
+}
