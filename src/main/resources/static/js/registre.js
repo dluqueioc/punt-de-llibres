@@ -46,6 +46,11 @@ function isEmailValid() {
 		helper.dataset.error = "L'email no pot superar els 50 caràcters";
 		return false;
 	}
+	if (! /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+		$input.addClass('invalid');
+		helper.dataset.error = "L'email ha de tenir un format correcte";
+		return false;
+	}
 	return true;
 }
 
