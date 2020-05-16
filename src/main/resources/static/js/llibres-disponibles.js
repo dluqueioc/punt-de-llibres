@@ -170,9 +170,10 @@ new Vue({
                         exchangeId = res;
                         if (goToExchanges) {
                             window.location = `/els-meus-intercanvis#exchange-${exchangeId}`;
+                        } else {
+                            this.requestingBook = false;
+                            this.myRequestedBooks.push(this.requestedBookId);
                         }
-                        this.requestingBook = false;
-                        this.myRequestedBooks.push(this.requestedBookId);
                     });
                 }, 700);
 
