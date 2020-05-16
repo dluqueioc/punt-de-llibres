@@ -100,7 +100,7 @@ public class Book {
   private BookStatus bookStatus;
 
   @Column(name = "book_status_id")
-  private Integer bookStatusId = 1;
+  private Integer bookStatusId;
 
   @Column(name = "cover")
   private String cover = "default-book.png";

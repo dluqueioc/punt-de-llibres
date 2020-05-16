@@ -20,7 +20,7 @@
 					<h4 class="center-align">Disponibles</h4>
 					<div class="relative">
 						<hr>
-						<a class="waves-effect waves-light btn"><i class="material-icons left plus-icon">add</i></a>
+						<a href="/afegir-llibre?disponible" class="waves-effect waves-light btn"><i class="material-icons left plus-icon">add</i></a>
 					</div>
 					<p class="center-align" v-if="! filterBooks(1).length">No tens
 						cap llibre disponible</p>
@@ -95,7 +95,7 @@
 					<h4 class="center-align">No disponibles</h4>
 					<div class="relative">
 						<hr>
-						<a class="waves-effect waves-light btn"><i class="material-icons left plus-icon">add</i></a>
+						<a href="/afegir-llibre" class="waves-effect waves-light btn"><i class="material-icons left plus-icon">add</i></a>
 					</div>
 					<p class="center-align" v-if="! filterBooks(2).length">No tens
 						cap llibre no disponible</p>
