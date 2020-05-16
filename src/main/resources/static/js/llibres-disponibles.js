@@ -166,20 +166,22 @@ new Vue({
             try {
                 this.requestingBook = true;
                 setTimeout(() => {
-                    $.post(`/api/exchanges/${this.requestedBookId}`).then(() => {
+                    $.post(`/api/exchanges/${this.requestedBookId}`).then(res => {
+                        exchangeId = res;
                         this.requestingBook = false;
                         this.myRequestedBooks.push(this.requestedBookId);
+
+                        if (goToExchanges) {
+                            window.location = `/els-meus-intercanvis#exchange-${exchangeId}`;
+                        } else {
+                            this.modal.close();
+                        }
                     });
+
                 }, 700);
             } catch (e) {
                 console.log(e);
                 return;
-            }
-
-            if (goToExchanges) {
-                window.location = `/els-meus-intercanvis#exchange-${exchangeId}`;
-            } else {
-                this.modal.close();
             }
         },
 

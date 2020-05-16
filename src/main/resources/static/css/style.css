@@ -130,3 +130,7 @@ pre{
 [v-cloak] {
 	display: none;
 }
+
+html {
+  scroll-behavior: smooth;
+}
