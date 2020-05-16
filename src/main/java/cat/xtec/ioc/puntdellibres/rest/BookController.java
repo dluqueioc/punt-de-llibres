@@ -71,15 +71,15 @@ public class BookController {
          @RequestParam("authorName") String authorName, @RequestParam("publisherName") String publisherName,
          @RequestParam("genreId") String genreId, @RequestParam("themeId") String themeId,
          @RequestParam("languageId") String languageId, @RequestParam("preservation") String preservation,
-         @RequestParam("edition") String edition, @RequestParam("file") MultipartFile[] files, Principal user)
+         @RequestParam("edition") String edition, @RequestParam("file") MultipartFile[] files, Boolean disponible, Principal user)
          throws IOException {
       // TODO : Move to service, pass one single Book object as param
-
       MultipartFile file = files[0];
       String fileName = files[0].getOriginalFilename();
 
       Book newBook = new Book();
       newBook.setTitle(title);
+      newBook.setBookStatusId(disponible ? 1 : 2);
       if (!isbn.trim().isEmpty()) {
          newBook.setIsbn(isbn);
       }

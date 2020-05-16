@@ -54,6 +54,7 @@ new Vue({
         initialRender: true,
         filteredByUser: false,
         myRequestedBooks: [],
+        requestingBook: false
     },
 
     watch: {
@@ -104,9 +105,7 @@ new Vue({
         },
 
         fromUserText() {
-            return this.books.length
-                ? `de ${this.books[0].user.username}`
-                : '';
+            return this.books.length ? `de ${this.books[0].user.username}` : '';
         },
     },
 
@@ -161,20 +160,28 @@ new Vue({
             return options[prop];
         },
 
-        async requestBook(goToExchanges) {
+        requestBook(goToExchanges) {
             let exchangeId;
 
             try {
-                exchangeId = await $.post(`/api/exchanges/${this.requestedBookId}`);
+                this.requestingBook = true;
+                setTimeout(() => {
+                    $.post(`/api/exchanges/${this.requestedBookId}`).then(res => {
+                        exchangeId = res;
+                        this.requestingBook = false;
+                        this.myRequestedBooks.push(this.requestedBookId);
+
+                        if (goToExchanges) {
+                            window.location = `/els-meus-intercanvis#exchange-${exchangeId}`;
+                        } else {
+                            this.modal.close();
+                        }
+                    });
+
+                }, 700);
             } catch (e) {
                 console.log(e);
                 return;
-            }
-
-            if (goToExchanges) {
-                window.location = `/els-meus-intercanvis#exchange-${exchangeId}`;
-            } else {
-                this.modal.close();
             }
         },
 
@@ -200,12 +207,14 @@ new Vue({
             const response = await $.get(`/api/books/scores?isbns=${isbns}`);
             const scores = JSON.parse(response).books;
             for (let score of scores) {
-                const book = books.find(book =>
-                    [score.isbn, score.isbn13].includes(this.formatIsbn(book.isbn))
+                const book = books.find((book) =>
+                    [score.isbn, score.isbn13].includes(
+                        this.formatIsbn(book.isbn)
+                    )
                 );
                 Vue.set(book, 'goodReadsInfo', {
                     id: score.id,
-                    score: score.average_rating
+                    score: score.average_rating,
                 });
             }
         },

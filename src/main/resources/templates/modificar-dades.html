@@ -92,10 +92,12 @@
                                             id="password"
                                             name="password"
                                             th:field="*{password}"
+                                            th:classappend="${passwordError} ? 'invalid' : ''"
                                         />
                                         <label for="password"
                                             >Contrasenya actual*
                                         </label>
+                                        <span th:if="${passwordError}" class="helper-text" data-error="La contrasenya introduïda és incorrecta" data-success="right">La contrasenya introduïda és incorrecta</span>
                                     </div>
                                 </div>
                                 <div class="avatar col l4 offset-l1 s12">
@@ -128,8 +130,18 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="input-field col s12 center-align">
+                            <div class="flexbox">
+                                <div class="input-field center-align">
+                                    <button
+                                        onclick="window.location = '/usuari'"
+                                        id="back-button"
+                                        type="button"
+                                        class="btn-large waves-effect waves-light light-sea-green-text azure"
+                                    >
+                                        Tornar
+                                    </button>
+                                </div>
+                                <div id="boto-desar" class="input-field center-align">
                                     <button
                                         id="save-button"
                                         type="button"
@@ -141,6 +153,21 @@
                             </div>
                         </form>
                     </div>
+                </div>
+            </div>
+
+            <div class="modal">
+                <div class="modal-content red lighten-4">
+                    <h4 class="black-pearl-text center-align">Error</h4>
+                    <p class="black-pearl-text center-align">
+                        Per poder canviar les dades has d'introduir la teva contrasenya actual
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <a
+                        class="modal-close waves-effect waves-green btn-flat atoll-text bolder"
+                        >Tornar</a>
                 </div>
             </div>
         </section>

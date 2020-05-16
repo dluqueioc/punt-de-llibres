@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    const params = new URLSearchParams(window.location.search);
+    $('input[name="disponible"]').val(params.has('disponible'));
+
     $('select').formSelect();
 
     $('#selArxiu').change(function () {
@@ -27,7 +30,7 @@ $(document).ready(function () {
                     'Llibre introduït correctament. Vols introduir un altre llibre?'
                 );
                 if (!another) {
-                    location = '/';
+                    location = '/els-meus-llibres';
                 }
             })
             .fail(() => alert("S'ha produït un error"));

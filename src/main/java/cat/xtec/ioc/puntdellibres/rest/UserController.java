@@ -10,7 +10,6 @@ import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cat.xtec.ioc.puntdellibres.model.User;
 import cat.xtec.ioc.puntdellibres.service.UserService;
@@ -58,23 +58,20 @@ public class UserController {
 		return "redirect:/home";
 	}
 
-	@PostMapping(value = "/modificar-dades", produces = MediaType.APPLICATION_JSON)
+	@PostMapping(value = "/modificar-dades")
 	public String updateData(@RequestParam("email") String email, @RequestParam("name") String name,
 			@RequestParam("lastName") String lastName, @RequestParam("location") String location,
 			@RequestParam("password") String password, @RequestParam("file") MultipartFile[] files, Principal user,
-			Model model, HttpServletRequest request) throws Exception {
+			Model model, HttpServletRequest request, RedirectAttributes redirAttrs) throws Exception {
 
 		MultipartFile file = files[0];
 		String fileName = files[0].getOriginalFilename();
 
 		User userToUpdate = userService.findMe(user);
 
-		System.out.println("Password: " + password);
-		System.out.println("Other: " + userToUpdate.getPassword());
-		System.out.println(encoder.matches(password, userToUpdate.getPassword()) ? "matches!" : "nop!");
-
-		if (! encoder.matches(password, userToUpdate.getPassword())) {
+		if (!encoder.matches(password, userToUpdate.getPassword())) {
 			String referer = request.getHeader("Referer");
+			redirAttrs.addFlashAttribute("passwordError", true);
 			return "redirect:" + referer;
 		}
 

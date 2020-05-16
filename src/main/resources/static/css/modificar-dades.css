@@ -14,6 +14,7 @@ form {
   border: 1px solid #2B7A78;
   padding: 2px;
   overflow: hidden;
+  border-radius: 50%;
 }
 
 @media screen and (max-width: 1024px) {
@@ -22,4 +23,8 @@ form {
     height: 50vw;
     margin: 40px auto;
   }
+}
+
+#boto-desar {
+  margin-left: 15px;
 }
