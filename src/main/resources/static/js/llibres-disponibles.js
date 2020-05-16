@@ -168,17 +168,17 @@ new Vue({
                 setTimeout(() => {
                     $.post(`/api/exchanges/${this.requestedBookId}`).then(res => {
                         exchangeId = res;
-                        this.requestingBook = false;
-                        this.myRequestedBooks.push(this.requestedBookId);
-
                         if (goToExchanges) {
                             window.location = `/els-meus-intercanvis#exchange-${exchangeId}`;
-                        } else {
-                            this.modal.close();
                         }
+                        this.requestingBook = false;
+                        this.myRequestedBooks.push(this.requestedBookId);
                     });
-
                 }, 700);
+
+                if (!goToExchanges) {
+                    this.modal.close();
+                }
             } catch (e) {
                 console.log(e);
                 return;
