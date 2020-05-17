@@ -2,6 +2,7 @@
 <html layout:decorate="~{layout/base.html}">
 <head>
   <title>Pàgina principal | Punt de Llibres</title>
+  <link rel="stylesheet" type="text/css" href="/css/home.css" />
 </head>
 <body>
 <section layout:fragment="content">
@@ -30,13 +31,12 @@
         <!--DARRERS LLIBRES AFEGITS-->
         <h4 class="black-pearl-text center">Darrers llibres afegits:</h4>
         <div class="row">
-
             <div class="col s12 m3" th:each="book,iterStat : ${books}" th:unless="${iterStat.index > 3}">
                 <div class="card">
                     <div class="card-content">
                     <img class="responsive-img" th:attr="src=@{'/img/covers/' + ${book.cover}}" alt="fotografia del llibre que ofereix un usuari per intercanviar"/>
-                    <div class="card-action atoll">
-                    <a class="azure-text" href="#" th:text="${#strings.abbreviate(book.title, 30)}"></a>
+                    <div class="card-action atoll book-title-container">
+                    <span class="book-title azure-text" th:text="${#strings.abbreviate(book.title, 30)}"></span>
                         </div>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
       <div class="row">
         <div class="col s12 center">
           <h3><i class="mdi-content-send brown-text"></i></h3>
-          <h4 id="about-us" class="black-pearl-text">Qué és Punt de Llibres?</h4>
+          <h4 id="about-us" class="black-pearl-text">Què és Punt de Llibres?</h4>
           <p class="black-pearl-text left-align">Punt de Llibres és un punt de trobada per aquells que estiguin disposats a donar-li als llibres una segona vida (o una tercera, on una quarta...).<br>
 			Aquí podràs trobar llibres a la recerca d'un nou lector, i oferir a canvi els que tens a casa, per a que una altra persona pugui reviure allò que tu ja has experimentat.<br>
 			Compartint llibres, permets que la cultura segueixi enriquint, desvetllant i fent somiar!</p>

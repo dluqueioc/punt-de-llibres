@@ -1,0 +1,16 @@
+.book-title {
+  cursor: default;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.book-title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 77px;
+}
+
+.book.card-content {
+  box-sizing: border-box;
+}
