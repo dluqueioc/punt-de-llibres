@@ -11,8 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -43,9 +43,9 @@ public class ChatMessage {
   @Column(name = "sender_id")
   private Integer senderId;
 
-  @Column(name = "body")
+  @Column(name = "body", columnDefinition="TEXT")
   @NotNull
-  @Size(min = 1, max = 500)
+  @NotBlank
   private String body;
 
   @CreationTimestamp
