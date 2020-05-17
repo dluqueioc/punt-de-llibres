@@ -8,4 +8,5 @@ import cat.xtec.ioc.puntdellibres.model.User;
 @RepositoryRestResource(path = "users")
 public interface UserRepository extends CrudRepository<User, Integer> {
   User findByUsername(String username);
+  User findByEmail(String email);
 }

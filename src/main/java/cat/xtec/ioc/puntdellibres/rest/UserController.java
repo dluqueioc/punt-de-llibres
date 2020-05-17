@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cat.xtec.ioc.puntdellibres.model.User;
+import cat.xtec.ioc.puntdellibres.repository.UserRepository;
 import cat.xtec.ioc.puntdellibres.service.UserService;
 
 @Controller
@@ -32,6 +33,8 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	BCryptPasswordEncoder encoder;
+	@Autowired
+	private UserRepository userRepository;
 
 	@GetMapping(value = "registre")
 	public String register(Model model) {
@@ -42,6 +45,16 @@ public class UserController {
 	@PostMapping(value = "registre")
 	public String create(HttpServletRequest request, @Valid @ModelAttribute("user") User user,
 			BindingResult bindingResult) throws Exception {
+		User userWithSameUsername = userRepository.findByUsername(user.getUsername());
+		User userWithSameEmail = userRepository.findByEmail(user.getEmail());
+
+		if (userWithSameUsername != null) {
+			bindingResult.rejectValue("username", "error.username", "Aquest nom d'usuari ja existeix");
+		}
+		if (userWithSameEmail != null) {
+			bindingResult.rejectValue("email", "error.email", "Aquest correu electrònic ja està registrat");
+		}
+
 		if (bindingResult.hasErrors()) {
 			return "registre";
 		}

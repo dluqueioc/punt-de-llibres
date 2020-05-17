@@ -23,18 +23,16 @@
               <i class="material-icons prefix">person_outline</i>
               <input type="text" id="username" name="username" th:field="*{username}" th:classappend="${#fields.hasErrors('username')} ? 'invalid' : ''"/>
               <label for="username">Nom d'usuari</label>
-              <span id="helper-username" class="helper-text" data-error=""></span>
+              <span id="helper-username" class="helper-text" th:attr="data-error=${#fields.errors('username')}"></span>
             </div>
-            <div class="col s12 error center-align" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
 
             <div class="input-field col s12 center-align">
               <i class="material-icons prefix">mail_outline</i>
               <input type="email" id="email" name="email" th:field="*{email}" autocomplete="off" readonly
               onfocus="this.removeAttribute('readonly')" th:classappend="${#fields.hasErrors('email')} ? 'invalid' : ''" />
               <label for="email">Correu electrònic</label>
-              <span id="helper-email" class="helper-text" data-error=""></span>
+              <span id="helper-email" class="helper-text" th:attr="data-error=${#fields.errors('email')}"></span>
             </div>
-            <div class="col s12 error center-align" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
 
             <div class="input-field col s12 center-align">
               <i class="material-icons prefix">lock_outline</i>
