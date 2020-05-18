@@ -170,4 +170,10 @@ public class BookController {
       ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
       return response.getBody();
    }
+
+   @GetMapping(value = "/geo", produces = MediaType.APPLICATION_JSON)
+   public Iterable<Book> booksByDistance(@QueryParam("radius") String radius, @QueryParam("user") String user) {
+      return bookRepository.findByDistance(Integer.parseInt(user),Integer.parseInt(radius));
+   }
+
 }

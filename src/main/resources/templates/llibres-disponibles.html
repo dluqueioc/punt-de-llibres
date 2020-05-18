@@ -37,6 +37,7 @@
 								<option value="theme">Temàtica</option>
 								<option value="language">Idioma</option>
 								<option value="publisher">Editorial</option>
+								<!--<option sec:authorize="isAuthenticated()" value="radius">Distància</option>  -->
 							</select> <label>Filtra per...</label>
 						</div>
 
@@ -83,7 +84,21 @@
 							</div>
 						</div>
 					</div>
+
 				</div>
+			</div>
+			<div class="row">
+						<!-- Opció de cerca per distància (radi) -->
+						<div class="input-field col s4" sec:authorize="isAuthenticated()">
+							<select v-model="radius" id="select-radius">
+								<option value="" disabled selected>Tria una distància màxima...</option>
+								<option value=5>5km</option>
+								<option value=10>10km</option>
+								<option value=25>25km</option>
+								<option value=50>50km</option>
+								<option value=100>100km</option>
+							</select>
+						</div>
 			</div>
             <!-- Book cards -->
             <transition-group name="fade" mode="out-in">
@@ -228,6 +243,10 @@
                 /*]]>*/
             </script>
 		<script th:src="@{/js/llibres-disponibles.js}"></script>
+		<script th:inline="javascript">
+            window.loggedIn = /[[${loggedIn}]]/ null;
+            window.myUserId = /[[${myUserId}]]/ null;
+		</script>
 	</th:block>
 </body>
 </html>

@@ -27,7 +27,7 @@ new Vue({
             } catch (err) {
                 console.log(err);
             }
-        } else {
+        }else {
             this.filter = urlParams.get('filter') || null;
             try {
                 const books = await $.get('/api/books');
@@ -54,6 +54,7 @@ new Vue({
         initialRender: true,
         filteredByUser: false,
         myRequestedBooks: [],
+        radius: 1000,
     },
 
     watch: {
@@ -67,6 +68,11 @@ new Vue({
                 this.inputFilterValue = '';
             }
         },
+        
+        /*
+        distancia(){
+        }
+        */
     },
 
     computed: {
@@ -140,6 +146,23 @@ new Vue({
                 $("#input-value-container, [id^='select-']").hide();
 
                 M.AutoInit();
+                
+                //funcionalitat de cerca per distància
+                $("#select-radius").change(()=> {
+                	console.log("ha canviat la distancia");
+                	$distancia = $("#select-radius").val();
+                	console.log($distancia);
+            		$.ajax({
+            			url: '/api/books/geo?user=' + window.myUserId + '&radius=' + $distancia,
+            			success: actualitzaBooks.bind(this),
+            			dataType: "json",
+            		});
+                	function actualitzaBooks (resultat, statusText, jqXHR){
+                		console.log(resultat);
+                		this.books=resultat;
+                		console.log(this.books);
+                	}
+                });
             });
         },
 

@@ -58,6 +58,7 @@ public class RoutesController {
 
   @GetMapping("/llibres-disponibles")
   public String llibresDisponibles(final Model model, Principal user) {
+	 /* 
     if (user == null) {
       model.addAttribute("books", bookRepository.findAll());
     } else {
@@ -67,6 +68,13 @@ public class RoutesController {
     }
     model.addAttribute("loggedIn", user != null);
     return "llibres-disponibles";
+    */
+	Boolean loggedIn = user != null;
+		if (loggedIn) {
+			model.addAttribute("myUserId", userService.findMyId(user));
+		}
+	    model.addAttribute("loggedIn", loggedIn);
+	    return "llibres-disponibles";
   }
 
   @GetMapping("/afegir-llibre")

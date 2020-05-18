@@ -29,6 +29,8 @@ import org.springframework.security.core.GrantedAuthority;
 
 import lombok.Data;
 
+import com.vividsolutions.jts.geom.*;
+
 @Entity
 @Table(name = "users")
 @Data
@@ -80,11 +82,10 @@ public class User {
   private String location;
 
   @Column(name = "geo_location")
-  @Size(min = 3, max = 100)
-  private String geoLocation;
+  private Geometry geoLocation;
 
   @Column(name = "profile")
-  @Size(min = 3, max = 500)
+  @Size(min = 3, max = 50)
   private String profile;
 
   @Column(name = "rating")
