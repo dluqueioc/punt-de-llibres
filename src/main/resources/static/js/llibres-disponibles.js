@@ -69,7 +69,11 @@ new Vue({
                 this.inputFilterValue = '';
             }
         },
-        
+
+        books() {
+            Vue.nextTick(() => $('select').formSelect());
+        }
+
         /*
         distancia(){
         }
@@ -145,7 +149,7 @@ new Vue({
                 $("#input-value-container, [id^='select-']").hide();
 
                 M.AutoInit();
-                
+
                 //funcionalitat de cerca per distància
                 $("#select-radius").change(()=> {
                 	console.log("ha canviat la distancia");
