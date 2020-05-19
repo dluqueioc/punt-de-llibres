@@ -8,7 +8,7 @@ $(document).ready(function() {
 	if ($('#location').val()!=''){
 		$("label[for!='nature']").addClass('active');
 	}
-	
+
 
 	$('#location').change(function () {
 		if ($('#location').val()!=''){
@@ -18,7 +18,7 @@ $(document).ready(function() {
 		}
 	});
 
-	
+
 	$('#location').on('input',function(){
 		if ($('#location').val()!='' || $('#location').is(":focus")){
 			$("label[for='location']").addClass('active');
@@ -26,7 +26,7 @@ $(document).ready(function() {
 			$("label[for='location']").removeClass('active');
 		}
 	});
-	
+
 	$('#location').on('change',function(){
 		if ($('#location').val()!='' || $('#location').is(":focus")){
 			$("label[for='location']").addClass('active');
@@ -34,7 +34,7 @@ $(document).ready(function() {
 			$("label[for='location']").removeClass('active');
 		}
 	});
-	
+
 
 
 	$('#location').focus(function () {
@@ -45,7 +45,7 @@ $(document).ready(function() {
 		}
 	});
 	 */
-	
+
     const elems = document.querySelectorAll('.modal');
     const [modal, ...rest] = M.Modal.init(elems, { dismissible: true });
 
@@ -76,8 +76,6 @@ $(document).ready(function() {
 		$('#geoLocationLat').val(e.suggestion.latlng.lat);
 		$('#geoLocationLng').val(e.suggestion.latlng.lng);
 	});
-
-});
 
     function validar() {
         return !(
@@ -151,4 +149,5 @@ $(document).ready(function() {
             reader.readAsDataURL(input.files[0]);
         }
     }
+
 });
