@@ -23,6 +23,7 @@ new Vue({
                 );
                 await this.getScores(books);
                 this.books = books;
+                this.loading = false;
                 this.startMaterialize();
             } catch (err) {
                 console.log(err);
@@ -33,6 +34,7 @@ new Vue({
                 const books = await $.get('/api/books');
                 await this.getScores(books);
                 this.books = books;
+                this.loading = false;
                 this.startMaterialize();
             } catch (err) {
                 console.log(err);
@@ -56,6 +58,7 @@ new Vue({
         myRequestedBooks: [],
         requestingBook: false,
         radius: 1000,
+        loading: true
     },
 
     watch: {
