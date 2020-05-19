@@ -81,6 +81,7 @@ public class User {
   @Size(min = 3, max = 100)
   private String location;
 
+  @JsonIgnore
   @Column(name = "geo_location")
   private Geometry geoLocation;
 
