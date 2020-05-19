@@ -235,7 +235,13 @@ new Vue({
                     ? `${aggr}${aggr ? ',' : ''}${this.formatIsbn(book.isbn)}`
                     : aggr;
             }, '');
-            const response = await $.get(`/api/books/scores?isbns=${isbns}`);
+
+            let response;
+            try {
+                response = await $.get(`/api/books/scores?isbns=${isbns}`);
+            } catch(e) {
+                return;
+            }
             const scores = JSON.parse(response).books;
             for (let score of scores) {
                 const book = books.find((book) =>
