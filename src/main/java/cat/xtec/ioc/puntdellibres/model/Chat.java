@@ -26,7 +26,7 @@ public class Chat {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(name = "uuid")
+  @Column(name = "uuid", columnDefinition = "uuid")
   private UUID uuid = UUID.randomUUID();
 
   @JoinColumn(name = "user1_id", insertable = false, updatable = false)
