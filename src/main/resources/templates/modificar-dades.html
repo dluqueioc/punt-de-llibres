@@ -74,7 +74,7 @@
                                         >
                                         <input
                                             type="text"
-                                            pattern="[0-9]{5}"
+                                            class="search-address"
                                             id="location"
                                             name="location"
                                             th:field="*{location}"
@@ -97,9 +97,21 @@
                                         <label for="password"
                                             >Contrasenya actual*
                                         </label>
+                                        <input
+                                            type="hidden"
+                                            id="geoLocationLat"
+                                            name="geoLocationLat"
+                                        />
+                                        <input
+                                            type="hidden"
+                                            id="geoLocationLng"
+                                            name="geoLocationLng"
+                                        />
                                         <span th:if="${passwordError}" class="helper-text" data-error="La contrasenya introduïda és incorrecta" data-success="right">La contrasenya introduïda és incorrecta</span>
                                     </div>
                                 </div>
+                                
+                                
                                 <div class="avatar col l4 offset-l1 s12">
                                     <div class="avatar-container">
                                         <label for="selFoto">
@@ -173,6 +185,7 @@
         </section>
 
         <th:block layout:fragment="script">
+            <script src="https://cdn.jsdelivr.net/npm/places.js@1.18.2"></script>
             <script th:src="@{/js/modificar-dades.js}"></script>
         </th:block>
     </body>

@@ -1,5 +1,6 @@
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS postgis;
 
 TRUNCATE TABLE genres RESTART IDENTITY CASCADE;
 TRUNCATE TABLE languages RESTART IDENTITY CASCADE;
@@ -150,3 +151,46 @@ INSERT INTO chat_messages (chat_id, sender_id, body, created_date) VALUES (2, 3,
 INSERT INTO chat_messages (chat_id, sender_id, body, created_date) VALUES (2, 2, 'Hola Llibrefila83', '2020-01-14 12:34:00');
 INSERT INTO chat_messages (chat_id, sender_id, body, created_date) VALUES (3, 4, 'Hola Pep', '2020-01-15 22:33:00');
 INSERT INTO chat_messages (chat_id, sender_id, body, created_date) VALUES (3, 2, 'Hola Maria', '2020-01-15 22:42:00');
+
+
+UPDATE users SET location= '08004' WHERE id=1;
+UPDATE users SET location= '08012' WHERE id=2;
+UPDATE users SET location= '08001' WHERE id=3;
+UPDATE users SET location= '08014' WHERE id=4;
+UPDATE users SET location= '08030' WHERE id=5;
+UPDATE users SET location= '08911' WHERE id=6;
+UPDATE users SET location= '08301' WHERE id=7;
+UPDATE users SET location= '08401' WHERE id=8;
+UPDATE users SET location= '08192' WHERE id=9;
+UPDATE users SET location= '08221' WHERE id=10;
+UPDATE users SET location= '08004' WHERE id=11;
+UPDATE users SET location= '08012' WHERE id=12;
+UPDATE users SET location= '08001' WHERE id=13;
+UPDATE users SET location= '08014' WHERE id=14;
+UPDATE users SET location= '08030' WHERE id=15;
+UPDATE users SET location= '08911' WHERE id=16;
+UPDATE users SET location= '08301' WHERE id=17;
+UPDATE users SET location= '08401' WHERE id=18;
+UPDATE users SET location= '08192' WHERE id=19;
+UPDATE users SET location= '08221' WHERE id=20;
+
+UPDATE users SET geo_location= ST_SetSRID(ST_MakePoint(2.1619, 41.3728),4326) WHERE id=1;
+UPDATE users SET geo_location= ST_SetSRID(ST_MakePoint(2.1571, 41.4031),4326) WHERE id=2;
+UPDATE users SET geo_location= ST_SetSRID(ST_MakePoint(2.1769, 41.3833),4326) WHERE id=3;
+UPDATE users SET geo_location= ST_SetSRID(ST_MakePoint(2.1349, 41.3753),4326) WHERE id=4;
+UPDATE users SET geo_location= ST_SetSRID(ST_MakePoint(2.1908, 41.4367),4326) WHERE id=5;
+UPDATE users SET geo_location= ST_SetSRID(ST_MakePoint(2.2482, 41.4493),4326) WHERE id=6;
+UPDATE users SET geo_location= ST_SetSRID(ST_MakePoint(2.4448, 41.5398),4326) WHERE id=7;
+UPDATE users SET geo_location= ST_SetSRID(ST_MakePoint(2.4448, 41.608),4326) WHERE id=8;
+UPDATE users SET geo_location= ST_SetSRID(ST_MakePoint(2.1139, 41.5421),4326) WHERE id=9;
+UPDATE users SET geo_location= ST_SetSRID(ST_MakePoint(2.0102, 41.563),4326) WHERE id=10;
+UPDATE users SET geo_location= ST_SetSRID(ST_MakePoint(2.1619, 41.3728),4326) WHERE id=11;
+UPDATE users SET geo_location= ST_SetSRID(ST_MakePoint(2.1571, 41.4031),4326) WHERE id=12;
+UPDATE users SET geo_location= ST_SetSRID(ST_MakePoint(2.1769, 41.3833),4326) WHERE id=13;
+UPDATE users SET geo_location= ST_SetSRID(ST_MakePoint(2.1349, 41.3753),4326) WHERE id=14;
+UPDATE users SET geo_location= ST_SetSRID(ST_MakePoint(2.1908, 41.4367),4326) WHERE id=15;
+UPDATE users SET geo_location= ST_SetSRID(ST_MakePoint(2.2482, 41.4493),4326) WHERE id=16;
+UPDATE users SET geo_location= ST_SetSRID(ST_MakePoint(2.4448, 41.5398),4326) WHERE id=17;
+UPDATE users SET geo_location= ST_SetSRID(ST_MakePoint(2.4448, 41.608),4326) WHERE id=18;
+UPDATE users SET geo_location= ST_SetSRID(ST_MakePoint(2.1139, 41.5421),4326) WHERE id=19;
+UPDATE users SET geo_location= ST_SetSRID(ST_MakePoint(2.0102, 41.563),4326) WHERE id=20;

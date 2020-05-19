@@ -23,6 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.Point;
+
 import cat.xtec.ioc.puntdellibres.model.User;
 import cat.xtec.ioc.puntdellibres.repository.UserRepository;
 import cat.xtec.ioc.puntdellibres.service.UserService;
@@ -73,7 +77,8 @@ public class UserController {
 
 	@PostMapping(value = "/modificar-dades")
 	public String updateData(@RequestParam("email") String email, @RequestParam("name") String name,
-			@RequestParam("lastName") String lastName, @RequestParam("location") String location,
+			@RequestParam("lastName") String lastName, @RequestParam("location") String location, 
+			@RequestParam("geoLocationLat") String geoLocationLat, @RequestParam("geoLocationLng") String geoLocationLng,
 			@RequestParam("password") String password, @RequestParam("file") MultipartFile[] files, Principal user,
 			Model model, HttpServletRequest request, RedirectAttributes redirAttrs) throws Exception {
 
@@ -93,6 +98,14 @@ public class UserController {
 		userToUpdate.setLastName(lastName);
 		userToUpdate.setLocation(location);
 		userToUpdate.setPassword(password);
+		if((!geoLocationLat.isEmpty())&&(!geoLocationLng.isEmpty())) {
+			double latitud = Double.parseDouble(geoLocationLat);
+			double longitud = Double.parseDouble(geoLocationLng);
+			GeometryFactory gf = new GeometryFactory();
+			Point p = gf.createPoint(new Coordinate(longitud, latitud));
+			p.setSRID(4326);
+			userToUpdate.setGeoLocation(p);
+		}
 
 		if (!fileName.isEmpty()) {
 			File newFile = new File("./src/main/resources/static/img/avatars", fileName);

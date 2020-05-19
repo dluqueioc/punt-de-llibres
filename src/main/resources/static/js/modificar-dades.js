@@ -1,4 +1,51 @@
-$(document).ready(function () {
+$(document).ready(function() {
+
+	M.updateTextFields();
+	$("label[for!='nature']").addClass('active');
+
+	//$('label').addClass('active');
+	/*
+	if ($('#location').val()!=''){
+		$("label[for!='nature']").addClass('active');
+	}
+	
+
+	$('#location').change(function () {
+		if ($('#location').val()!=''){
+			$("label[for='location']").addClass('active');
+		} else {
+			$("label[for='location']").removeClass('active');
+		}
+	});
+
+	
+	$('#location').on('input',function(){
+		if ($('#location').val()!='' || $('#location').is(":focus")){
+			$("label[for='location']").addClass('active');
+		} else {
+			$("label[for='location']").removeClass('active');
+		}
+	});
+	
+	$('#location').on('change',function(){
+		if ($('#location').val()!='' || $('#location').is(":focus")){
+			$("label[for='location']").addClass('active');
+		} else {
+			$("label[for='location']").removeClass('active');
+		}
+	});
+	
+
+
+	$('#location').focus(function () {
+		if ($('#location').val()!=''){
+			$("label[for='location']").addClass('active');
+		} else {
+			$("label[for='location']").removeClass('active');
+		}
+	});
+	 */
+	
     const elems = document.querySelectorAll('.modal');
     const [modal, ...rest] = M.Modal.init(elems, { dismissible: true });
 
@@ -11,6 +58,26 @@ $(document).ready(function () {
 
         $('form').submit();
     });
+
+	//inicialització del selector d'adreces
+	var placesAutocomplete = places({
+		appId : 'pl7J5DC7ND0H',
+		apiKey : 'd273df1e10d81101379150ec352c11c3',
+		container : document.querySelector('#location'),
+	//style: false
+	}).configure({
+		type : 'address',
+		countries : 'es',
+	});
+
+	//assignació del valor del punt
+	placesAutocomplete.on('change', function resultSelected(e) {
+		//$point = "(" + e.suggestion.latlng.lat + "," + e.suggestion.latlng.lng + ")";
+		$('#geoLocationLat').val(e.suggestion.latlng.lat);
+		$('#geoLocationLng').val(e.suggestion.latlng.lng);
+	});
+
+});
 
     function validar() {
         return !(
